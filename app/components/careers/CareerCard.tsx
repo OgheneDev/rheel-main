@@ -1,0 +1,56 @@
+import React from 'react';
+import { MapPin, Ribbon, ArrowRight } from 'lucide-react';
+import { Career } from '@/app/types';
+
+interface CareerCardProps {
+    career: Career;
+}
+
+const CareerCard: React.FC<CareerCardProps> = ({ career }) => {
+    const formatSalary = (salary: number): string => {
+        return salary.toLocaleString(); // Format salary as comma-separated
+    };
+
+    return (
+        <div className="flex flex-col justify-between p-6  rounded-lg shadow-md bg-white">
+            <div className="flex flex-wrap justify-between mb-4">
+                <span className="bg-[#207DFF] text-white px-4 py-2 rounded-md text-sm font-medium">
+                    {career.position}
+                </span>
+                <span className={`px-4 py-2 rounded-md text-sm font-medium ${
+                    career.type === 'Full-time' 
+                        ? 'bg-[#0A2F1E] text-white' 
+                        : 'bg-[#0A2F1E] text-white'
+                }`}>
+                    {career.type}
+                </span>
+            </div>
+
+            <h3 className="text-xl font-bold mb-4 text-gray-900">{career.title}</h3>
+
+            <p className=" mb-4 break-words">
+                {career.description}
+            </p>
+
+            <div className="space-y-2 mb-6">
+                <div className="flex items-center gap-2 text-[#000000]">
+                    <MapPin size={18} className="text-[#000000]" />
+                    <span>{career.location}</span>
+                </div>
+                <div className="flex items-center gap-2 text-[#000000]">
+                    <Ribbon size={18} className="text-[#000000]" />
+                    <span>₦{formatSalary(career.salary)}</span>
+                </div>
+            </div>
+
+            <div className="border-t border-[#000000] pt-4">
+                <button className="flex items-center ml-auto text-[#000000] cursor-pointer gap-2">
+                    Learn More <ArrowRight size={20} />
+                </button>
+            </div>
+        </div>
+    );
+};
+
+export default CareerCard;
+
