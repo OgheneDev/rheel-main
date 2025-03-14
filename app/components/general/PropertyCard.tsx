@@ -1,97 +1,139 @@
 import React from "react";
-import Image from "next/image";
 import { Bed, Bath, Sofa, MapPin } from "lucide-react";
+import Image from "next/image";
+
+const propertyTypes: { [key: number]: string } = {
+  1: "Duplex",
+  2: "Terraced House",
+  3: "Detached House",
+  4: "Semi-Detached House",
+  5: "Apartment",
+  6: "Carcass",
+  7: "Land",
+  8: "JV Land",
+};
 
 interface Property {
-    id: number; 
-    agent_id: number;
-    amenities: string[];
-    archived: boolean;
-    bathroom: string;
-    bedroom: string;
-    created_at: string;
-    finance: boolean;
-    floor_plan: string[];
-    living_room: string;
-    location: string;
-    price: string;
-    property_availability: string;
-    property_description: string;
-    property_images: string[];
-    property_type_id: number;
-    type: string;
-    updated_at: string;
-    video_upload: string[];
-    agent_name?: string;
+  id: number;
+  agent_id: number;
+  amenities: string[];
+  archived: boolean;
+  bathroom: string;
+  bedroom: string;
+  created_at?: string;
+  living_room: string;
+  location: string;
+  price: string;
+  property_availability: string;
+  property_description: string;
+  property_images: string[];
+  property_type_id: number;
+  updated_at?: string;
+  agent_name?: string;
+  agent_image?: string; // Add agent image property
 }
 
+// PropertyCard Props
 interface PropertyCardProps {
-    property: Property;
+  property: Property;
 }
 
-const PropertyCard: React.FC<PropertyCardProps> = ({property}) => {
+const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
+  // Function to format the price with commas
+  const formatPrice = (price: string) => {
+    return Number(price).toLocaleString("en-NG");
+  };
+
   return (
-    <div className="relative rounded-lg overflow-hidden border border-[#E4E4E4] bg-white max-w-sm">
-      {/* Property Image */}
+    <div className="relative rounded-lg shadow-lg overflow-hidden bg-white">
+      {/* Image Section */}
       <div className="relative h-48 w-full bg-gray-200">
-        {property.property_images && property.property_images.length > 0 ? (
-          // Using img tag instead of Next/Image to avoid domain configuration issues
-          <img 
-            src={property.property_images[0]} 
+        {property.property_images?.length > 0 ? (
+          <Image
+            src={property.property_images[0]}
             alt={`Property at ${property.location}`}
+            width={500}
+            height={300}
             className="h-full w-full object-cover cursor-pointer"
           />
         ) : null}
-        
+
         {/* Featured and For Sale Tags */}
-        <div className="absolute top-3 left-3 flex space-x-2">
-          <span className="bg-[#0A2F1E] text-white text-xs font-medium px-2 py-1 rounded-full">Featured</span>
-          <span className="bg-[#0B213266] text-white text-xs font-medium px-2 py-1 rounded-full">For Sale</span>
+        <div className="absolute top-3 left-3 flex gap-2">
+          <span className="bg-[#0A2F1E] text-white text-xs font-medium px-2 py-1 rounded-full">
+            Featured
+          </span>
+          <span className="bg-[#0B213266] text-white text-xs font-medium px-2 py-1 rounded-full">
+            For Sale
+          </span>
         </div>
-        
+
         {/* Location */}
-        <div className="absolute bottom-3 left-3  text-white text-xs p-1 rounded flex gap-2 items-center">
+        <div className="absolute bottom-3 left-3 flex items-center text-white text-xs bg-black/50 p-1 rounded">
           <MapPin size={15} />
           <span>{property.location}</span>
         </div>
       </div>
-      
+
       {/* Property Details */}
       <div className="p-4">
-        <h3 className="text-lg font-semibold mb-2 text-[#161E2D]">Casa Lomas De Machali Machas</h3>
-        
-        <div className="flex  gap-2 text-sm text-[#5C6368] mb-4">
+        <h3 className="text-lg font-semibold mb-2 text-[#161E2D]">
+          {propertyTypes[property.property_type_id] || "Unknown Property Type"}
+        </h3>
+
+        {/* Amenities */}
+        <div className="flex gap-4 text-sm text-[#5C6368] mb-4">
           {/* Beds */}
           <div className="flex items-center">
             <Bed size={14} className="mr-1" />
-            <span>Beds:</span>
-            <span className="mr-1 text-[#3A3A3C]">{property.bedroom}</span>
+            <span>{property.bedroom} Beds</span>
           </div>
-          
+
           {/* Baths */}
           <div className="flex items-center">
             <Bath size={14} className="mr-1" />
-            <span>Baths:</span>
-            <span className="mr-1 text-[#3A3A3C]">{property.bathroom}</span>
+            <span>{property.bathroom} Baths</span>
           </div>
-          
-          {/* Sofa Feet */}
+
+          {/* Living Rooms */}
           <div className="flex items-center">
             <Sofa size={14} className="mr-1" />
-            <span>Living Rooms:</span>
-            <span className="mr-1 text-[#3A3A3C]">{property.living_room}</span>
+            <span>{property.living_room} Living Rooms</span>
           </div>
         </div>
 
-        <div className="bg-[#E4E4E4] h-[1px] w-full "></div>
-        
-        {/* Agent and Price */}
-        <div className="flex justify-between items-center pt-5">
+        {/* Divider */}
+        <div className="bg-[#E4E4E4] h-[1px] w-full my-3"></div>
+
+        {/* Agent & Price */}
+        <div className="flex items-center justify-between">
           <div className="flex items-center">
-            <div className="w-8 h-8 rounded-full bg-gray-300 mr-2"></div>
-            <span className="text-sm text-[#161E2D]">{property.agent_name || "Agent Name"}</span>
+            <div className="mr-2">
+              {property.agent_image ? (
+                <Image
+                  src={property.agent_image}
+                  alt={property.agent_name || "Agent"}
+                  width={40}
+                  height={40}
+                  className="object-cover w-full h-full"
+                />
+              ) : (
+                <Image
+                  src="/images/rheel.png" // Add a default agent image in your public folder
+                  alt="Default Agent"
+                  width={12}
+                  height={12}
+                  className="object-cover w-[35px] h-[35px]"
+                />
+              )}
+            </div>
+            <span className="text-sm text-gray-600">
+              {property.agent_name || "Rheel Estate"}
+            </span>
           </div>
-          <div className="text-right font-bold text-[#161E2D]">${property.price}</div>
+          <div className="text-right font-bold text-[#161E2D] text-lg">
+            ₦{formatPrice(property.price)}
+          </div>
         </div>
       </div>
     </div>

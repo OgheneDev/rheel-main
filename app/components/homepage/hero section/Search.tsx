@@ -33,7 +33,7 @@ const Search = () => {
             </div>
 
             {/* Search container */}
-            <div className="bg-white rounded-full flex items-center shadow-md w-full max-w-5xl mx-auto h-16">
+            <div className="bg-white rounded-full md:flex hidden  items-center shadow-md w-full max-w-5xl mx-auto h-16">
                 {/* Type dropdown */}
                 <div className="w-1/5 border-r border-gray-200 h-full px-6">
                     <div className="h-full flex flex-col justify-center relative" onClick={() => setIsTypeDropdownOpen(!isTypeDropdownOpen)}>
