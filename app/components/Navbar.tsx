@@ -25,12 +25,16 @@ const Navbar = () => {
 
   return (
     <header className="p-5 md:px-14 relative flex justify-between items-center">
+        <Link
+         href='/'
+        >
         <Image
          src={'/images/logo.png'}
          alt="Logo"
          width={70}
          height={35}
         />
+        </Link>
 
         {/* Sliding Menu */}
                 <div className={`fixed top-0 right-0 h-full w-[280px] bg-white transform transition-transform duration-300 ease-in-out ${

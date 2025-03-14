@@ -1,5 +1,6 @@
 import React from 'react'
 import { Phone, Mail } from 'lucide-react'
+import Image from 'next/image'
 
 interface Team {
     icon: string,
@@ -37,7 +38,7 @@ const TeamList: React.FC = () => {
              key={index}
              className='md:w-[250px]'
             >
-                <img src={team.icon} alt={team.name} className='mb-5 w-full' />
+                <Image src={team.icon} alt={team.name} width={200} height={200} className='mb-5 w-full' />
                 <div className='flex justify-between'>
                     <div>
                      <h3 className='text-[#161E2D] font-bold'>{team.name}</h3>
