@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import Image from 'next/image';
 
 interface ServiceItem {
@@ -108,7 +108,8 @@ const ServicesList: React.FC = () => {
     },
   ];
 
-  const renderServiceContent = (service: ServiceItem): JSX.Element | null => {
+  const renderServiceContent = (service: ServiceItem): React.ReactNode => {
+
     if (service.format === 'bulleted' && service.servicesRendered) {
       return (
         <ul className="list-disc pl-5 text-xs sm:text-sm space-y-1">
