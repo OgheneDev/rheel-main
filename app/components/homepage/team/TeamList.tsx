@@ -11,22 +11,22 @@ interface Team {
 const TeamList: React.FC = () => {
     const teamData: Team[] = [
         {
-            icon:'/images/icon.png',
+            icon:'https://res.cloudinary.com/dgc8cd67w/image/upload/v1741968616/Icon_ovodsn.png',
             name: 'Chris Pratt',
             department: 'Administrative Staff'
         },
         {
-            icon:'/images/icon.png',
+            icon:'https://res.cloudinary.com/dgc8cd67w/image/upload/v1741968616/Icon_ovodsn.png',
             name: 'Chris Pratt',
             department: 'Administrative Staff'
         },
         {
-            icon:'/images/icon.png',
+            icon:'https://res.cloudinary.com/dgc8cd67w/image/upload/v1741968616/Icon_ovodsn.png',
             name: 'Chris Pratt',
             department: 'Administrative Staff'
         },
         {
-            icon:'/images/icon.png',
+            icon:'https://res.cloudinary.com/dgc8cd67w/image/upload/v1741968616/Icon_ovodsn.png',
             name: 'Chris Pratt',
             department: 'Administrative Staff'
         }

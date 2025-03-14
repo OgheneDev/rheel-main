@@ -39,7 +39,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({property}) => {
           <img 
             src={property.property_images[0]} 
             alt={`Property at ${property.location}`}
-            className="h-full w-full object-cover"
+            className="h-full w-full object-cover cursor-pointer"
           />
         ) : null}
         

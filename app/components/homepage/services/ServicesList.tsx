@@ -16,19 +16,19 @@ const ServicesList: React.FC = () => {
       id: 1,
       title: 'Buy A New Home',
       description: 'Discover your dream home effortlessly. Explore diverse properties and expert guidance for a seamless buying experience.',
-      icon: '/images/icon.png'
+      icon: 'https://res.cloudinary.com/dgc8cd67w/image/upload/v1741968616/Icon_ovodsn.png'
     },
     {
       id: 2,
       title: 'Sell A Home',
       description: 'Sell confidently with expert guidance and effective strategies, showcasing your property`s best features for a successful sale.',
-      icon: '/images/icon.png'
+      icon: 'https://res.cloudinary.com/dgc8cd67w/image/upload/v1741968616/Icon_ovodsn.png'
     },
     {
       id: 3,
       title: 'Rent A Home',
       description: 'Discover your perfect rental effortlessly. Explore a diverse variety of listings tailored precisely to suit your unique lifestyle needs.',
-      icon: '/images/icon.png'
+      icon: 'https://res.cloudinary.com/dgc8cd67w/image/upload/v1741968616/Icon_ovodsn.png'
     }
   ];
 
