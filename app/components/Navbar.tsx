@@ -24,7 +24,7 @@ const Navbar = () => {
     ];
 
   return (
-    <header className="p-5 md:px-12 relative flex justify-between items-center">
+    <header className="p-5 md:px-14 relative flex justify-between items-center">
         <Image
          src={'/images/logo.png'}
          alt="Logo"

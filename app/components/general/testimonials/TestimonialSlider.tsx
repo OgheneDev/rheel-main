@@ -1,6 +1,7 @@
 'use client'
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
+import { RiDoubleQuotesL } from 'react-icons/ri';
 
 interface Testimonial {
   quote: string;
@@ -216,7 +217,7 @@ const TestimonialSlider: React.FC = () => {
 
   return (
     <div 
-      className="w-full max-w-6xl mx-auto px-4 py-16 overflow-hidden"
+      className="w-full max-w-6xl mx-auto  overflow-hidden"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -250,9 +251,9 @@ const TestimonialSlider: React.FC = () => {
                   style={{ width: `${100 / itemsPerView}%` }}
                 >
                   <div className="bg-white rounded-lg shadow-lg p-6 h-full">
-                    <div className="mb-4 text-gray-600">
-                      <span className="text-8xl leading-none">&ldquo;</span>
-                      <p className="text-sm mt-2">{testimonial.quote}</p>
+                    <div className="mb-4">
+                      <RiDoubleQuotesL className='w-[40px] h-[40px] text-[#0A2F1E]' />
+                      <p className="text-sm  text-[#161E2D]">{testimonial.quote}</p>
                     </div>
                     
                     <div className="flex justify-between items-center mt-6">

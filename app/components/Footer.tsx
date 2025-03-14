@@ -7,7 +7,7 @@ const Footer = () => {
   return (
     <footer className="bg-[#0A2F1E] text-white">
       {/* Main Footer Area */}
-      <div className="container mx-auto px-4 pt-8 pb-4">
+      <div className="container mx-auto px-4 md:px-[130px] pt-8 pb-4">
         {/* Top Section with Logo and Social */}
         <div className="flex flex-col md:flex-row justify-between items-center border-b border-gray-700 pb-6">
           <div className="mb-4 md:mb-0">

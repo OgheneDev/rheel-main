@@ -4,10 +4,10 @@ const Stores = () => {
   return (
     <div className='bg-[#F3F7FD] md:px-[130px] py-8 px-5 md:py-15'>
         <article className="mb-7">
-            <span className="uppercase text-[#1563DF] text-sm font-bold">we are also available on your favourite stores</span>
-            <h2 className="text-[#161E2D] font-bold text-3xl">Optimize your experience by <br /> downloading our Mobile App</h2>
+            <span className="uppercase text-[#1563DF] text-[12px] font-bold">we are also available on your favourite stores</span>
+            <h2 className="text-[#161E2D] font-bold text-2xl">Optimize your experience by downloading our Mobile App</h2>
         </article>
-        <div className="flex gap-5">
+        <div className="flex flex-col items-start md:items-center md:flex-row gap-5">
             <button className="flex gap-2 items-center bg-black rounded-lg py-1 px-12 text-white">
                 <Image
                  alt="Apple Logo"

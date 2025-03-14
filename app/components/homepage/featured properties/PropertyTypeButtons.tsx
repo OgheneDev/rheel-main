@@ -15,7 +15,7 @@ const PropertyTypeButtons = () => {
             {Object.values(propertyTypes).map((type, index) => (
                 <button
                     key={index}
-                    className="px-6 py-2 rounded-full text-[12px] bg-[#F7F7F7] text-[#161E2D] transition-colors"
+                    className="px-6 py-2 rounded-full text-[12px] bg-[#F7F7F7] cursor-pointer text-[#161E2D] hover:text-white hover:bg-[#161E2D] transition-colors"
                 >
                     {type}
                 </button>
