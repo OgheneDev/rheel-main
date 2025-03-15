@@ -111,7 +111,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
           <div className="flex items-center">
             <div className="mr-2">
               <Image
-                src={property.agent_image || "/images/rheel.png"}
+                src={property.agent_image || "/images/agent-logo.png"}
                 alt={property.agent_name || "Agent"}
                 width={40}
                 height={40}
