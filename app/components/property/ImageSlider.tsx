@@ -161,7 +161,7 @@ const PropertyImageSlider: React.FC<PropertyImageSliderProps> = ({ images }) => 
   }
 
   return (
-    <div>
+    <div className='md:pt-8'>
         <div 
       className="w-full max-w-6xl py-5 mx-auto overflow-hidden rounded-lg"
       onMouseEnter={handleMouseEnter}
@@ -242,7 +242,7 @@ const PropertyImageSlider: React.FC<PropertyImageSliderProps> = ({ images }) => 
             key={index}
             onClick={() => handleSlideChange(index)}
             className={`w-1 h-1 mx-1 rounded-full transition-all ${
-              currentIndex === index ? 'bg-[#0A2F1E] focus-ring' : 'bg-gray-300'
+              currentIndex === index ? 'bg-[#0A2F1E]' : 'bg-gray-300'
             }`}
             aria-label={`Go to image slide ${index + 1}`}
             disabled={isTransitioning}

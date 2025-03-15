@@ -9,8 +9,8 @@ interface PropertyFeaturesProps {
 const PropertyFeatures = ({ bathroom, bedroom, livingRoom }: PropertyFeaturesProps) => {
   return (
     <div>
-      <span>Features</span>
-      <div className="flex items-center text-sm gap-2">
+      <span className="text-[#161E2D]">Features</span>
+      <div className="flex items-center text-sm md:text-[12px] gap-2">
         <div className="flex gap-1 items-center text-[#5C6368]">
           <Bath size={15} />
           <span>Baths: {bathroom}</span>

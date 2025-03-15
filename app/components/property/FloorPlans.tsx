@@ -28,8 +28,8 @@ const FloorPlans = ({ floorPlans }: FloorPlansProps) => {
   };
 
   return (
-    <div className="w-full pt-5">
-      <h2 className="text-[#1C1C1E] font-medium mb-2">Floor Plans</h2>
+    <div className="w-full pt-5 md:max-w-2xl md:mx-auto">
+      <h2 className="text-[#1C1C1E] font-semibold text-xl mb-2">Floor Plans</h2>
       
       {floorPlans.map((planUrl, index) => {
         // Determine floor name based on index
@@ -60,7 +60,7 @@ const FloorPlans = ({ floorPlans }: FloorPlansProps) => {
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
                 </svg>
-                <span className="font-medium">{floorName}</span>
+                <span className="font-semibold text-sm">{floorName}</span>
               </div>
             </div>
             

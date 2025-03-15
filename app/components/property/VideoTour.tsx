@@ -4,10 +4,10 @@ interface VideoTourProps {
 
 const VideoTour = ({videoUrl}: VideoTourProps) => {
   return (
-    <div>
-        <div className='pt-5'>
-        <h3 className='text-[#1C1C1E] font-medium mb-5"'>Video Tour</h3>
-        <div className="relative rounded-lg overflow-hidden shadow-lg mt-2">
+    <div className=" md:max-w-2xl md:mx-auto">
+        <div className='pt-5 md:pt-8'>
+        <h3 className='text-[#1C1C1E] font-semibold text-xl mb-2'>Virtual Tour</h3>
+        <div className="relative rounded-[25px] overflow-hidden shadow-lg mt-2">
           <div className="aspect-video">
             <iframe 
               className="w-full h-full"

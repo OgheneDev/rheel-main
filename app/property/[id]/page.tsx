@@ -54,7 +54,7 @@ const PropertyPage = () => {
         price={property.price} 
       />
       
-      <div className="px-5 flex flex-col gap-5">
+      <div className="px-5 md:px-[130px] flex flex-col md:flex-row gap-5">
         {/* Property Features */}
         <PropertyFeatures 
           bathroom={property.bathroom}
@@ -66,12 +66,12 @@ const PropertyPage = () => {
         <PropertyLocation location={property.location} />
       </div>
 
-      <div className="py-5 px-5">
+      {/*Property Images */}
+      <PropertyImageSlider images={property.property_images} />
+
+      <div className="py-5 md:py-8 px-5">
         {/* Contact Buttons - Pass the property prop correctly */}
         <ContactButtons property={property} />
-
-        {/*Property Images */}
-        <PropertyImageSlider images={property.property_images} />
 
         {/* Property Description */}
         <Description description={property.property_description} />

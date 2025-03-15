@@ -7,10 +7,10 @@ interface PropertyLocationProps {
 const PropertyLocation = ({ location }: PropertyLocationProps) => {
   return (
     <div>
-      <span>Location</span>
+      <span className="text-[#161E2D]">Location</span>
       <div className="flex gap-1 items-center text-[#5C6368]">
         <MapPin size={15} />
-        <span>Location: {location}</span>
+        <span className=' text-sm md:text-[12px]'>Location: {location}</span>
       </div>
     </div>
   );

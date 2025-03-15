@@ -7,7 +7,7 @@ interface PropertyHeaderProps {
 
 const PropertyHeader = ({ propertyType, price }: PropertyHeaderProps) => {
   return (
-    <div className="px-5 mb-5">
+    <div className="px-5 md:px-[130px] mb-5 md:mb-8">
       <div className="flex items-center justify-between">
         <h3 className="text-xl font-bold text-[#161E2D]">
           {propertyTypes[propertyType] || "Unknown Property Type"}
