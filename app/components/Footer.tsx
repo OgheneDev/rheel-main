@@ -44,14 +44,8 @@ const Footer: React.FC = () => {
               <Link href="https://www.facebook.com/rheelestateabuja" aria-label="Facebook" className="bg-[#FFFFFF1A] hover:bg-gray-700 p-2 rounded-full">
                 <FaFacebookF className="text-white" />
               </Link>
-              <Link href="#" aria-label="LinkedIn" className="bg-[#FFFFFF1A] hover:bg-gray-700 p-2 rounded-full">
-                <FaLinkedinIn className="text-white" />
-              </Link>
               <Link href="https://www.twitter.com/rheel_estate" aria-label="Twitter" className="bg-[#FFFFFF1A] hover:bg-gray-700 p-2 rounded-full">
                 <FaTwitter className="text-white" />
-              </Link>
-              <Link href="#" aria-label="Pinterest" className="bg-[#FFFFFF1A] hover:bg-gray-700 p-2 rounded-full">
-                <FaPinterestP className="text-white" />
               </Link>
               <Link href="https://www.instagram.com/rheel_estate" aria-label="Instagram" className="bg-[#FFFFFF1A] hover:bg-gray-700 p-2 rounded-full">
                 <FaInstagram className="text-white" />
