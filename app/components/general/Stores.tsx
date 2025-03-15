@@ -8,7 +8,8 @@ const Stores = () => {
             <h2 className="text-[#161E2D] font-bold text-2xl">Optimize your experience by downloading our Mobile App</h2>
         </article>
         <div className="flex flex-col items-start md:items-center md:flex-row gap-5">
-            <button className="flex gap-2 items-center bg-black rounded-lg py-1 px-12 text-white">
+            <a href="https://apps.apple.com/us/app/rheel/id6467382726">
+             <button className="flex cursor-pointer gap-2 items-center bg-black rounded-lg py-1 px-12 text-white">
                 <Image
                  alt="Apple Logo"
                  src='/images/apple-logo 1.svg'
@@ -20,7 +21,9 @@ const Stores = () => {
                     <p className="font-semibold text-[12px]">Apple Store</p>
                 </article>
             </button>
-            <button className="flex gap-2 items-center border border-[#121212] rounded-lg py-1 px-12 text-[#121212]">
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=rheel.easy.property.search">
+              <button className="flex cursor-pointer gap-2 items-center border border-[#121212] rounded-lg py-1 px-12 text-[#121212]">
             <Image
                  alt="Google Play Logo"
                  src='/images/playstore 1.svg'
@@ -32,6 +35,7 @@ const Stores = () => {
                     <p className="font-semibold text-[12px]">Google Play</p>
                 </article>
             </button>
+            </a>
         </div>
     </div>
   )
