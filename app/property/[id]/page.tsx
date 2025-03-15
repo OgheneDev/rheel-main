@@ -47,50 +47,63 @@ const PropertyPage = () => {
 
   return (
     <div className="py-10 md:py-15">
+      {/* Property Header */}
       <PropertyHeader 
         propertyType={property.property_type_id} 
         price={property.price} 
       />
       
       <div className="px-5 flex flex-col gap-5">
+        {/* Property Features */}
         <PropertyFeatures 
           bathroom={property.bathroom}
           bedroom={property.bedroom}
           livingRoom={property.living_room}
         />
         
+        {/* Property Location */}
         <PropertyLocation location={property.location} />
       </div>
 
       <div className="py-5 px-5">
-       <ContactButtons />
-       <Description
-       description={property.property_description}
-      />
-      <Divider />
-      <Overview
-       bathroom={property.bathroom}
-       bedroom={property.bedroom}
-       livingRoom={property.living_room}
-       propertyType={property.property_type_id}
-      />
-      <Divider />
-      <VideoTour
-       videoUrl={property.video_upload}
-      />
-      <Divider />
-      <Amenities
-       amenities={property.amenities}
-      />
-      <Divider />
-      {/* Add Floor Plans component */}
-      {property.floor_plan && property.floor_plan.length > 0 && (
+        {/* Contact Buttons - Pass the property prop correctly */}
+        <ContactButtons property={property} />
+
+        {/* Property Description */}
+        <Description description={property.property_description} />
+        <Divider />
+
+        {/* Property Overview */}
+        <Overview
+          bathroom={property.bathroom}
+          bedroom={property.bedroom}
+          livingRoom={property.living_room}
+          propertyType={property.property_type_id}
+        />
+        <Divider />
+
+        {/* Video Tour */}
+        {property.video_upload && property.video_upload.length > 0 && (
+          <>
+            <VideoTour videoUrl={property.video_upload} />
+            <Divider />
+          </>
+        )}
+
+        {/* Amenities */}
+        <Amenities amenities={property.amenities} />
+        <Divider />
+
+        {/* Floor Plans - Render only if available */}
+        {property.floor_plan && property.floor_plan.length > 0 && (
           <>
             <FloorPlans floorPlans={property.floor_plan} />
             <Divider />
           </>
         )}
       </div>
+
+      {/* Store Listings */}
       <Stores />
     </div>
   );
