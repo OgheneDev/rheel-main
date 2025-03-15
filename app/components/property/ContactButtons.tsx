@@ -1,6 +1,6 @@
 import { Copy } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
-import { Property, propertyTypes } from "@/app/types";
+import { Property, propertyTypes, formatPrice } from "@/app/types";
 
 interface ContactButtonsProps {
   property: Property;
@@ -14,7 +14,7 @@ const ContactButtons: React.FC<ContactButtonsProps> = ({ property }) => {
     - Property Type: ${propertyType}
     - Property ID: ${property.id}
     - Property Location: ${property.location}
-    - Price: ${property.price}\n\n
+    - Price: ${formatPrice(property.price)}\n\n
     Please get back to me with more information.`
   );
 
@@ -23,7 +23,7 @@ const ContactButtons: React.FC<ContactButtonsProps> = ({ property }) => {
     - Property Type: ${propertyType}
     - Property ID: ${property.id}
     - Property Location: ${property.location}
-    - Price: ${property.price}\n\n
+    - Price:₦${formatPrice(property.price)}\n\n
     Please get back to me with more information.`
   );
 

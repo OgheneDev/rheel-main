@@ -55,15 +55,14 @@ const testimonials: Testimonial[] = [
   }
 ];
 
-// Function to duplicate testimonials to ensure we have enough for smooth sliding
+
 const createSlidingTestimonials = (items: Testimonial[], itemsPerView: number) => {
-  // Original array
+
   let result = [...items];
   
-  // If we don't have enough items to fill the last group
+
   const remainder = items.length % itemsPerView;
   if (remainder > 0 && remainder < itemsPerView) {
-    // Add enough items from the beginning to fill the last group
     const itemsToAdd = itemsPerView - remainder;
     result = [...result, ...items.slice(0, itemsToAdd)];
   }
