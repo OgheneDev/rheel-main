@@ -152,7 +152,7 @@ const Footer: React.FC = () => {
             <ul className="space-y-2 text-[#A3ABB0]">
               <li><Link href="/contact" className="text-sm hover:text-gray-300">Contact Us</Link></li>
               <li><Link href="#" className="text-sm hover:text-gray-300">Affiliates</Link></li>
-              <li><Link href="/career" className="text-sm hover:text-gray-300">Career</Link></li>
+              <li><Link href="/careers" className="text-sm hover:text-gray-300">Career</Link></li>
               <li
                 onClick={() => handleNavigation("/contact", "faq")}
                 className="text-sm cursor-pointer hover:text-gray-300"

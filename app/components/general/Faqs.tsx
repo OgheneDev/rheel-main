@@ -10,24 +10,24 @@ interface FAQItem {
 
 const faqs: FAQItem[] = [
   {
-    question: 'Why Should I Use Your Services?',
-    answer: 'We provide top-quality services tailored to your needs, ensuring convenience and reliability.',
+    question: ' How does Rheel Estate Limited help buyers and lessees?',
+    answer: 'Rheel Estate Limited facilitates secure and transparent property transactions by acting as the sole link between buyers and property owners. We ensure a smooth, direct process with no middlemen or chain transactions, making property acquisition and leasing seamless.',
   },
   {
-    question: 'How Do I Get Started With Your Services?',
-    answer: `Once your account is set up and you've familiarized yourself with the platform, you are ready to start using our services. Whether it's accessing specific features, making transactions, or utilizing our tools, you'll find everything you need at your fingertips.`,
+    question: 'What makes Rheel Estate different from other real estate companies?',
+    answer: ` Rheel Estate stands out by offering: Direct transactions—no intermediaries, ensuring transparency and trust. A secure platform for Nigerians in the diaspora to buy and lease properties with confidence. Full transaction representation for clients who wish to remain anonymous or are unavailable. Professional property management services for property owners`,
   },
   {
-    question: 'How Secure Are Your Services?',
-    answer: 'We implement industry-leading security measures to keep your data and transactions safe.',
+    question: 'Can Nigerians in the diaspora buy property through Rheel Estate?',
+    answer: 'Yes! We provide a safe and seamless process for Nigerians abroad to buy or lease properties. We also offer long-term property financing options, allowing diaspora clients to purchase properties and repay in their local currency.',
   },
   {
-    question: 'Is There Customer Support Available?',
-    answer: 'Yes, our support team is available 24/7 to assist you with any inquiries or issues.',
+    question: 'Does Rheel Estate handle property management?',
+    answer: ' Yes, we provide full property management services, including lease agreement management, property maintenance, and financial record-keeping. Our service ensures property owners maximize returns while we handle day-to-day operations.',
   },
   {
-    question: 'How Can I Update My Account Information?',
-    answer: 'You can update your account details through the settings page in your dashboard.',
+    question: ' How can I list my property with Rheel Estate?',
+    answer: 'Property owners can list their properties filling out a call-back form via the app or website. Once listed, we handle all marketing, inquiries, and transactions, ensuring a direct and professional process without third-party involvement',
   },
 ];
 
