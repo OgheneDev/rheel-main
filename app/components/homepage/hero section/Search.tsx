@@ -44,14 +44,14 @@ const Search = () => {
                     <div className="h-full flex flex-col justify-center relative" onClick={() => setIsTypeDropdownOpen(!isTypeDropdownOpen)}>
                         <div className="text-xs text-gray-500 mb-1 text-left">Type</div>
                         <div className="flex items-center justify-between cursor-pointer w-full">
-                            <span className="font-normal text-sm text-black">All type</span>
+                            <span className="font-normal text-sm text-[#0A2F1E]">All type</span>
                             <ChevronDown size={16} className="text-gray-500" />
                         </div>
                         
                         {isTypeDropdownOpen && (
                             <div className="absolute top-full left-0 mt-1 w-48 bg-white rounded border border-gray-200 shadow-lg z-10">
                                 <div 
-                                    className="px-3 py-2 hover:bg-gray-100 cursor-pointer text-sm text-black"
+                                    className="px-3 py-2 hover:bg-gray-100 cursor-pointer text-sm text-[#0A2F1E]"
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         setPropertyType('All type');
@@ -63,7 +63,7 @@ const Search = () => {
                                 {Object.entries(propertyTypes).map(([key, value]) => (
                                     <div 
                                         key={key}
-                                        className="px-3 py-2 hover:bg-gray-100 cursor-pointer text-sm text-black"
+                                        className="px-3 py-2 hover:bg-gray-100 cursor-pointer text-sm text-[#0A2F1E]"
                                         onClick={(e) => {
                                             e.stopPropagation();
                                             setPropertyType(value);
@@ -144,7 +144,7 @@ const Search = () => {
                             <label className="text-xs text-gray-500 mb-1 block">Property Type</label>
                             <div className="relative">
                                 <button 
-                                    className="w-full text-left flex items-center justify-between border border-gray-200 rounded-lg p-3"
+                                    className="w-full text-left flex items-center justify-between border text-[#0A2F1E] border-gray-200 rounded-lg p-3"
                                     onClick={() => setIsTypeDropdownOpen(!isTypeDropdownOpen)}
                                 >
                                     <span className="text-sm">{propertyType}</span>
@@ -154,7 +154,7 @@ const Search = () => {
                                 {isTypeDropdownOpen && (
                                     <div className="absolute top-full left-0 mt-1 w-full bg-white rounded-lg border border-gray-200 shadow-lg z-10">
                                         <div 
-                                            className="px-3 py-2 hover:bg-gray-100 text-black cursor-pointer text-sm"
+                                            className="px-3 py-2 hover:bg-gray-100 text-[#0A2F1E] cursor-pointer text-sm"
                                             onClick={() => {
                                                 setPropertyType('All type');
                                                 setIsTypeDropdownOpen(false);
@@ -165,7 +165,7 @@ const Search = () => {
                                         {Object.entries(propertyTypes).map(([key, value]) => (
                                             <div 
                                                 key={key}
-                                                className="px-3 py-2 hover:bg-gray-100 text-black cursor-pointer text-sm"
+                                                className="px-3 py-2 hover:bg-gray-100 text-[#0A2F1E] cursor-pointer text-sm"
                                                 onClick={() => {
                                                     setPropertyType(value);
                                                     setIsTypeDropdownOpen(false);
@@ -186,7 +186,7 @@ const Search = () => {
                                 <input
                                     type="text"
                                     placeholder="Search Location"
-                                    className="w-full outline-none text-sm"
+                                    className="w-full outline-none text-sm text-[#0A2F1E] placeholder:text-[#0A2F1E]"
                                     value={location}
                                     onChange={(e) => setLocation(e.target.value)}
                                 />
