@@ -26,6 +26,7 @@ export interface Property {
     updated_at?: string;
     agent_name?: string;
     agent_image?: string;
+    video_upload: string[];
   }
   
   export const propertyTypes: { [key: number]: string } = {

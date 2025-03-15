@@ -12,6 +12,7 @@ import ContactButtons from "@/app/components/property/ContactButtons";
 import Description from "@/app/components/property/Description";
 import Divider from "@/app/components/property/Divider";
 import Overview from "@/app/components/property/Overview";
+import VideoTour from "@/app/components/property/VideoTour";
 
 const PropertyPage = () => {
   const { id } = useParams(); // Get property ID from URL
@@ -70,8 +71,12 @@ const PropertyPage = () => {
        livingRoom={property.living_room}
        propertyType={property.property_type_id}
       />
+      <Divider />
+      <VideoTour
+       videoUrl={property.video_upload}
+      />
+      <Divider />
       </div>
-      
     </div>
   );
 };
