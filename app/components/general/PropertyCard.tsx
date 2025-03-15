@@ -115,7 +115,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
                 alt={property.agent_name || "Agent"}
                 width={40}
                 height={40}
-                className="object-cover w-full h-full rounded-full"
+                className="object-cover w-full h-full"
               />
             </div>
             <span className="text-sm text-gray-600">

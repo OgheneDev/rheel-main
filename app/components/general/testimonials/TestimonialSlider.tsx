@@ -318,7 +318,7 @@ const TestimonialSlider: React.FC = () => {
                           ))}
                         </div>
                       </div>
-                      <div className="w-12 h-12 rounded-full overflow-hidden">
+                      {/*<div className="w-12 h-12 rounded-full overflow-hidden">
                         <Image
                           src={testimonial.image}
                           alt={testimonial.name}
@@ -326,7 +326,7 @@ const TestimonialSlider: React.FC = () => {
                           height={48}
                           className="w-full h-full object-cover"
                         />
-                      </div>
+                      </div>*/}
                     </div>
                   </div>
                 </div>
@@ -355,8 +355,8 @@ const TestimonialSlider: React.FC = () => {
             <button
               key={index}
               onClick={() => handleSlideChange(index)}
-              className={`w-2 h-2 rounded-full transition-all ${
-                currentIndex === index ? 'bg-blue-600 w-6' : 'bg-gray-300'
+              className={`w-1 h-1 rounded-full transition-all ${
+                currentIndex === index ? 'bg-[#0A2F1E] ' : 'bg-gray-300'
               }`}
               aria-label={`Go to slide ${index + 1}`}
               disabled={isTransitioning}
