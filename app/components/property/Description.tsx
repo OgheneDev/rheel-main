@@ -16,7 +16,7 @@ const Description: React.FC<PropertyDescriptionProps> = ({ description }) => {
   return (
     <div className="pt-5">
       <article>
-        <h2 className="text-[#1C1C1E] font-semibold mb-2">Description</h2>
+        <h2 className="text-[#1C1C1E] font-medium mb-2">Description</h2>
         <p className="text-[#5C6368]">
           {isExpanded ? description : `${description.slice(0, previewLength)}...`}
         </p>

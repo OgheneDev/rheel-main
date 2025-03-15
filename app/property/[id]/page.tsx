@@ -13,6 +13,9 @@ import Description from "@/app/components/property/Description";
 import Divider from "@/app/components/property/Divider";
 import Overview from "@/app/components/property/Overview";
 import VideoTour from "@/app/components/property/VideoTour";
+import Amenities from "@/app/components/property/Amenities";
+import FloorPlans from "@/app/components/property/FloorPlans";
+import Stores from "@/app/components/general/Stores";
 
 const PropertyPage = () => {
   const { id } = useParams(); // Get property ID from URL
@@ -76,7 +79,19 @@ const PropertyPage = () => {
        videoUrl={property.video_upload}
       />
       <Divider />
+      <Amenities
+       amenities={property.amenities}
+      />
+      <Divider />
+      {/* Add Floor Plans component */}
+      {property.floor_plan && property.floor_plan.length > 0 && (
+          <>
+            <FloorPlans floorPlans={property.floor_plan} />
+            <Divider />
+          </>
+        )}
       </div>
+      <Stores />
     </div>
   );
 };

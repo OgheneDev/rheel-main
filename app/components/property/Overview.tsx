@@ -11,7 +11,7 @@ interface OverviewProps {
 const Overview = ({bathroom, bedroom, livingRoom, propertyType}: OverviewProps) => {
   return (
     <div className="pt-5">
-      <h3 className="text-[#1C1C1E] font-semibold mb-2">Overview</h3>
+      <h3 className="text-[#1C1C1E] font-medium mb-2">Overview</h3>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
         <div className="flex items-center">
           <div className="mr-3 border p-2 border-[#E4E4E4]">
