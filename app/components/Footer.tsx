@@ -1,9 +1,27 @@
+'use client'
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter, usePathname } from 'next/navigation';
 import { FaFacebookF, FaLinkedinIn, FaTwitter, FaPinterestP, FaInstagram, FaYoutube } from 'react-icons/fa';
 
-const Footer = () => {
+const Footer: React.FC = () => {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleNavigation = (pagePath: string, id: string): void => {
+    if (pathname === pagePath) {
+      // We're on the same page, just scroll to the element
+      const section = document.getElementById(id);
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      // We're on a different page, navigate and then scroll
+      router.push(`${pagePath}#${id}`);
+    }
+  };
+
   return (
     <footer className="bg-[#0A2F1E] text-white">
       {/* Main Footer Area */}
@@ -80,10 +98,25 @@ const Footer = () => {
           <div className="lg:col-span-1">
             <h3 className="font-semibold text-lg mb-4">Categories</h3>
             <ul className="space-y-2 text-[#A3ABB0]">
-              <li><Link href="#" className="text-sm hover:text-gray-300">About Us</Link></li>
-              <li><Link href="#" className="text-sm hover:text-gray-300">Mission</Link></li>
-              <li><Link href="#" className="text-sm hover:text-gray-300">Vision</Link></li>
-              <li><Link href="#" className="text-sm hover:text-gray-300">The Team</Link></li>
+              <li><Link href="/about" className="text-sm hover:text-gray-300">About Us</Link></li>
+              <li
+                onClick={() => handleNavigation("/about", "mission")}
+                className="text-sm cursor-pointer hover:text-gray-300"
+              >
+                Mission
+              </li>
+              <li
+                onClick={() => handleNavigation("/about", "vision")}
+                className="text-sm cursor-pointer hover:text-gray-300"
+              >
+                Vision
+              </li>
+              <li
+                onClick={() => handleNavigation("/", "team")}
+                className="text-sm cursor-pointer hover:text-gray-300"
+              >
+                The Team
+              </li>
               <li><Link href="#" className="text-sm hover:text-gray-300">Corporate Profile</Link></li>
               <li><Link href="#" className="text-sm hover:text-gray-300">Strategic Framework</Link></li>
             </ul>
@@ -104,10 +137,15 @@ const Footer = () => {
           <div className="lg:col-span-1">
             <h3 className="font-semibold text-lg mb-4">Contact</h3>
             <ul className="space-y-2 text-[#A3ABB0]">
-              <li><Link href="#" className="text-sm hover:text-gray-300">Contact Us</Link></li>
+              <li><Link href="/contact" className="text-sm hover:text-gray-300">Contact Us</Link></li>
               <li><Link href="#" className="text-sm hover:text-gray-300">Affiliates</Link></li>
-              <li><Link href="#" className="text-sm hover:text-gray-300">Career</Link></li>
-              <li><Link href="#" className="text-sm hover:text-gray-300">FAQ</Link></li>
+              <li><Link href="/career" className="text-sm hover:text-gray-300">Career</Link></li>
+              <li
+                onClick={() => handleNavigation("/contact", "faq")}
+                className="text-sm cursor-pointer hover:text-gray-300"
+              >
+                FAQ
+              </li>
             </ul>
           </div>
           

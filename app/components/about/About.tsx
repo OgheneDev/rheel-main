@@ -22,7 +22,7 @@ const About = () => {
             <p className=' mb-7'>Founded by Odera Muoma, Rheel Estate Limited was established with the vision to address the challenges faced by both property buyers and sellers in Nigeria. The real estate landscape has long been marred by unethical practices, inflated prices, and a lack of accessible services. With these issues in mind, we sought to create a company that not only delivers exceptional service but also promotes ethical practices that restore faith in the industry</p>
             <p className=''>Drawing on the extensive experience of our founder, who has seen firsthand the difficulties faced by Nigerians both in the diaspora and locally, Rheel Estate was designed to be a solution for the modern age—driven by technology, guided by integrity, and focused on long-term relationships with our clients. We understand that property transactions are some of the most important decisions people will ever make, which is why we approach every deal with the utmost care and professionalism.</p>
         </article>
-        <div className="text-center mb-5">
+        <div id="vision" className="text-center mb-5">
                 <span className="text-sm uppercase">Our Vision</span>
                 <h4 className="font-bold text-2xl">What we aspire to be</h4>
             </div>
@@ -40,7 +40,7 @@ const About = () => {
         </div>
         <p className=' mb-7'>We are committed to building a reputation that speaks to the values we hold dear: trust, transparency, quality, and customer satisfaction. Whether you are a first-time buyer, an investor, or someone looking to lease or manage property, we are dedicated to providing you with the resources and support to make informed decisions every step of the way.</p>
         <article className='mb-7'>
-        <div className="text-center mb-5">
+        <div id="mission" className="text-center mb-5">
                 <span className="text-sm uppercase">Our Mission</span>
                 <h4 className="font-bold text-2xl">How we make a difference</h4>
             </div>
