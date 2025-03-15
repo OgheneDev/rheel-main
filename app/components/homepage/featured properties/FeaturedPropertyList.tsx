@@ -81,18 +81,26 @@ const FeaturedPropertyList: React.FC<FeaturedPropertyListProps> = ({ selectedTyp
         console.log('Filtering with search params:', searchParams);
         
         filteredProperties = filteredProperties.filter((property) => {
+            // Match property type (Sell/Lease)
+            const matchesType = searchParams.type
+                ? property.type === searchParams.type
+                : true;
+                
             // Match location if provided
             const matchesLocation = searchParams.location
                 ? property.location.toLowerCase().includes(searchParams.location.toLowerCase())
                 : true;
 
-            // Match property type if provided
+            // Match property type ID if provided
             const matchesPropertyType = searchParams.propertyTypeId
                 ? property.property_type_id.toString() === searchParams.propertyTypeId
                 : true;
 
             // Debug log for individual property filtering
             console.log(`Property ${property.id} filtering:`, {
+                property_type: property.type,
+                searchType: searchParams.type,
+                matchesType,
                 property_type_id: property.property_type_id,
                 searchPropertyTypeId: searchParams.propertyTypeId,
                 matchesPropertyType,
@@ -101,7 +109,7 @@ const FeaturedPropertyList: React.FC<FeaturedPropertyListProps> = ({ selectedTyp
                 matchesLocation
             });
 
-            return matchesLocation && matchesPropertyType;
+            return matchesType && matchesLocation && matchesPropertyType;
         });
     } else if (selectedType) {
         // Filter by selected property type when no search is active

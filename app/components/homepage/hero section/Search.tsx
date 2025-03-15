@@ -18,6 +18,22 @@ const Search = () => {
         setIsMobileSearchExpanded(!isMobileSearchExpanded);
     };
 
+    // Function to handle tab change
+    const handleTabChange = (tab: string) => {
+        setActiveTab(tab);
+        
+        // If search is already active, update search parameters immediately
+        const propertyTypeId = propertyType === 'All type' 
+            ? '' 
+            : Object.entries(propertyTypes).find(([key, value]) => value === propertyType)?.[0] || '';
+            
+        setSearchParams(prev => ({
+            ...prev,
+            type: tab === 'For Sale' ? 'Sell' : 'Lease',
+            isSearchActive: true
+        }));
+    };
+
     const handleSearch = () => {
         // Find the property type ID based on the selected value
         const propertyTypeId = propertyType === 'All type' 
@@ -25,7 +41,7 @@ const Search = () => {
             : Object.entries(propertyTypes).find(([key, value]) => value === propertyType)?.[0] || '';
 
         setSearchParams({
-          type: activeTab === 'Buy' ? 'Sell' : 'Lease',
+          type: activeTab === 'For Sale' ? 'Sell' : 'Lease',
           propertyTypeId: propertyTypeId,
           location: location,
           isSearchActive: true // Set to true when search is initiated
@@ -38,7 +54,7 @@ const Search = () => {
         }
 
         console.log("Search initiated with:", {
-            type: activeTab === 'Buy' ? 'Sell' : 'Lease',
+            type: activeTab === 'For Sale' ? 'Sell' : 'Lease',
             propertyTypeId: propertyTypeId,
             location: location,
             isSearchActive: true
@@ -47,17 +63,17 @@ const Search = () => {
 
     return (
         <div>
-            {/* For Lease/Sale buttons - your existing code */}
+            {/* For Lease/Sale buttons */}
             <div className="flex items-center gap-5 justify-center mb-4">
                 <button
                     className={`px-8 py-2 cursor-pointer rounded-full ${activeTab === 'For Lease' ? 'bg-[#0A2F1E] text-white' : 'bg-transparent border border-white'}`}
-                    onClick={() => setActiveTab('For Lease')}
+                    onClick={() => handleTabChange('For Lease')}
                 >
                     For Lease
                 </button>
                 <button
                     className={`px-8 py-2 cursor-pointer rounded-full ${activeTab === 'For Sale' ? 'bg-[#0A2F1E] text-white' : 'bg-transparent border border-white'}`}
-                    onClick={() => setActiveTab('For Sale')}
+                    onClick={() => handleTabChange('For Sale')}
                 >
                     For Sale
                 </button>
