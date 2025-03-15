@@ -1,23 +1,49 @@
 'use client'
 
 import { useState } from "react"
+import { useSearch } from "@/app/context/SearchContext"
+import { propertyTypes } from "@/app/types"
 import { ChevronDown, Search as SearchIcon, Sliders, Locate, X } from "lucide-react"
 
 const Search = () => {
     const [activeTab, setActiveTab] = useState('For Sale');
     const [location, setLocation] = useState('');
     const [propertyType, setPropertyType] = useState('All type');
+    const { setSearchParams } = useSearch();
     const [isTypeDropdownOpen, setIsTypeDropdownOpen] = useState(false);
     const [isMobileSearchExpanded, setIsMobileSearchExpanded] = useState(false);
 
-    const propertyTypes = {
-        1: 'Duplex', 2: 'Terrace', 3: 'Bungalow', 4: 'Apartments',
-        5: 'Commercial', 6: 'Carcass', 7: 'Land', 8: 'JV Land',
-    };
 
     const toggleMobileSearch = () => {
         setIsMobileSearchExpanded(!isMobileSearchExpanded);
     };
+
+    const handleSearch = () => {
+        // Find the property type ID based on the selected value
+        const propertyTypeId = propertyType === 'All type' 
+            ? '' 
+            : Object.entries(propertyTypes).find(([key, value]) => value === propertyType)?.[0] || '';
+
+        setSearchParams({
+          type: activeTab === 'Buy' ? 'Sell' : 'Lease',
+          propertyTypeId: propertyTypeId,
+          location: location,
+          isSearchActive: true // Set to true when search is initiated
+        });
+    
+        // Scroll to property list
+        const propertyList = document.getElementById('properties-section');
+        if (propertyList) {
+          propertyList.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        console.log("Search initiated with:", {
+            type: activeTab === 'Buy' ? 'Sell' : 'Lease',
+            propertyTypeId: propertyTypeId,
+            location: location,
+            isSearchActive: true
+        });
+      };
 
     return (
         <div>
@@ -106,7 +132,9 @@ const Search = () => {
                     </button>
                     
                     {/* Search button */}
-                    <button className="bg-[#0A2F1E] text-white flex items-center gap-2 rounded-full px-6 py-2">
+                    <button 
+                     onClick={handleSearch}
+                     className="bg-[#0A2F1E] text-white flex items-center gap-2 rounded-full px-6 py-2">
                         <span className="text-sm">Search</span>
                         <SearchIcon size={16} />
                     </button>
@@ -203,7 +231,9 @@ const Search = () => {
                         </div>
 
                         {/* Search Button */}
-                        <button className="w-full bg-[#0A2F1E] text-white flex items-center justify-center gap-2 rounded-lg p-3">
+                        <button 
+                         onClick={handleSearch}
+                         className="w-full bg-[#0A2F1E] text-white flex items-center justify-center gap-2 rounded-lg p-3">
                             <span>Search</span>
                             <SearchIcon size={16} />
                         </button>

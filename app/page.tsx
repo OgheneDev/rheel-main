@@ -5,10 +5,11 @@ import Testimonials from "./components/general/Testimonials";
 import TeamSection from "./components/homepage/TeamSection";
 import TrustedBy from "./components/general/TrustedBy";
 import Stores from "./components/general/Stores";
+import { SearchProvider } from "./context/SearchContext";
 
 export default function Home() {
   return (
-    <>
+    <SearchProvider>
       <HeroSection />
       <FeaturedProperties />
       <Services />
@@ -16,6 +17,6 @@ export default function Home() {
       <TeamSection />
       <TrustedBy />
       <Stores />
-    </>
+    </SearchProvider>
   );
 }
