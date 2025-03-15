@@ -291,7 +291,7 @@ const TestimonialSlider: React.FC = () => {
               ))}
             </div>
           ))}
-        </div>
+        </div> 
       </div>
       
       {/* Navigation arrows and indicators */}

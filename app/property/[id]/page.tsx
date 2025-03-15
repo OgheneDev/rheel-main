@@ -16,6 +16,7 @@ import VideoTour from "@/app/components/property/VideoTour";
 import Amenities from "@/app/components/property/Amenities";
 import FloorPlans from "@/app/components/property/FloorPlans";
 import Stores from "@/app/components/general/Stores";
+import PropertyImageSlider from "@/app/components/property/ImageSlider";
 
 const PropertyPage = () => {
   const { id } = useParams(); // Get property ID from URL
@@ -68,6 +69,9 @@ const PropertyPage = () => {
       <div className="py-5 px-5">
         {/* Contact Buttons - Pass the property prop correctly */}
         <ContactButtons property={property} />
+
+        {/*Property Images */}
+        <PropertyImageSlider images={property.property_images} />
 
         {/* Property Description */}
         <Description description={property.property_description} />
