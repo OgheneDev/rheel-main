@@ -39,7 +39,7 @@ const FAQSection = () => {
   };
 
   return (
-    <section className="max-w-4xl mx-auto py-10 px-5 md:px-0">
+    <section id='faq' className="max-w-4xl mx-auto py-10 px-5 md:px-0">
       <article className='text-center'>
       <span className='text-[#1563DF]  mx-auto text-[12px] font-bold'>FAQS</span>
       <h2 className=" text-2xl font-bold text-[#161E2D] mb-8">Frequently Asked Questions</h2>

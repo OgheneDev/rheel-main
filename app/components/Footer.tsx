@@ -8,7 +8,6 @@ import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa';
 const Footer: React.FC = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   // Effect to handle hash fragments after navigation
   useEffect(() => {
@@ -25,7 +24,7 @@ const Footer: React.FC = () => {
         }
       }, 100);
     }
-  }, [pathname, searchParams]); // Re-run when pathname or search params change
+  }, [pathname]); // Re-run when pathname or search params change
 
   const handleNavigation = (pagePath: string, id: string): void => {
     if (pathname === pagePath) {
