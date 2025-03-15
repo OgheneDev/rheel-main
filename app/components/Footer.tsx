@@ -1,13 +1,31 @@
 'use client'
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter, usePathname } from 'next/navigation';
-import { FaFacebookF, FaLinkedinIn, FaTwitter, FaPinterestP, FaInstagram, FaYoutube } from 'react-icons/fa';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
+import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa';
 
 const Footer: React.FC = () => {
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  // Effect to handle hash fragments after navigation
+  useEffect(() => {
+    // Check if there's a hash in the URL
+    const hash = window.location.hash;
+    if (hash) {
+      // Remove the # character
+      const id = hash.substring(1);
+      // Wait for the DOM to be fully loaded
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  }, [pathname, searchParams]); // Re-run when pathname or search params change
 
   const handleNavigation = (pagePath: string, id: string): void => {
     if (pathname === pagePath) {
@@ -18,6 +36,7 @@ const Footer: React.FC = () => {
       }
     } else {
       // We're on a different page, navigate and then scroll
+      // The useEffect above will handle the scrolling after navigation
       router.push(`${pagePath}#${id}`);
     }
   };
