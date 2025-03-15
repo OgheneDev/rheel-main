@@ -11,6 +11,7 @@ import { LoadingState, ErrorState } from "@/app/components/property/StateCompone
 import ContactButtons from "@/app/components/property/ContactButtons";
 import Description from "@/app/components/property/Description";
 import Divider from "@/app/components/property/Divider";
+import Overview from "@/app/components/property/Overview";
 
 const PropertyPage = () => {
   const { id } = useParams(); // Get property ID from URL
@@ -63,6 +64,12 @@ const PropertyPage = () => {
        description={property.property_description}
       />
       <Divider />
+      <Overview
+       bathroom={property.bathroom}
+       bedroom={property.bedroom}
+       livingRoom={property.living_room}
+       propertyType={property.property_type_id}
+      />
       </div>
       
     </div>
