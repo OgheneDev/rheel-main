@@ -1,4 +1,7 @@
+"use client"; // Add this at the top for client-side rendering
+
 import React from "react";
+import { useRouter } from "next/navigation"; // Use next/navigation instead of next/router
 import { Bed, Bath, Sofa, MapPin } from "lucide-react";
 import Image from "next/image";
 
@@ -30,33 +33,36 @@ interface Property {
   property_type_id: number;
   updated_at?: string;
   agent_name?: string;
-  agent_image?: string; // Add agent image property
+  agent_image?: string;
 }
 
-// PropertyCard Props
 interface PropertyCardProps {
   property: Property;
 }
 
 const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
-  // Function to format the price with commas
+  const router = useRouter(); // Use next/navigation
   const formatPrice = (price: string) => {
     return Number(price).toLocaleString("en-NG");
+  };
+
+  const handleNavigate = () => {
+    router.push(`/property/${property.id}`);
   };
 
   return (
     <div className="relative rounded-lg shadow-lg overflow-hidden bg-white">
       {/* Image Section */}
-      <div className="relative h-48 w-full bg-gray-200">
-        {property.property_images?.length > 0 ? (
+      <div className="relative h-48 w-full bg-gray-200 cursor-pointer" onClick={handleNavigate}>
+        {property.property_images?.length > 0 && (
           <Image
             src={property.property_images[0]}
             alt={`Property at ${property.location}`}
             width={500}
             height={300}
-            className="h-full w-full object-cover cursor-pointer"
+            className="h-full w-full object-cover transition-transform duration-700 ease-in-out hover:scale-110"
           />
-        ) : null}
+        )}
 
         {/* Featured and For Sale Tags */}
         <div className="absolute top-3 left-3 flex gap-2">
@@ -83,19 +89,14 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
 
         {/* Amenities */}
         <div className="flex gap-4 text-sm text-[#5C6368] mb-4">
-          {/* Beds */}
           <div className="flex items-center">
             <Bed size={14} className="mr-1" />
             <span>{property.bedroom} Beds</span>
           </div>
-
-          {/* Baths */}
           <div className="flex items-center">
             <Bath size={14} className="mr-1" />
             <span>{property.bathroom} Baths</span>
           </div>
-
-          {/* Living Rooms */}
           <div className="flex items-center">
             <Sofa size={14} className="mr-1" />
             <span>{property.living_room} Living Rooms</span>
@@ -109,23 +110,13 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <div className="mr-2">
-              {property.agent_image ? (
-                <Image
-                  src={property.agent_image}
-                  alt={property.agent_name || "Agent"}
-                  width={40}
-                  height={40}
-                  className="object-cover w-full h-full"
-                />
-              ) : (
-                <Image
-                  src="/images/rheel.png" // Add a default agent image in your public folder
-                  alt="Default Agent"
-                  width={12}
-                  height={12}
-                  className="object-cover w-[35px] h-[35px]"
-                />
-              )}
+              <Image
+                src={property.agent_image || "/images/rheel.png"}
+                alt={property.agent_name || "Agent"}
+                width={40}
+                height={40}
+                className="object-cover w-full h-full rounded-full"
+              />
             </div>
             <span className="text-sm text-gray-600">
               {property.agent_name || "Rheel Estate"}

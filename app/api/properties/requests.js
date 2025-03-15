@@ -13,7 +13,7 @@ export const getProperties = async () => {
     } catch (err) {
         console.error('Error fetching properties: ', err);
         return [];
-    }
+    } 
 };
 
 export const getPropertyById = async (id) => {
