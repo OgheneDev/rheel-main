@@ -66,8 +66,10 @@ const PropertyPage = () => {
         <PropertyLocation location={property.location} />
       </div>
 
-      {/*Property Images */}
+      <div className="px-5">
+        {/*Property Images */}
       <PropertyImageSlider images={property.property_images} />
+      </div>
 
       <div className="py-5 md:py-8 px-5">
         {/* Contact Buttons - Pass the property prop correctly */}
