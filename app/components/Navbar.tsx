@@ -4,21 +4,29 @@ import { useState } from "react"
 import { Menu, X, Copy } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const pathname = usePathname()
+    const router = useRouter()
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen)
     };
 
     const scrollToProperties = () => {
-        const propertiesSection = document.getElementById('properties-section')
-        if (propertiesSection) {
-            propertiesSection.scrollIntoView({ behavior: 'smooth' })
-            setIsMenuOpen(false) // Close menu after clicking
+        if (pathname === '/') {
+            // If already on homepage, just scroll
+            const propertiesSection = document.getElementById('properties-section')
+            if (propertiesSection) {
+                propertiesSection.scrollIntoView({ behavior: 'smooth' })
+                setIsMenuOpen(false)
+            }
+        } else {
+            // If on another page, navigate to homepage with a hash
+            router.push('/#properties-section')
+            setIsMenuOpen(false)
         }
     }
 
