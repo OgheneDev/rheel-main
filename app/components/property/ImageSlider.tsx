@@ -214,7 +214,7 @@ const PropertyImageSlider: React.FC<PropertyImageSliderProps> = ({ images }) => 
         {/* Navigation arrows (absolute positioned over the slider) */}
         <button 
           onClick={prevSlide}
-          className="absolute left-2 top-1/2 transform -translate-y-1/2 p-2 rounded-full bg-white/70 hover:bg-white/90 transition-colors shadow-md z-10"
+          className="absolute cursor-pointer left-2 top-1/2 transform -translate-y-1/2 p-2 rounded-full bg-white/70 hover:bg-white/90 transition-colors shadow-md z-10"
           aria-label="Previous image"
           disabled={isTransitioning}
         >
@@ -225,7 +225,7 @@ const PropertyImageSlider: React.FC<PropertyImageSliderProps> = ({ images }) => 
         
         <button 
           onClick={nextSlide}
-          className="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 rounded-full bg-white/70 hover:bg-white/90 transition-colors shadow-md z-10"
+          className="absolute cursor-pointer right-2 top-1/2 transform -translate-y-1/2 p-2 rounded-full bg-white/70 hover:bg-white/90 transition-colors shadow-md z-10"
           aria-label="Next image"
           disabled={isTransitioning}
         >
