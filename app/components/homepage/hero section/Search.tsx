@@ -44,7 +44,7 @@ const Search = () => {
                     <div className="h-full flex flex-col justify-center relative" onClick={() => setIsTypeDropdownOpen(!isTypeDropdownOpen)}>
                         <div className="text-xs text-gray-500 mb-1 text-left">Type</div>
                         <div className="flex items-center justify-between cursor-pointer w-full">
-                            <span className="font-normal text-sm text-[#0A2F1E]">All type</span>
+                            <span className="font-normal text-sm text-[#0A2F1E]">{propertyType}</span>
                             <ChevronDown size={16} className="text-gray-500" />
                         </div>
                         
@@ -141,7 +141,7 @@ const Search = () => {
 
                         {/* Property Type Selection */}
                         <div className="mb-4">
-                            <label className="text-xs text-gray-500 mb-1 block">Property Type</label>
+                            <label className="text-xs text-gray-500 mb-1 block text-left">Property Type</label>
                             <div className="relative">
                                 <button 
                                     className="w-full text-left flex items-center justify-between border text-[#0A2F1E] border-gray-200 rounded-lg p-3"
@@ -181,7 +181,7 @@ const Search = () => {
 
                         {/* Location Input */}
                         <div className="mb-4">
-                            <label className="text-xs text-gray-500 mb-1 block">Location</label>
+                            <label className="text-xs text-gray-500 mb-1 block text-left">Location</label>
                             <div className="flex items-center border border-gray-200 rounded-lg p-3">
                                 <input
                                     type="text"
