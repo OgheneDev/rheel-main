@@ -293,7 +293,7 @@ const TestimonialSlider: React.FC = () => {
                 >
                   <div className="bg-white rounded-lg shadow-lg p-6 h-full">
                     <div className="mb-4">
-                      <RiDoubleQuotesL className='w-[40px] h-[40px] text-[#0A2F1E]' />
+                      <RiDoubleQuotesL className='w-[40px] h-[40px] text-[#1563DF]' />
                       <p className="text-sm  text-[#161E2D]">{testimonial.quote}</p>
                     </div>
                     

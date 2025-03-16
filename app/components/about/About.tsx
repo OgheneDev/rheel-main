@@ -6,7 +6,7 @@ const About = () => {
         <div className='flex flex-col md:gap-10 md:flex-row mb-7'>
             <Image
              alt="About"
-             src='/images/about.png'
+             src='/images/ball.png'
              height={100}
              width={530}
             />
@@ -32,8 +32,8 @@ const About = () => {
                 <p className=' '>Our vision is simple: to be the most trusted and innovative real estate company in Nigeria, recognized for our commitment to delivering high-quality properties at fair prices, ensuring full transparency, and providing unmatched customer service. We aim to make property transactions easier, more accessible, and more reliable for Nigerians at home and abroad.</p>
             </article>
             <Image
-             alt="About"
-             src='/images/about.png'
+             alt="Vision"
+             src='/images/hands.png'
              height={300}
              width={500}
             />
@@ -62,17 +62,17 @@ const About = () => {
                 <li>Accountability – We take full responsibility for every transaction, providing accurate, well-documented records and keeping our clients informed throughout.</li>
             </ul>
         </article>
-        <div className='flex flex-col md:flex-row'>
+        <div className='flex items-start flex-col md:flex-row'>
             <Image
-             alt="About"
-             src='/images/about.png'
-             height={300}
+             alt="Core Values"
+             src='/images/values.png'
+             height={200}
              width={500}
             />
             <Image
              alt="About"
              src='/images/about.png'
-             height={300}
+             height={100}
              width={500}
             />
         </div>
