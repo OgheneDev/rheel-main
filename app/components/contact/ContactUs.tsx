@@ -9,16 +9,15 @@ const ContactUs = () => {
       <div className="mb-6">
         <h3 className="font-semibold text-gray-700 mb-2">Address:</h3>
         <p className="text-gray-600">
-          101 E 129th St, East Chicago, IN 46312<br />
-          United States
+        Churchgate Tower, CBD, Abuja
         </p>
       </div>
 
       <div className="mb-6">
         <h3 className="font-semibold text-gray-700 mb-2">Information:</h3>
         <p className="text-gray-600">
-          1-333-345-6868<br />
-          themesflat@gmail.com
+        +2348099222223 <br />
+        hello@rheelestate.com
         </p>
       </div>
 
