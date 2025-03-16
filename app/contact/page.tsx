@@ -3,6 +3,7 @@ import ContactForm from "../components/contact/ContactForm"
 import ContactUs from "../components/contact/ContactUs"
 import FAQSection from "../components/general/Faqs"
 import Stores from "../components/general/Stores"
+import MapComponent from "../components/contact/MapComponent"
 
 const page = () => {
   return (
@@ -12,6 +13,7 @@ const page = () => {
         <ContactForm />
         <ContactUs />
         </div>
+        <MapComponent />
         <FAQSection />
         <Stores />
     </div>
