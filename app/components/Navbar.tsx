@@ -121,7 +121,7 @@ const Navbar = () => {
             </ul>
         </nav>
 
-        <button className="md:flex flex-row-reverse text-white hidden bg-[#0A2F1E] px-5 py-2 rounded-full items-center gap-2 text-[13px]">
+        <button className="md:flex flex-row-reverse cursor-pointer text-white hidden bg-[#0A2F1E] px-5 py-2 rounded-full items-center gap-2 text-[13px]">
             Submit Property
             <Copy size={15} />
         </button>
