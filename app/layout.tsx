@@ -10,6 +10,9 @@ const manrope = Manrope({subsets: ["latin"]});
 export const metadata: Metadata = {
   title: "Rheel Estate Limited",
   description: "Rheel Estate Limited's official website.",
+  icons: {
+    icon: '/favicon.png'
+  }
 };
 
 export default function RootLayout({
