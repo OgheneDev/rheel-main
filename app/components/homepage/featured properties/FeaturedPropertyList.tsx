@@ -4,7 +4,7 @@ import PropertyCard from '../../general/PropertyCard';
 import { ArrowDown, ArrowUp } from 'lucide-react';
 import PropertyCardSkeleton from '../../general/PropertyCardSkeleton';
 import { useSearch } from '@/app/context/SearchContext';
-import { propertyTypes } from '@/app/types';
+
 
 interface Property {
     id: number;

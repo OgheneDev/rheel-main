@@ -1,9 +1,10 @@
 'use client'
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useSearch } from "@/app/context/SearchContext"
 import { propertyTypes } from "@/app/types"
 import { ChevronDown, Search as SearchIcon, Sliders, Locate, X } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
 
 const Search = () => {
     const [activeTab, setActiveTab] = useState('For Sale');
@@ -12,7 +13,6 @@ const Search = () => {
     const { setSearchParams } = useSearch();
     const [isTypeDropdownOpen, setIsTypeDropdownOpen] = useState(false);
     const [isMobileSearchExpanded, setIsMobileSearchExpanded] = useState(false);
-
 
     const toggleMobileSearch = () => {
         setIsMobileSearchExpanded(!isMobileSearchExpanded);
@@ -59,64 +59,175 @@ const Search = () => {
             location: location,
             isSearchActive: true
         });
-      };
+    };
+
+    // Animation variants
+    const tabsContainerVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { 
+            opacity: 1, 
+            y: 0,
+            transition: { 
+                duration: 0.5,
+                ease: "easeOut" 
+            }
+        }
+    };
+
+    const searchContainerVariants = {
+        hidden: { opacity: 0, y: 30 },
+        visible: { 
+            opacity: 1, 
+            y: 0,
+            transition: { 
+                duration: 0.6,
+                ease: "easeOut",
+                delay: 0.2
+            }
+        }
+    };
+
+    const dropdownVariants = {
+        hidden: { opacity: 0, scale: 0.95, y: -10 },
+        visible: { 
+            opacity: 1, 
+            scale: 1, 
+            y: 0,
+            transition: { 
+                type: "spring", 
+                stiffness: 300, 
+                damping: 20 
+            }
+        },
+        exit: { 
+            opacity: 0, 
+            scale: 0.95, 
+            y: -10,
+            transition: { 
+                duration: 0.2 
+            }
+        }
+    };
+
+    const mobileExpandVariants = {
+        hidden: { opacity: 0, height: 0 },
+        visible: { 
+            opacity: 1, 
+            height: "auto",
+            transition: { 
+                duration: 0.3, 
+                ease: "easeInOut" 
+            }
+        },
+        exit: { 
+            opacity: 0, 
+            height: 0,
+            transition: { 
+                duration: 0.3, 
+                ease: "easeInOut" 
+            }
+        }
+    };
+
+    const buttonHoverVariants = {
+        hover: { 
+            scale: 1.03,
+            transition: { 
+                type: "spring", 
+                stiffness: 400, 
+                damping: 10 
+            }
+        },
+        tap: { 
+            scale: 0.97 
+        }
+    };
 
     return (
         <div>
             {/* For Lease/Sale buttons */}
-            <div className="flex items-center gap-5 justify-center mb-4">
-                <button
+            <motion.div 
+                className="flex items-center gap-5 justify-center mb-4"
+                variants={tabsContainerVariants}
+                initial="hidden"
+                animate="visible"
+            >
+                <motion.button
                     className={`px-8 py-2 cursor-pointer rounded-full ${activeTab === 'For Lease' ? 'bg-[#0A2F1E] text-white' : 'bg-transparent border border-white'}`}
                     onClick={() => handleTabChange('For Lease')}
+                    variants={buttonHoverVariants}
+                    whileHover="hover"
+                    whileTap="tap"
                 >
                     For Lease
-                </button>
-                <button
+                </motion.button>
+                <motion.button
                     className={`px-8 py-2 cursor-pointer rounded-full ${activeTab === 'For Sale' ? 'bg-[#0A2F1E] text-white' : 'bg-transparent border border-white'}`}
                     onClick={() => handleTabChange('For Sale')}
+                    variants={buttonHoverVariants}
+                    whileHover="hover"
+                    whileTap="tap"
                 >
                     For Sale
-                </button>
-            </div>
+                </motion.button>
+            </motion.div>
 
             {/* Desktop Search container */}
-            <div className="bg-white rounded-full md:flex hidden items-center shadow-md w-full max-w-5xl mx-auto h-16">
+            <motion.div 
+                className="bg-white rounded-full md:flex hidden items-center shadow-md w-full max-w-5xl mx-auto h-16"
+                variants={searchContainerVariants}
+                initial="hidden"
+                animate="visible"
+            >
                 {/* Type dropdown */}
                 <div className="w-1/5 border-r border-gray-200 h-full px-6">
                     <div className="h-full flex flex-col justify-center relative" onClick={() => setIsTypeDropdownOpen(!isTypeDropdownOpen)}>
                         <div className="text-xs text-gray-500 mb-1 text-left">Type</div>
                         <div className="flex items-center justify-between cursor-pointer w-full">
                             <span className="font-normal text-sm text-[#0A2F1E]">{propertyType}</span>
-                            <ChevronDown size={16} className="text-gray-500" />
+                            <motion.div
+                                animate={{ rotate: isTypeDropdownOpen ? 180 : 0 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                <ChevronDown size={16} className="text-gray-500" />
+                            </motion.div>
                         </div>
                         
-                        {isTypeDropdownOpen && (
-                            <div className="absolute top-full left-0 mt-1 w-48 bg-white rounded border border-gray-200 shadow-lg z-10">
-                                <div 
-                                    className="px-3 py-2 hover:bg-gray-100 cursor-pointer text-sm text-[#0A2F1E]"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        setPropertyType('All type');
-                                        setIsTypeDropdownOpen(false);
-                                    }}
+                        <AnimatePresence>
+                            {isTypeDropdownOpen && (
+                                <motion.div 
+                                    className="absolute top-full left-0 mt-1 w-48 bg-white rounded border border-gray-200 shadow-lg z-10"
+                                    variants={dropdownVariants}
+                                    initial="hidden"
+                                    animate="visible"
+                                    exit="exit"
                                 >
-                                    All type
-                                </div>
-                                {Object.entries(propertyTypes).map(([key, value]) => (
                                     <div 
-                                        key={key}
                                         className="px-3 py-2 hover:bg-gray-100 cursor-pointer text-sm text-[#0A2F1E]"
                                         onClick={(e) => {
                                             e.stopPropagation();
-                                            setPropertyType(value);
+                                            setPropertyType('All type');
                                             setIsTypeDropdownOpen(false);
                                         }}
                                     >
-                                        {value}
+                                        All type
                                     </div>
-                                ))}
-                            </div>
-                        )}
+                                    {Object.entries(propertyTypes).map(([key, value]) => (
+                                        <div 
+                                            key={key}
+                                            className="px-3 py-2 hover:bg-gray-100 cursor-pointer text-sm text-[#0A2F1E]"
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                setPropertyType(value);
+                                                setIsTypeDropdownOpen(false);
+                                            }}
+                                        >
+                                            {value}
+                                        </div>
+                                    ))}
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
                 </div>
 
@@ -132,9 +243,13 @@ const Search = () => {
                                 value={location}
                                 onChange={(e) => setLocation(e.target.value)}
                             />
-                            <div className="w-6 h-6 flex items-center justify-center">
+                            <motion.div 
+                                className="w-6 h-6 flex items-center justify-center"
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                            >
                                 <Locate className="w-4 h-4" />
-                            </div>
+                            </motion.div>
                         </div>
                     </div>
                 </div>
@@ -142,119 +257,214 @@ const Search = () => {
                 {/* Search buttons */}
                 <div className="w-2/5 px-4 flex items-center justify-end space-x-2">
                     {/* Advanced Search button */}
-                    <button className="flex items-center rounded-full border border-gray-200 px-4 py-2 bg-white">
+                    <motion.button 
+                        className="flex items-center rounded-full border border-gray-200 px-4 py-2 bg-white"
+                        variants={buttonHoverVariants}
+                        whileHover="hover"
+                        whileTap="tap"
+                    >
                         <span className="text-sm text-gray-700 mr-2">Search advanced</span>
                         <Sliders size={14} className="text-gray-700" />
-                    </button>
+                    </motion.button>
                     
                     {/* Search button */}
-                    <button 
-                     onClick={handleSearch}
-                     className="bg-[#0A2F1E] text-white flex items-center gap-2 rounded-full px-6 py-2">
+                    <motion.button 
+                        onClick={handleSearch}
+                        className="bg-[#0A2F1E] text-white flex items-center gap-2 rounded-full px-6 py-2"
+                        variants={buttonHoverVariants}
+                        whileHover="hover"
+                        whileTap="tap"
+                    >
                         <span className="text-sm">Search</span>
                         <SearchIcon size={16} />
-                    </button>
+                    </motion.button>
                 </div>
-            </div>
+            </motion.div>
 
             {/* Mobile Search */}
             <div className="md:hidden w-full ">
                 {/* Collapsed Mobile Search Button */}
-                {!isMobileSearchExpanded && (
-                    <button 
-                        onClick={toggleMobileSearch}
-                        className="bg-white rounded-full shadow-md w-full py-3 px-4 flex items-center justify-between"
-                    >
-                        <div className="flex items-center">
-                            <SearchIcon size={16} className="text-gray-500 mr-2" />
-                            <span className="text-sm text-gray-500">Search location, property type...</span>
-                        </div>
-                        <Sliders size={16} className="text-gray-500" />
-                    </button>
-                )}
+                <AnimatePresence mode="wait">
+                    {!isMobileSearchExpanded && (
+                        <motion.button 
+                            onClick={toggleMobileSearch}
+                            className="bg-white rounded-full shadow-md w-full py-3 px-4 flex items-center justify-between"
+                            variants={searchContainerVariants}
+                            initial="hidden"
+                            animate="visible"
+                            exit={{ opacity: 0, y: -20, transition: { duration: 0.2 } }}
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                        >
+                            <div className="flex items-center">
+                                <SearchIcon size={16} className="text-gray-500 mr-2" />
+                                <span className="text-sm text-gray-500">Search location, property type...</span>
+                            </div>
+                            <Sliders size={16} className="text-gray-500" />
+                        </motion.button>
+                    )}
+                </AnimatePresence>
 
                 {/* Expanded Mobile Search Form */}
-                {isMobileSearchExpanded && (
-                    <div className="bg-white rounded-lg shadow-md w-full p-4">
-                        <div className="flex justify-between items-center mb-4">
-                            <h3 className="font-medium">Search Properties</h3>
-                            <button onClick={toggleMobileSearch}>
-                                <X size={20} className="text-gray-500" />
-                            </button>
-                        </div>
-
-                        {/* Property Type Selection */}
-                        <div className="mb-4">
-                            <label className="text-xs text-gray-500 mb-1 block text-left">Property Type</label>
-                            <div className="relative">
-                                <button 
-                                    className="w-full text-left flex items-center justify-between border text-[#0A2F1E] border-gray-200 rounded-lg p-3"
-                                    onClick={() => setIsTypeDropdownOpen(!isTypeDropdownOpen)}
+                <AnimatePresence>
+                    {isMobileSearchExpanded && (
+                        <motion.div 
+                            className="bg-white rounded-lg shadow-md w-full p-4"
+                            variants={mobileExpandVariants}
+                            initial="hidden"
+                            animate="visible"
+                            exit="exit"
+                        >
+                            <div className="flex justify-between items-center mb-4">
+                                <motion.h3 
+                                    className="font-medium"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1, transition: { delay: 0.2 } }}
                                 >
-                                    <span className="text-sm">{propertyType}</span>
-                                    <ChevronDown size={16} className="text-gray-500" />
-                                </button>
-                                
-                                {isTypeDropdownOpen && (
-                                    <div className="absolute top-full left-0 mt-1 w-full bg-white rounded-lg border border-gray-200 shadow-lg z-10">
-                                        <div 
-                                            className="px-3 py-2 hover:bg-gray-100 text-[#0A2F1E] cursor-pointer text-sm"
-                                            onClick={() => {
-                                                setPropertyType('All type');
-                                                setIsTypeDropdownOpen(false);
-                                            }}
+                                    Search Properties
+                                </motion.h3>
+                                <motion.button 
+                                    onClick={toggleMobileSearch}
+                                    whileHover={{ scale: 1.1 }}
+                                    whileTap={{ scale: 0.9 }}
+                                >
+                                    <X size={20} className="text-gray-500" />
+                                </motion.button>
+                            </div>
+
+                            {/* Property Type Selection */}
+                            <motion.div 
+                                className="mb-4"
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ 
+                                    opacity: 1, 
+                                    y: 0, 
+                                    transition: { delay: 0.3 } 
+                                }}
+                            >
+                                <label className="text-xs text-gray-500 mb-1 block text-left">Property Type</label>
+                                <div className="relative">
+                                    <motion.button 
+                                        className="w-full text-left flex items-center justify-between border text-[#0A2F1E] border-gray-200 rounded-lg p-3"
+                                        onClick={() => setIsTypeDropdownOpen(!isTypeDropdownOpen)}
+                                        whileHover={{ backgroundColor: "#f7f7f7" }}
+                                    >
+                                        <span className="text-sm">{propertyType}</span>
+                                        <motion.div
+                                            animate={{ rotate: isTypeDropdownOpen ? 180 : 0 }}
+                                            transition={{ duration: 0.3 }}
                                         >
-                                            All type
-                                        </div>
-                                        {Object.entries(propertyTypes).map(([key, value]) => (
-                                            <div 
-                                                key={key}
-                                                className="px-3 py-2 hover:bg-gray-100 text-[#0A2F1E] cursor-pointer text-sm"
-                                                onClick={() => {
-                                                    setPropertyType(value);
-                                                    setIsTypeDropdownOpen(false);
-                                                }}
+                                            <ChevronDown size={16} className="text-gray-500" />
+                                        </motion.div>
+                                    </motion.button>
+                                    
+                                    <AnimatePresence>
+                                        {isTypeDropdownOpen && (
+                                            <motion.div 
+                                                className="absolute top-full left-0 mt-1 w-full bg-white rounded-lg border border-gray-200 shadow-lg z-10"
+                                                variants={dropdownVariants}
+                                                initial="hidden"
+                                                animate="visible"
+                                                exit="exit"
                                             >
-                                                {value}
-                                            </div>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
-                        </div>
+                                                <div 
+                                                    className="px-3 py-2 hover:bg-gray-100 text-[#0A2F1E] cursor-pointer text-sm"
+                                                    onClick={() => {
+                                                        setPropertyType('All type');
+                                                        setIsTypeDropdownOpen(false);
+                                                    }}
+                                                >
+                                                    All type
+                                                </div>
+                                                {Object.entries(propertyTypes).map(([key, value]) => (
+                                                    <motion.div 
+                                                        key={key}
+                                                        className="px-3 py-2 hover:bg-gray-100 text-[#0A2F1E] cursor-pointer text-sm"
+                                                        whileHover={{ backgroundColor: "#f0f0f0" }}
+                                                        onClick={() => {
+                                                            setPropertyType(value);
+                                                            setIsTypeDropdownOpen(false);
+                                                        }}
+                                                    >
+                                                        {value}
+                                                    </motion.div>
+                                                ))}
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
+                            </motion.div>
 
-                        {/* Location Input */}
-                        <div className="mb-4">
-                            <label className="text-xs text-gray-500 mb-1 block text-left">Location</label>
-                            <div className="flex items-center border border-gray-200 rounded-lg p-3">
-                                <input
-                                    type="text"
-                                    placeholder="Search Location"
-                                    className="w-full outline-none text-sm text-[#0A2F1E] placeholder:text-[#0A2F1E]"
-                                    value={location}
-                                    onChange={(e) => setLocation(e.target.value)}
-                                />
-                                <Locate size={16} className="text-gray-500" />
-                            </div>
-                        </div>
+                            {/* Location Input */}
+                            <motion.div 
+                                className="mb-4"
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ 
+                                    opacity: 1, 
+                                    y: 0, 
+                                    transition: { delay: 0.4 } 
+                                }}
+                            >
+                                <label className="text-xs text-gray-500 mb-1 block text-left">Location</label>
+                                <motion.div 
+                                    className="flex items-center border border-gray-200 rounded-lg p-3"
+                                    whileHover={{ borderColor: "#0A2F1E" }}
+                                >
+                                    <input
+                                        type="text"
+                                        placeholder="Search Location"
+                                        className="w-full outline-none text-sm text-[#0A2F1E] placeholder:text-[#0A2F1E]"
+                                        value={location}
+                                        onChange={(e) => setLocation(e.target.value)}
+                                    />
+                                    <motion.div
+                                        whileHover={{ scale: 1.1 }}
+                                        whileTap={{ scale: 0.9 }}
+                                    >
+                                        <Locate size={16} className="text-gray-500" />
+                                    </motion.div>
+                                </motion.div>
+                            </motion.div>
 
-                        {/* Advanced Search Link */}
-                        <div className="mb-4">
-                            <button className="w-full flex items-center justify-center gap-2 border border-gray-200 rounded-lg p-3">
-                                <span className="text-sm text-gray-700">Advanced Search</span>
-                                <Sliders size={14} className="text-gray-700" />
-                            </button>
-                        </div>
+                            {/* Advanced Search Link */}
+                            <motion.div 
+                                className="mb-4"
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ 
+                                    opacity: 1, 
+                                    y: 0, 
+                                    transition: { delay: 0.5 } 
+                                }}
+                            >
+                                <motion.button 
+                                    className="w-full flex items-center justify-center gap-2 border border-gray-200 rounded-lg p-3"
+                                    whileHover={{ backgroundColor: "#f7f7f7" }}
+                                    whileTap={{ scale: 0.98 }}
+                                >
+                                    <span className="text-sm text-gray-700">Advanced Search</span>
+                                    <Sliders size={14} className="text-gray-700" />
+                                </motion.button>
+                            </motion.div>
 
-                        {/* Search Button */}
-                        <button 
-                         onClick={handleSearch}
-                         className="w-full bg-[#0A2F1E] text-white flex items-center justify-center gap-2 rounded-lg p-3">
-                            <span>Search</span>
-                            <SearchIcon size={16} />
-                        </button>
-                    </div>
-                )}
+                            {/* Search Button */}
+                            <motion.button 
+                                onClick={handleSearch}
+                                className="w-full bg-[#0A2F1E] text-white flex items-center justify-center gap-2 rounded-lg p-3"
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ 
+                                    opacity: 1, 
+                                    y: 0, 
+                                    transition: { delay: 0.6 } 
+                                }}
+                                whileHover={{ scale: 1.02, backgroundColor: "#0D3B27" }}
+                                whileTap={{ scale: 0.98 }}
+                            >
+                                <span>Search</span>
+                                <SearchIcon size={16} />
+                            </motion.button>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
         </div>
     )

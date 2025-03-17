@@ -1,14 +1,70 @@
-import React from 'react'
+"use client";
+import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import TestimonialSlider from './testimonials/TestimonialSlider'
 
 const Testimonials = () => {
+  const sectionRef = useRef(null);
+    const [inView, setInView] = useState(false);
+  
+     useEffect(() => {
+        document.body.style.overflowX = 'hidden'; 
+        return () => {
+          document.body.style.overflowX = 'auto';
+        };
+      }, []);
+    
+      useEffect(() => {
+        const observer = new IntersectionObserver(
+          ([entry]) => {
+            if (entry.isIntersecting) {
+              setInView(true);
+            }
+          },
+          { threshold: 0.1 }
+        );
+    
+        if (sectionRef.current) {
+          observer.observe(sectionRef.current);
+        }
+    
+        return () => {
+          if (sectionRef.current) {
+            observer.unobserve(sectionRef.current);
+          }
+        };
+      }, []);
+  
+      const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+          opacity: 1,
+          transition: {
+            staggerChildren: 0.1,
+            delayChildren: 0.2
+          },
+        },
+      };
+
   return (
-    <section className="md:px-[130px] py-8 px-5 md:py-15 bg-[#F3F7FD]">
-        <article className="text-center mb-7 md:px-12">
-            <span className="uppercase text-[#0A2F1E] text-[12px]">Our Testimonials</span>
-            <h2 className="text-2xl font-bold text-[#161E2D] mb-5">What’s people say’s</h2>
-            <p className='text-sm text-[#5C6368]'>Our seasoned team excels in real estate with years of successful market navigation, offering informed decisions and optimal results.</p>
-        </article>
+    <section ref={sectionRef} className="md:px-[130px] py-8 px-5 md:py-15 bg-[#F3F7FD]">
+        <motion.article variants={containerVariants} className="text-center mb-7 md:px-12">
+            <motion.span
+             initial={{ opacity: 0, y: -50 }}
+             animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : -50 }}
+             transition={{ duration: 0.5 }}
+             className="uppercase text-[#0A2F1E] text-[12px]">Our Testimonials</motion.span>
+            <motion.h2
+             initial={{ opacity: 0, y: -50 }}
+             animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : -50 }}
+             transition={{ duration: 0.6 }}
+             className="text-2xl font-bold text-[#161E2D] mb-5">What’s people say’s</motion.h2>
+            <motion.p
+             initial={{ opacity: 0, y: -50 }}
+             animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : -50 }}
+             transition={{ duration: 0.7 }}
+             className='text-sm text-[#5C6368]'>Our seasoned team excels in real estate with years of successful market navigation, offering informed decisions and optimal results.</motion.p>
+        </motion.article>
         <TestimonialSlider />
     </section>
   )
