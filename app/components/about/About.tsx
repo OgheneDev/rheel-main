@@ -62,19 +62,12 @@ const About = () => {
                 <li>Accountability – We take full responsibility for every transaction, providing accurate, well-documented records and keeping our clients informed throughout.</li>
             </ul>
         </article>
-        <div className='flex items-start flex-col md:flex-row mb-5'>
+        <div className='flex items-start md:justify-center flex-col md:flex-row mb-5'>
             <Image
              alt="Core Values"
              src='/images/values.png'
              height={200}
              width={500}
-            />
-            <Image
-             alt="About"
-             src='/images/about.png'
-             height={100}
-             width={500}
-             className="h-[380px]"
             />
         </div>
         <div className="text-center mb-5">
