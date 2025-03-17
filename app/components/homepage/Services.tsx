@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import ServicesList from "./services/ServicesList"
+import ServicesListSlider from "./services/ServicesList"
 import { motion } from "framer-motion";
 
 const Services = () => {
@@ -62,7 +62,7 @@ const Services = () => {
              transition={{ duration: 0.6 }}
             className="text-2xl font-bold text-[#161E2D]">What We Do?</motion.h2>
         </motion.article>
-        <ServicesList />
+        <ServicesListSlider />
     </section>
   )
 }

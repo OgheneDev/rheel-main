@@ -3,258 +3,279 @@ import { useState, useEffect, useRef } from "react";
 import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion } from "framer-motion";
 
 interface Service {
   id: number;
   title: string;
   description: string;
   icon: string;
-}
+} 
 
-const ServicesList: React.FC = () => {
+const ServicesListSlider: React.FC = () => {
   // Defining an array of services with proper TypeScript typing
   const servicesData: Service[] = [
     {
       id: 1,
-      title: 'Buy A New Home',
-      description: 'Discover your dream home effortlessly. Explore diverse properties and expert guidance for a seamless buying experience.',
-      icon: 'https://res.cloudinary.com/dgc8cd67w/image/upload/v1742059912/purchase_sjc66b.png'
+      title: 'Investment Services',
+      description: 'Our investment services help clients grow wealth through strategic real estate opportunities.',
+      icon: 'https://res.cloudinary.com/dgc8cd67w/image/upload/v1742253791/invest_pjjpth.png'
     },
     {
       id: 2,
       title: 'Sell A Home',
-      description: 'Sell confidently with expert guidance and effective strategies, showcasing your property`s best features for a successful sale.',
+      description: 'We assist buyers and sellers in navigating the real estate market with confidence.',
       icon: 'https://res.cloudinary.com/dgc8cd67w/image/upload/v1742059912/sales_u24c59.png'
     },
     {
       id: 3,
       title: 'Rent A Home',
-      description: 'Discover your perfect rental effortlessly. Explore a diverse variety of listings tailored precisely to suit your unique lifestyle needs.',
+      description: 'We help landlords and tenants find the right match for their rental needs.',
       icon: 'https://res.cloudinary.com/dgc8cd67w/image/upload/v1742059912/lease_qkt3jn.png'
+    },
+    {
+      id: 4,
+      title: 'Facilities Management',
+      description: 'We offer end-to-end property management services to ensure properties remain in top condition and generate consistent income.',
+      icon: 'https://res.cloudinary.com/dgc8cd67w/image/upload/v1742253791/facilities_h2ttr8.png'
+    },
+    {
+      id: 5,
+      title: 'Interior Finishing & Handover Service',
+      description: 'Many property developers in Nigeria deliver partially finished homes, completing only the exterior while leaving the interior for buyers to customize.',
+      icon: 'https://res.cloudinary.com/dgc8cd67w/image/upload/v1742253791/interior_nfa94i.png'
+    },
+    {
+      id: 6,
+      title: 'Purchase Assistance',
+      description: 'Many Nigerians in the diaspora have lost millions to unreliable family members who mismanage or squander funds meant for home construction.',
+      icon: 'https://res.cloudinary.com/dgc8cd67w/image/upload/v1742059912/purchase_sjc66b.png'
+    },
+    {
+      id: 7,
+      title: 'Construction & Project Management',
+      description: 'Many Nigerians in the diaspora have lost millions to unreliable family members who mismanage or squander funds meant for home construction.',
+      icon: 'https://res.cloudinary.com/dgc8cd67w/image/upload/v1742253791/construction_jlkzg2.png'
     }
   ];
 
-  const sectionRef = useRef(null);
-  const [inView, setInView] = useState(false);
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-
-  useEffect(() => {
-    document.body.style.overflowX = 'hidden';
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(true);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
+  const sliderRef = useRef<HTMLDivElement>(null);
+  
+  // Number of items per view based on screen size
+  const itemsPerView = isMobile ? 1 : 4;
+  
+  // Calculate total number of slides
+  const totalSlides = Math.max(1, Math.ceil(servicesData.length / itemsPerView));
+  
+  // Create properly grouped services for current view
+  const getGroupedServices = () => {
+    const result = [];
+    // Create a padded version of services to handle edge cases
+    let paddedServices = [...servicesData];
     
-    return () => {
-      document.body.style.overflowX = 'auto';
-    };
-  }, []);
-        
+    // If we need to pad the last group
+    const remainder = servicesData.length % itemsPerView;
+    if (remainder > 0 && remainder < itemsPerView) {
+      const servicesToAdd = itemsPerView - remainder;
+      paddedServices = [...paddedServices, ...servicesData.slice(0, servicesToAdd)];
+    }
+    
+    // Group services based on itemsPerView
+    for (let i = 0; i < paddedServices.length; i += itemsPerView) {
+      result.push(paddedServices.slice(i, i + itemsPerView));
+    }
+    
+    return result;
+  };
+  
+  // Check if mobile on mount and window resize
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-        
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-        
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+    const checkMobile = () => {
+      const wasMobile = isMobile;
+      const newIsMobile = window.innerWidth < 768;
+      setIsMobile(newIsMobile);
+      
+      // Reset to first slide when switching between mobile and desktop
+      if (wasMobile !== newIsMobile) {
+        setCurrentIndex(0);
+        setIsTransitioning(false);
       }
     };
-  }, []);
-      
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3
-      },
-    },
+    
+    // Initial check
+    checkMobile();
+    
+    // Add resize listener
+    window.addEventListener('resize', checkMobile);
+    
+    // Cleanup
+    return () => window.removeEventListener('resize', checkMobile);
+  }, [isMobile]);
+
+  // Handle slide change
+  const handleSlideChange = (index: number) => {
+    setIsTransitioning(true);
+    setCurrentIndex(index);
   };
-        
-  const cardVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: (index: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        stiffness: 80,
-        damping: 15,
-        delay: index * 0.2
-      }
-    }),
-    hover: {
-      y: -15,
-      transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 15
-      }
+
+  // Handle the transition ending
+  const handleTransitionEnd = () => {
+    setIsTransitioning(false);
+  };
+
+  // Navigation handlers
+  const nextSlide = () => {
+    if (isTransitioning) return;
+    
+    const nextIndex = (currentIndex + 1) % totalSlides;
+    handleSlideChange(nextIndex);
+  };
+  
+  const prevSlide = () => {
+    if (isTransitioning) return;
+    
+    const prevIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+    handleSlideChange(prevIndex);
+  };
+
+  // Touch handlers for swipe
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStart - touchEnd > 50) {
+      // Swipe left
+      nextSlide();
+    }
+
+    if (touchStart - touchEnd < -50) {
+      // Swipe right
+      prevSlide();
     }
   };
 
-  const imageVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: { 
-        type: "spring", 
-        stiffness: 100, 
-        delay: 0.2,
-        duration: 0.5
-      }
-    },
-    hover: {
-      scale: 1.1,
-      rotate: [0, -5, 5, -5, 0],
-      transition: {
-        duration: 0.6,
-        ease: "easeInOut"
-      }
-    }
-  };
-
-  const textVariants = {
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { 
-        duration: 0.5, 
-        delay: 0.3 
-      }
-    },
-    hidden: { 
-      opacity: 0, 
-      y: 20 
-    }
-  };
-
-  const buttonVariants = {
-    hidden: { 
-      opacity: 0, 
-      scale: 0.8 
-    },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: { 
-        type: "spring", 
-        stiffness: 100, 
-        delay: 0.4
-      }
-    },
-    hover: {
-      scale: 1.05,
-      backgroundColor: "#0A2F1E",
-      color: "white",
-      borderColor: "#0A2F1E",
-      transition: {
-        duration: 0.2,
-        ease: "easeInOut"
-      }
-    },
-    tap: {
-      scale: 0.95
-    }
-  };
-
-  const arrowVariants = {
-    hidden: { x: -5 },
-    hover: {
-      x: 5,
-      transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 10,
-        repeat: Infinity,
-        repeatType: "reverse" as const,
-        duration: 0.5
-      }
-    }
-  };
+  // Get grouped services
+  const groupedServices = getGroupedServices();
 
   return (
-    <section ref={sectionRef} className="py-10">
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate={inView ? 'visible' : 'hidden'}
-        className="services-container flex flex-col md:flex-row gap-7 px-4 md:px-0"
-      >
-        {servicesData.map((service, index) => (
-          <motion.div 
-            key={service.id} 
-            custom={index}
-            variants={cardVariants}
-            whileHover="hover"
-            onHoverStart={() => setHoveredCard(service.id)}
-            onHoverEnd={() => setHoveredCard(null)}
-            className="service-card cursor-pointer bg-white border border-[#E4E4E4] text-center shadow-md space-y-5 px-5 py-10 rounded-lg flex-1 relative overflow-hidden"
+    <section className="py-10">
+      <div className="w-full max-w-6xl mx-auto overflow-hidden rounded-lg">
+        {/* Slider container */}
+        <div 
+          ref={sliderRef}
+          className="relative overflow-hidden"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          {/* Slider track */}
+          <div 
+            className="flex transition-transform duration-700 ease-in-out"
+            style={{ 
+              transform: `translateX(-${currentIndex * 100 / groupedServices.length}%)`,
+              width: `${groupedServices.length * 100}%`
+            }}
+            onTransitionEnd={handleTransitionEnd}
           >
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-b from-transparent to-[#f8faf9] opacity-0"
-              animate={{
-                opacity: hoveredCard === service.id ? 0.2 : 0
-              }}
-              transition={{ duration: 0.3 }}
-            />
-            
-            <motion.div
-              variants={imageVariants}
-              className="relative z-10"
-            >
-              <Image 
-                src={service.icon} 
-                alt={service.title} 
-                width={200} 
-                height={200} 
-                className='mx-auto' 
-              />
-            </motion.div>
-            
-            <motion.h3 
-              variants={textVariants}
-              className='text-[#161E2D] font-bold text-xl'
-            >
-              {service.title}
-            </motion.h3>
-            
-            <motion.p 
-              variants={textVariants}
-              className='text-sm text-[#5C6368]'
-            >
-              {service.description}
-            </motion.p>
-            
-            <motion.div >
-              <Link href='/services'>
-                <motion.button 
-                  whileHover="hover"
-                  whileTap="tap"
-                  variants={buttonVariants}
-                  className='flex gap-2  items-center mx-auto cursor-pointer bg-white border hover:bg-[#0A2F1E] hover:border-none hover:text-white transition-colors border-[#0A2F1E] text-[#0A2F1E] rounded-full py-2 px-10'
-                >
-                  Learn More
-                  <motion.div variants={arrowVariants}>
-                    <ArrowRight size={20} />
-                  </motion.div>
-                </motion.button>
-              </Link>
-            </motion.div>
-          </motion.div>
+            {groupedServices.map((group, groupIndex) => (
+              <div 
+                key={groupIndex}
+                className="flex"
+                style={{ width: `${100 / groupedServices.length}%` }}
+              >
+                {group.map((service, index) => (
+                  <div 
+                    key={`${groupIndex}-${index}`}
+                    className="px-2"
+                    style={{ width: `${100 / itemsPerView}%` }}
+                  >
+                    <div className="service-card bg-white border border-[#E4E4E4] text-center shadow-md space-y-5 px-5 py-10 rounded-lg h-full flex flex-col">
+                      <div className="relative">
+                        {service.icon && (
+                          <Image 
+                            src={service.icon} 
+                            alt={service.title} 
+                            width={200} 
+                            height={200} 
+                            className='mx-auto' 
+                          />
+                        )}
+                      </div>
+                      
+                      <h3 className='text-[#161E2D] font-bold text-xl'>
+                        {service.title}
+                      </h3>
+                      
+                      <p className='text-sm text-[#5C6368] flex-grow'>
+                        {service.description}
+                      </p>
+                      
+                      <div>
+                        <Link href='/services'>
+                          <button 
+                            className='flex gap-2 items-center mx-auto cursor-pointer bg-white border hover:bg-[#0A2F1E] hover:border-none hover:text-white transition-colors border-[#0A2F1E] text-[#0A2F1E] rounded-full py-2 px-10'
+                          >
+                            Learn More
+                            <ArrowRight size={20} />
+                          </button>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+          
+          {/* Navigation arrows */}
+          <button 
+            onClick={prevSlide}
+            className="absolute cursor-pointer left-2 top-1/2 transform -translate-y-1/2 p-2 rounded-full bg-white/70 hover:bg-white/90 transition-colors shadow-md z-10"
+            aria-label="Previous services"
+            disabled={isTransitioning}
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          
+          <button 
+            onClick={nextSlide}
+            className="absolute cursor-pointer right-2 top-1/2 transform -translate-y-1/2 p-2 rounded-full bg-white/70 hover:bg-white/90 transition-colors shadow-md z-10"
+            aria-label="Next services"
+            disabled={isTransitioning}
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      {/* Indicators */}
+      <div className="flex justify-center mt-4 pb-2">
+        {Array.from({ length: totalSlides }).map((_, index) => (
+          <button
+            key={index}
+            onClick={() => handleSlideChange(index)}
+            className={`w-1 h-1 mx-1 rounded-full transition-all ${
+              currentIndex === index ? 'bg-[#0A2F1E] ring ring-[#165c3b] ring-opacity-50' : 'bg-gray-300'
+            }`}
+            aria-label={`Go to service slide ${index + 1}`}
+            disabled={isTransitioning}
+          />
         ))}
-      </motion.div>
+      </div>
     </section>
   );
 };
 
-export default ServicesList;
+export default ServicesListSlider;

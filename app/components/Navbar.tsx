@@ -31,6 +31,7 @@ const Navbar = () => {
     }
 
     const navItems = [
+        { name: 'Home', path: '/'},
         { name: 'About', path: '/about' },
         { name: 'Properties', path: '#', onClick: scrollToProperties },
         { name: 'Services', path: '/services' },
