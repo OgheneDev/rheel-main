@@ -14,10 +14,64 @@ const TeamList: React.FC = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isMobile, setIsMobile] = useState(true);
     const [isTransitioning, setIsTransitioning] = useState(false);
-    const [autoScrollPaused, setAutoScrollPaused] = useState(false);
     const [touchStart, setTouchStart] = useState(0);
     const [touchEnd, setTouchEnd] = useState(0);
     const sliderRef = useRef<HTMLDivElement>(null);
+    const [inView, setInView] = useState(false);
+    const sectionRef = useRef(null);
+
+    // Add in-view detection
+    useEffect(() => {
+        document.body.style.overflowX = 'hidden';
+        return () => {
+            document.body.style.overflowX = 'auto';
+        };
+    }, []);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setInView(true);
+                }
+            },
+            { threshold: 0.1 }
+        );
+
+        if (sectionRef.current) {
+            observer.observe(sectionRef.current);
+        }
+
+        return () => {
+            if (sectionRef.current) {
+                observer.unobserve(sectionRef.current);
+            }
+        };
+    }, []);
+
+    // Animation variants
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1,
+                delayChildren: 0.2
+            },
+        },
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { 
+            opacity: 1, 
+            y: 0,
+            transition: {
+                type: "spring",
+                stiffness: 100
+            }
+        },
+    };
 
     const teamData: Team[] = [
         {
@@ -113,22 +167,8 @@ const TeamList: React.FC = () => {
         handleSlideChange(prevIndex);
     };
 
-    // Auto-scroll functionality
-    useEffect(() => {
-        if (autoScrollPaused) return;
-        
-        const interval = setInterval(() => {
-            if (!isTransitioning) {
-                nextSlide();
-            }
-        }, 5000);
-        
-        return () => clearInterval(interval);
-    }, [currentIndex, isTransitioning, autoScrollPaused]);
-
     // Touch handlers
     const handleTouchStart = (e: React.TouchEvent) => {
-        setAutoScrollPaused(true);
         setTouchStart(e.targetTouches[0].clientX);
     };
 
@@ -139,21 +179,22 @@ const TeamList: React.FC = () => {
     const handleTouchEnd = () => {
         if (touchStart - touchEnd > 50) nextSlide();
         if (touchStart - touchEnd < -50) prevSlide();
-        setTimeout(() => setAutoScrollPaused(false), 1000);
     };
 
-    // Mouse handlers
-    const handleMouseEnter = () => setAutoScrollPaused(true);
-    const handleMouseLeave = () => setAutoScrollPaused(false);
+
 
     const groupedTeam = getGroupedTeam();
 
     return (
-        <section className="py-10">
-            <div 
+        <section 
+            ref={sectionRef}
+            className=""
+        >
+            <motion.div 
                 className="w-full max-w-6xl mx-auto overflow-hidden"
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
+                variants={containerVariants}
+                initial="hidden"
+                animate={inView ? 'visible' : 'hidden'}
             >
                 <div 
                     ref={sliderRef}
@@ -244,12 +285,12 @@ const TeamList: React.FC = () => {
                         aria-label="Next team member"
                         disabled={isTransitioning}
                     >
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
                     </button>
                 </div>
-            </div>
+            </motion.div>
         </section>
     );
 };

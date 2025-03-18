@@ -40,8 +40,6 @@ const testimonials: Testimonial[] = [
 ];
 
 
-
-
 const createSlidingTestimonials = (items: Testimonial[], itemsPerView: number) => {
 
   let result = [...items];

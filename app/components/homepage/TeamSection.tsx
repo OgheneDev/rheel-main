@@ -49,7 +49,7 @@ const TeamSection = () => {
   return (
     <section
     ref={sectionRef}
-    id="team" className="md:px-[150px] py-8 px-5 md:py-15">
+    id="team" className="md:px-[150px] py-8 px-5 md:py-15 md:pb-7">
         <motion.article className="text-center mb-10 ">
             <motion.span
             initial={{ opacity: 0, y: -50 }}

@@ -1,6 +1,8 @@
 'use client'
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
+import { X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface PropertyImageSliderProps {
   images: string[];
@@ -13,7 +15,8 @@ const PropertyImageSlider: React.FC<PropertyImageSliderProps> = ({ images }) => 
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
   const sliderRef = useRef<HTMLDivElement>(null);
-  
+  const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
+
   // Number of items per view based on screen size
   const itemsPerView = isMobile ? 1 : 3;
   
@@ -112,6 +115,17 @@ const PropertyImageSlider: React.FC<PropertyImageSliderProps> = ({ images }) => 
     }
   };
 
+  // Add fullscreen handlers
+  const openFullscreen = (imageUrl: string) => {
+    setFullscreenImage(imageUrl);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeFullscreen = () => {
+    setFullscreenImage(null);
+    document.body.style.overflow = 'auto';
+  };
+
   // Get grouped images
   const groupedImages = getGroupedImages();
 
@@ -156,7 +170,10 @@ const PropertyImageSlider: React.FC<PropertyImageSliderProps> = ({ images }) => 
                     className="px-1 md:px-2"
                     style={{ width: `${100 / itemsPerView}%` }}
                   >
-                    <div className="relative h-64 md:h-80 lg:h-96 w-full">
+                    <div 
+                      className="relative h-64 md:h-80 lg:h-96 w-full cursor-pointer"
+                      onClick={() => openFullscreen(imageUrl)}
+                    >
                       <Image
                         src={imageUrl}
                         alt={`Property image ${groupIndex * itemsPerView + index + 1}`}
@@ -209,6 +226,44 @@ const PropertyImageSlider: React.FC<PropertyImageSliderProps> = ({ images }) => 
           />
         ))}
       </div>
+
+      {/* Fullscreen Modal */}
+      <AnimatePresence>
+        {fullscreenImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center"
+            onClick={closeFullscreen}
+          >
+            <motion.button
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="absolute top-4 right-4 cursor-pointer text-white p-2 rounded-full bg-black/50 hover:bg-black/70"
+              onClick={closeFullscreen}
+            >
+              <X size={24} />
+            </motion.button>
+            <motion.div
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.9 }}
+              className="relative w-[90vw] h-[90vh]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Image
+                src={fullscreenImage}
+                alt="Fullscreen property image"
+                fill
+                className="object-contain"
+                quality={100}
+                priority
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

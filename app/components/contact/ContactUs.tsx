@@ -24,8 +24,8 @@ const ContactUs = () => {
       <div className="mb-6">
         <h3 className="font-semibold text-gray-700 mb-2">Opentime:</h3>
         <p className="text-gray-600">
-          Monday - Friday: 08:00 - 20:00<br />
-          Saturday - Sunday: 10:00 - 18:00
+          Monday - Friday: 09:00 - 17:00<br />
+          Saturday - Sunday: Closed
         </p>
       </div>
 

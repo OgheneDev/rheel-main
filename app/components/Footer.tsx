@@ -95,7 +95,7 @@ const Footer: React.FC = () => {
                 <span className="mr-2">SCUML: 151831336</span>
               </div>
               <div className="flex items-center text-sm">
-                <span className="mr-2">Churchgate tower, CBD, Abuja</span>
+                <span className="mr-2">4th Floor, Churchgate Tower, Plot 473 Constitution Ave, Central Business Dis, Abuja Federal Capital Territory, Nigeria</span>
               </div>
               <div className="flex items-center text-sm">
                 <span className="mr-2">+234(0)8099222223</span>

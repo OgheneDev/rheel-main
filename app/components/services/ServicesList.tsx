@@ -52,6 +52,18 @@ const ServicesList: React.FC = () => {
       format: 'bulleted'
     },
     {
+      icon: '/images/purchase.png',
+      title: 'Purchase Assistance',
+      description: 'Buying a property can be complex, especially for Nigerians living abroad, and sellers who care about keeping their identity confidential. We simplify the process through:',
+      servicesRendered: [
+        'Full transaction representation for absentee buyers or those who prefer to keep identity private',
+        'Step-by-step guidance on legal, financial, and ownership processes',
+        'Flexible payment plans to help clients acquire properties on finance',
+        'Access to exclusive off-market deals for strategic investments'
+      ],
+      format: 'bulleted'
+    },
+    {
       icon: '/images/facilities.png',
       title: 'Facilities Management',
       description: 'We offer end-to-end property management services to ensure properties remain in top condition and generate consistent income:',
@@ -81,18 +93,6 @@ const ServicesList: React.FC = () => {
       conclusion: 'With this service, Rheel Estate represents clients from the beginning of their journey to the moment they step into their completed home.'
     },
     {
-      icon: '/images/purchase.png',
-      title: 'Purchase Assistance',
-      description: 'Buying a property can be complex, especially for Nigerians living abroad, and sellers who care about keeping their identity confidential. We simplify the process through:',
-      servicesRendered: [
-        'Full transaction representation for absentee buyers or those who prefer to keep identity private',
-        'Step-by-step guidance on legal, financial, and ownership processes',
-        'Flexible payment plans to help clients acquire properties on finance',
-        'Access to exclusive off-market deals for strategic investments'
-      ],
-      format: 'bulleted'
-    },
-    {
       icon: '/images/construction.png',
       title: 'Construction & Project Management',
       description: 'Many Nigerians in the diaspora have lost millions to unreliable family members who mismanage or squander funds meant for home construction. At Rheel Estate, we eliminate these risks by offering a trusted, professional project management service.',
@@ -111,17 +111,17 @@ const ServicesList: React.FC = () => {
   const renderServiceContent = (service: ServiceItem): React.ReactNode => {
     if (service.format === 'bulleted' && service.servicesRendered) {
       return (
-        <ul className="list-disc pl-5 text-xs space-y-1">
+        <ol className="list-decimal pl-5 text-xs space-y-1">
           {service.servicesRendered.map((item: string, idx: number) => (
             <li key={idx} className="text-gray-600">{item}</li>
           ))}
-        </ul>
+        </ol>
       );
     } else if (service.numberedList) {
       return (
         <>
           {service.subheading && (
-            <p className="text-xs font-medium mb-1">{service.subheading}</p>
+            <p className="text-xs font-medium mb-3 text-gray-600">{service.subheading}</p>
           )}
           <ol className="list-decimal pl-5 text-xs space-y-1">
             {service.numberedList.map((item: string, idx: number) => (
@@ -138,7 +138,7 @@ const ServicesList: React.FC = () => {
           )}
           
           {service.conclusion && (
-            <p className="text-xs text-gray-500 mt-1 italic leading-tight">{service.conclusion}</p>
+            <p className="text-xs text-gray-600  mt-3  leading-tight">{service.conclusion}</p>
           )}
         </>
       );
@@ -149,16 +149,16 @@ const ServicesList: React.FC = () => {
   return (
     <div className="py-6">
       <div className="container mx-auto px-4">
-        {/* Top row - first 4 services */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-          {servicesData.slice(0, 4).map((service: ServiceItem, index: number) => (
+        {/* Top row - first 3 services */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+          {servicesData.slice(0, 3).map((service: ServiceItem, index: number) => (
             <div 
               key={index} 
               id={`service-${service.title.toLowerCase().replace(/\s+/g, '-')}`}
               className="bg-white rounded-lg border border-gray-100 shadow-sm p-4 flex flex-col"
             >
               <div className="flex justify-center mb-2">
-                <div className="w-16 h-16 relative">
+                <div className="w-25 h-25 relative">
                   <Image 
                     src={service.icon}
                     alt={service.title}
@@ -168,7 +168,7 @@ const ServicesList: React.FC = () => {
                 </div>
               </div>
               
-              <h3 className="text-base font-semibold text-center mb-1">{service.title}</h3>
+              <h3 className="text-base font-semibold text-center mb-3">{service.title}</h3>
               
               <p className="text-xs text-gray-600 mb-2">{service.description}</p>
               
@@ -179,16 +179,16 @@ const ServicesList: React.FC = () => {
           ))}
         </div>
 
-        {/* Bottom row - last 3 services */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {servicesData.slice(4).map((service: ServiceItem, index: number) => (
+        {/* Middle row - next 2 services */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          {servicesData.slice(3, 5).map((service: ServiceItem, index: number) => (
             <div 
-              key={index + 4} 
+              key={index + 3} 
               id={`service-${service.title.toLowerCase().replace(/\s+/g, '-')}`}
               className="bg-white rounded-lg border border-gray-100 shadow-sm p-4 flex flex-col"
             >
               <div className="flex justify-center mb-2">
-                <div className="w-16 h-16 relative">
+                <div className="w-25 h-25 relative">
                   <Image 
                     src={service.icon}
                     alt={service.title}
@@ -198,7 +198,39 @@ const ServicesList: React.FC = () => {
                 </div>
               </div>
               
-              <h3 className="text-base font-semibold text-center mb-1">
+              <h3 className="text-base font-semibold text-center mb-3">
+                {service.title}
+              </h3>
+              
+              <p className="text-xs text-gray-600 mb-2">{service.description}</p>
+              
+              <div className="mt-1">
+                {renderServiceContent(service)}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom row - last 2 services */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {servicesData.slice(5).map((service: ServiceItem, index: number) => (
+            <div 
+              key={index + 5} 
+              id={`service-${service.title.toLowerCase().replace(/\s+/g, '-')}`}
+              className="bg-white rounded-lg border border-gray-100 shadow-sm p-4 flex flex-col"
+            >
+              <div className="flex justify-center mb-2">
+                <div className="w-25 h-25 relative">
+                  <Image 
+                    src={service.icon}
+                    alt={service.title}
+                    layout="fill"
+                    objectFit="contain"
+                  />
+                </div>
+              </div>
+              
+              <h3 className="text-base font-semibold text-center mb-3">
                 {service.title}
               </h3>
               

@@ -52,13 +52,13 @@ const ServicesListSlider: React.FC = () => {
     },
     {
       id: 2,
-      title: 'Sell A Home',
+      title: 'Sales',
       description: 'We assist buyers and sellers in navigating the real estate market with confidence.',
       icon: 'https://res.cloudinary.com/dgc8cd67w/image/upload/v1742059912/sales_u24c59.png'
     },
     {
       id: 3,
-      title: 'Rent A Home',
+      title: 'Lease',
       description: 'We help landlords and tenants find the right match for their rental needs.',
       icon: 'https://res.cloudinary.com/dgc8cd67w/image/upload/v1742059912/lease_qkt3jn.png'
     },

@@ -68,7 +68,7 @@ const MapComponentClient = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                   </div>
-                  <span className="text-sm text-gray-600">Churchgate Tower, CBD, Abuja</span>
+                  <span className="text-sm text-gray-600">4th Floor, Churchgate Tower, Plot 473 Constitution Ave, Central Business Dis, Abuja Federal Capital Territory, Nigeria</span>
                 </div>
                 
                 <div className="flex items-center mb-3">

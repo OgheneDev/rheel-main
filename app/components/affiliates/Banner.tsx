@@ -2,12 +2,11 @@ import React from 'react'
 
 const Banner = () => {
   return (
-    <div className="bg-[url('/images/affiliates-banner.png')] bg-cover bg-center h-[260px] bg-blend-overlay bg-[#185A5199]">
-        <article className='text-white text-center pt-20'>
-            <h3 className='text-2xl md:mb-3 font-bold'>Affiliates</h3>
-            <p>Homes/Affiliates</p>
+    <div className="bg-[url('/images/affiliate-banner.png')] bg-cover bg-center h-[260px] md:h-[500px] flex items-center justify-center bg-black/40 bg-blend-overlay">
+        <article className='text-white'>
+            <h3 className='text-3xl font-bold'>Affiliates</h3>
         </article> 
-    </div>
+    </div> 
   )
 }
 
