@@ -2,13 +2,12 @@ import React from 'react'
 
 const Banner = () => {
   return (
-    <div className="bg-[url('/images/about-banner.png')] bg-cover bg-center h-[260px] bg-blend-overlay bg-black/40">
-        <article className='text-white text-center pt-20'>
-            <h3 className='text-2xl md:mb-3 font-bold'>About Us</h3>
-            <p>Homes/About us</p>
+    <div className="bg-[url('/images/about-banner.jpg')] bg-cover bg-center h-[260px] md:h-[500px] flex items-center justify-center bg-black/40 bg-blend-overlay">
+        <article className='text-white '>
+            <h3 className='text-3xl  font-bold'>About Us</h3>
         </article> 
     </div>
-  )
+  ) 
 }
 
 export default Banner

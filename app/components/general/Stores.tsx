@@ -36,7 +36,8 @@ const Stores = () => {
   }, []);
 
   return (
-    <div ref={sectionRef} className="bg-[#F3F7FD] md:px-[150px] py-8 px-5 md:py-15">
+    <section className="md:px-[150px] px-5 mb-5 md:mb-10">
+      <div ref={sectionRef} className="bg-[#F3F7FD] rounded-lg md:px-[50px] py-8 px-5 ">
       <motion.article 
         initial={{ opacity: 0, y: 50 }} 
         animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -92,6 +93,7 @@ const Stores = () => {
         </a>
       </motion.div>
     </div>
+    </section>
   );
 };
 
