@@ -85,7 +85,7 @@ const PropertyTypeButtons: React.FC<PropertyTypeButtonsProps> = ({ onSelectType 
 
   return (
     <motion.div 
-      className="flex flex-wrap gap-4 justify-center mb-10"
+      className="flex flex-wrap gap-4 md:gap-6 justify-center mb-10"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -97,7 +97,7 @@ const PropertyTypeButtons: React.FC<PropertyTypeButtonsProps> = ({ onSelectType 
         whileTap="tap"
       >
         <motion.button
-          className={`px-6 py-2 rounded-full text-[12px] cursor-pointer relative overflow-hidden
+          className={`px-6 md:px-8 py-2 rounded-full text-[12px] md:text-[14px] cursor-pointer relative overflow-hidden
                     ${selectedType === null ? "bg-[#161E2D] text-white" : "bg-[#F7F7F7] text-[#161E2D]"}`}
           onClick={() => handleClick(null)}
           variants={buttonHoverVariants}

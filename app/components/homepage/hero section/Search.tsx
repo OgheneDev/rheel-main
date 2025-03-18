@@ -1,10 +1,16 @@
 'use client'
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useSearch } from "@/app/context/SearchContext"
 import { propertyTypes } from "@/app/types"
 import { ChevronDown, Search as SearchIcon, Sliders, Locate, X } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
+import { getProperties } from '@/app/api/properties/requests'
+
+interface Property {
+    location: string;
+    // add other property fields as needed
+}
 
 const Search = () => {
     const [activeTab, setActiveTab] = useState('For Sale');
@@ -14,9 +20,34 @@ const Search = () => {
     const [isTypeDropdownOpen, setIsTypeDropdownOpen] = useState(false);
     const [isMobileSearchExpanded, setIsMobileSearchExpanded] = useState(false);
 
+    // Add new state variables
+    const [locations, setLocations] = useState<string[]>([]);
+    const [filteredLocations, setFilteredLocations] = useState<string[]>([]);
+    const [showLocationDropdown, setShowLocationDropdown] = useState(false);
+    const locationInputRef = useRef<HTMLInputElement>(null);
+
     const toggleMobileSearch = () => {
         setIsMobileSearchExpanded(!isMobileSearchExpanded);
     };
+
+    // Fetch properties and extract unique locations
+    // ...existing code...
+useEffect(() => {
+    const fetchLocations = async () => {
+        try {
+            const properties = await getProperties();
+            const uniqueLocations = Array.from(
+                new Set(properties.map((prop: Property) => prop.location))
+            ).filter((location): location is string => Boolean(location));
+            setLocations(uniqueLocations);
+        } catch (error) {
+            console.error('Error fetching locations:', error);
+        }
+    };
+
+    fetchLocations();
+}, []);
+// ...existing code...
 
     // Function to handle tab change
     const handleTabChange = (tab: string) => {
@@ -60,6 +91,39 @@ const Search = () => {
             isSearchActive: true
         });
     };
+
+    // Filter locations based on input
+    const handleLocationInput = (value: string) => {
+        setLocation(value);
+        if (value.length > 0) {
+            const filtered = locations.filter(loc =>
+                loc.toLowerCase().includes(value.toLowerCase())
+            );
+            setFilteredLocations(filtered);
+            setShowLocationDropdown(true);
+        } else {
+            setFilteredLocations([]);
+            setShowLocationDropdown(false);
+        }
+    };
+
+    // Handle location selection
+    const handleLocationSelect = (selectedLocation: string) => {
+        setLocation(selectedLocation);
+        setShowLocationDropdown(false);
+    };
+
+    // Close dropdown when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (locationInputRef.current && !locationInputRef.current.contains(event.target as Node)) {
+                setShowLocationDropdown(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
 
     // Animation variants
     const tabsContainerVariants = {
@@ -233,7 +297,7 @@ const Search = () => {
 
                 {/* Location input */}
                 <div className="w-2/5 border-r border-gray-200 h-full px-6">
-                    <div className="h-full flex flex-col justify-center">
+                    <div className="h-full flex flex-col justify-center relative" ref={locationInputRef}>
                         <div className="text-xs text-gray-500 mb-1 text-left">Location</div>
                         <div className="flex items-center justify-between">
                             <input
@@ -241,7 +305,8 @@ const Search = () => {
                                 placeholder="Search Location"
                                 className="w-full outline-none text-sm text-[#161E2D] placeholder:text-[#161E2D]"
                                 value={location}
-                                onChange={(e) => setLocation(e.target.value)}
+                                onChange={(e) => handleLocationInput(e.target.value)}
+                                onFocus={() => setShowLocationDropdown(true)}
                             />
                             <motion.div 
                                 className="w-6 h-6 flex items-center justify-center"
@@ -251,6 +316,29 @@ const Search = () => {
                                 <Locate className="w-4 h-4" />
                             </motion.div>
                         </div>
+
+                        {/* Location suggestions dropdown */}
+                        <AnimatePresence>
+                            {showLocationDropdown && filteredLocations.length > 0 && (
+                                <motion.div
+                                    className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto"
+                                    initial={{ opacity: 0, y: -10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -10 }}
+                                    transition={{ duration: 0.2 }}
+                                >
+                                    {filteredLocations.map((loc, index) => (
+                                        <div
+                                            key={index}
+                                            className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm text-gray-700"
+                                            onClick={() => handleLocationSelect(loc)}
+                                        >
+                                            {loc}
+                                        </div>
+                                    ))}
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
                 </div>
 
@@ -415,7 +503,7 @@ const Search = () => {
                                         placeholder="Search Location"
                                         className="w-full outline-none text-sm text-[#0A2F1E] placeholder:text-[#0A2F1E]"
                                         value={location}
-                                        onChange={(e) => setLocation(e.target.value)}
+                                        onChange={(e) => handleLocationInput(e.target.value)}
                                     />
                                     <motion.div
                                         whileHover={{ scale: 1.1 }}

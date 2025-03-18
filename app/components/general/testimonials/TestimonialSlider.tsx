@@ -355,7 +355,7 @@ const TestimonialSlider: React.FC = () => {
             <button
               key={index}
               onClick={() => handleSlideChange(index)}
-              className={`w-1 h-1 rounded-full transition-all ${
+              className={`w-1 h-1 rounded-full transition-all cursor-pointer ${
                 currentIndex === index ? 'bg-[#0A2F1E] ' : 'bg-gray-300'
               }`}
               aria-label={`Go to slide ${index + 1}`}
@@ -366,7 +366,7 @@ const TestimonialSlider: React.FC = () => {
         
         <button 
           onClick={nextSlide}
-          className="p-2 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors"
+          className="p-2 rounded-full cursor-pointer bg-gray-200 hover:bg-gray-300 transition-colors"
           aria-label="Next testimonial"
           disabled={isTransitioning}
         >
