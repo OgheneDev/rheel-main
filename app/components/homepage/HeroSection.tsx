@@ -62,7 +62,7 @@ const HeroSection = () => {
   return (
     <section
      ref={sectionRef}
-     className="bg-[url('/images/hero-bg.jpg')] bg-cover bg-center h-screen bg-blend-overlay bg-black/40 text-white px-7 md:px-[130px] py-15 md:pt-30 text-center">
+     className="bg-[url('/images/hero-bg.jpg')] bg-cover bg-center  bg-blend-overlay bg-black/40 text-white px-7 md:px-[130px] py-15 md:py-30 md:pb-34 text-center">
         <motion.article
          variants={containerVariants}
          initial="hidden"
