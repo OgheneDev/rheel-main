@@ -5,12 +5,8 @@ import Image from 'next/image'
 
 const TrustedBy = () => {
     const companyLogos = [
-        '/images/real-estate.png',
-        '/images/tagline.png',
-        '/images/bauhouse.png',
-        '/images/accusaf.png',
-        '/images/company.png',
-        '/images/business.png',
+        'https://res.cloudinary.com/dgc8cd67w/image/upload/v1742326636/WhatsApp_Image_2025-03-18_at_4.12.54_PM_ccp2pp.png',
+        'https://res.cloudinary.com/dgc8cd67w/image/upload/v1742326637/WhatsApp_Image_2025-03-18_at_4.12.55_PM_ayhvpt.png',
     ]
 
     const sectionRef = useRef(null)
@@ -55,7 +51,7 @@ const TrustedBy = () => {
                         animate={inView ? { opacity: 1, scale: 1 } : {}}
                         transition={{ duration: 0.5, delay: index * 0.2 }}
                     >
-                        <Image alt="Logo" src={logo} height={105} width={105} />
+                        <Image alt="Logo" src={logo} height={105} width={105} className='w-auto h-auto flex-1' />
                     </motion.div>
                 ))}
             </div>

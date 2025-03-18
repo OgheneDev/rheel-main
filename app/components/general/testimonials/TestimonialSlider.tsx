@@ -37,62 +37,6 @@ const testimonials: Testimonial[] = [
     rating: 5,
     image: "/testimonial-avatar-7.jpg"
   },
-  {
-    quote: "A truly stress-free experience! Their customer service is excellent, and they respond promptly to all issues.",
-    name: "Ngozi Uche",
-    position: "CEO",
-    company: "Uche Rentals",
-    rating: 5,
-    image: "/testimonial-avatar-8.jpg"
-  },
-  {
-    quote: "I have worked with different property managers, but none come close to their level of professionalism and efficiency.",
-    name: "Tunde Balogun",
-    position: "Property Developer",
-    company: "Balogun Ventures",
-    rating: 5,
-    image: "/testimonial-avatar-9.jpg"
-  },
-  {
-    quote: "Excellent service with a personal touch! Their expertise and dedication make them the best in the business.",
-    name: "Fatima Yusuf",
-    position: "Managing Director",
-    company: "Yusuf Homes",
-    rating: 5,
-    image: "/testimonial-avatar-10.jpg"
-  },
-  {
-    quote: "They have been managing my rental apartments for years, and I couldn’t be more satisfied. Highly professional!",
-    name: "Ifeanyi Eze",
-    position: "Real Estate Agent",
-    company: "Eze & Co.",
-    rating: 5,
-    image: "/testimonial-avatar-11.jpg"
-  },
-  {
-    quote: "Their team is always available and handles tenant concerns with speed and professionalism. Highly recommended!",
-    name: "Abimbola Ajayi",
-    position: "Investor",
-    company: "Ajayi Realty",
-    rating: 5,
-    image: "/testimonial-avatar-12.jpg"
-  },
-  {
-    quote: "The best property management company I have worked with. They always keep me updated and ensure smooth operations.",
-    name: "Olumide Olatunji",
-    position: "Owner",
-    company: "Olatunji Properties",
-    rating: 5,
-    image: "/testimonial-avatar-13.jpg"
-  },
-  {
-    quote: "Professional, responsive, and highly experienced. I always feel confident that my properties are in safe hands.",
-    name: "Chinwe Okeke",
-    position: "Head of Leasing",
-    company: "Okeke Rentals",
-    rating: 5,
-    image: "/testimonial-avatar-14.jpg"
-  }
 ];
 
 
