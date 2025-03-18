@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 import Image from 'next/image';
 
 interface ServiceItem {
@@ -109,10 +109,9 @@ const ServicesList: React.FC = () => {
   ];
 
   const renderServiceContent = (service: ServiceItem): React.ReactNode => {
-
     if (service.format === 'bulleted' && service.servicesRendered) {
       return (
-        <ul className="list-disc pl-5 text-xs sm:text-sm space-y-1">
+        <ul className="list-disc pl-5 text-xs space-y-1">
           {service.servicesRendered.map((item: string, idx: number) => (
             <li key={idx} className="text-gray-600">{item}</li>
           ))}
@@ -122,16 +121,16 @@ const ServicesList: React.FC = () => {
       return (
         <>
           {service.subheading && (
-            <p className="text-xs sm:text-sm font-medium mb-1">{service.subheading}</p>
+            <p className="text-xs font-medium mb-1">{service.subheading}</p>
           )}
-          <ol className="list-decimal pl-5 text-xs sm:text-sm space-y-1">
+          <ol className="list-decimal pl-5 text-xs space-y-1">
             {service.numberedList.map((item: string, idx: number) => (
               <li key={idx} className="text-gray-600">{item}</li>
             ))}
           </ol>
           
           {service.nestedList && (
-            <ul className="list-disc pl-7 text-xs sm:text-sm mt-1 space-y-1">
+            <ul className="list-disc pl-7 text-xs mt-1 space-y-1">
               {service.nestedList.map((item: string, idx: number) => (
                 <li key={idx} className="text-gray-600">{item}</li>
               ))}
@@ -139,7 +138,7 @@ const ServicesList: React.FC = () => {
           )}
           
           {service.conclusion && (
-            <p className="text-xs text-gray-500 mt-2 italic leading-tight">{service.conclusion}</p>
+            <p className="text-xs text-gray-500 mt-1 italic leading-tight">{service.conclusion}</p>
           )}
         </>
       );
@@ -149,12 +148,17 @@ const ServicesList: React.FC = () => {
 
   return (
     <div className="py-6">
-      <div className="container mx-auto px-3">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {servicesData.map((service: ServiceItem, index: number) => (
-            <div key={index} className="bg-white rounded-lg shadow-sm p-4 border border-gray-100 flex flex-col h-full overflow-hidden">
-              <div className="flex justify-center mb-3">
-                <div className="w-16 h-16 sm:w-20 sm:h-20 relative">
+      <div className="container mx-auto px-4">
+        {/* Top row - first 4 services */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+          {servicesData.slice(0, 4).map((service: ServiceItem, index: number) => (
+            <div 
+              key={index} 
+              id={`service-${service.title.toLowerCase().replace(/\s+/g, '-')}`}
+              className="bg-white rounded-lg border border-gray-100 shadow-sm p-4 flex flex-col"
+            >
+              <div className="flex justify-center mb-2">
+                <div className="w-16 h-16 relative">
                   <Image 
                     src={service.icon}
                     alt={service.title}
@@ -164,11 +168,43 @@ const ServicesList: React.FC = () => {
                 </div>
               </div>
               
-              <h3 className="text-base sm:text-lg font-semibold text-center mb-2">{service.title}</h3>
+              <h3 className="text-base font-semibold text-center mb-1">{service.title}</h3>
               
-              <p className="text-xs sm:text-sm text-gray-600 mb-2 line-clamp-3">{service.description}</p>
+              <p className="text-xs text-gray-600 mb-2">{service.description}</p>
               
-              <div className="mt-auto">
+              <div className="mt-1">
+                {renderServiceContent(service)}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom row - last 3 services */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {servicesData.slice(4).map((service: ServiceItem, index: number) => (
+            <div 
+              key={index + 4} 
+              id={`service-${service.title.toLowerCase().replace(/\s+/g, '-')}`}
+              className="bg-white rounded-lg border border-gray-100 shadow-sm p-4 flex flex-col"
+            >
+              <div className="flex justify-center mb-2">
+                <div className="w-16 h-16 relative">
+                  <Image 
+                    src={service.icon}
+                    alt={service.title}
+                    layout="fill"
+                    objectFit="contain"
+                  />
+                </div>
+              </div>
+              
+              <h3 className="text-base font-semibold text-center mb-1">
+                {service.title}
+              </h3>
+              
+              <p className="text-xs text-gray-600 mb-2">{service.description}</p>
+              
+              <div className="mt-1">
                 {renderServiceContent(service)}
               </div>
             </div>

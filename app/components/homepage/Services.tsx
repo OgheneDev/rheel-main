@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import ServicesListSlider from "./services/ServicesList"
+import ServicesListSlider from "./services/ServicesListSlider"
 import { motion } from "framer-motion";
 
 const Services = () => {

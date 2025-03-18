@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { useRouter, usePathname } from 'next/navigation';
 
 interface Service {
   id: number;
@@ -12,6 +12,36 @@ interface Service {
 } 
 
 const ServicesListSlider: React.FC = () => {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleLearnMore = (serviceTitle: string) => {
+    const serviceId = serviceTitle.toLowerCase().replace(/\s+/g, '-');
+    if (pathname === '/services') {
+      // We're on the services page, just scroll to element
+      const element = document.getElementById(`service-${serviceId}`);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    } else {
+      // Navigate to services page with hash
+      router.push(`/services#service-${serviceId}`);
+    }
+  };
+
+  // Add the same effect as in Footer for handling hash navigation
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash && pathname === '/services') {
+      setTimeout(() => {
+        const element = document.getElementById(hash.substring(1));
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 100);
+    }
+  }, [pathname]);
+
   // Defining an array of services with proper TypeScript typing
   const servicesData: Service[] = [
     {
@@ -40,8 +70,8 @@ const ServicesListSlider: React.FC = () => {
     },
     {
       id: 5,
-      title: 'Interior Finishing & Handover Service',
-      description: 'Many property developers in Nigeria deliver partially finished homes, completing only the exterior while leaving the interior for buyers to customize.',
+      title: 'Interior Finishing',
+      description: 'Many property developers deliver partially finished homes, completing only the exterior.',
       icon: 'https://res.cloudinary.com/dgc8cd67w/image/upload/v1742253791/interior_nfa94i.png'
     },
     {
@@ -52,7 +82,7 @@ const ServicesListSlider: React.FC = () => {
     },
     {
       id: 7,
-      title: 'Construction & Project Management',
+      title: 'Project Management',
       description: 'Many Nigerians in the diaspora have lost millions to unreliable family members who mismanage or squander funds meant for home construction.',
       icon: 'https://res.cloudinary.com/dgc8cd67w/image/upload/v1742253791/construction_jlkzg2.png'
     }
@@ -66,7 +96,7 @@ const ServicesListSlider: React.FC = () => {
   const sliderRef = useRef<HTMLDivElement>(null);
   
   // Number of items per view based on screen size
-  const itemsPerView = isMobile ? 1 : 4;
+  const itemsPerView = isMobile ? 1 : 3;
   
   // Calculate total number of slides
   const totalSlides = Math.max(1, Math.ceil(servicesData.length / itemsPerView));
@@ -198,20 +228,20 @@ const ServicesListSlider: React.FC = () => {
                     className="px-2"
                     style={{ width: `${100 / itemsPerView}%` }}
                   >
-                    <div className="service-card bg-white border border-[#E4E4E4] text-center shadow-md space-y-5 px-5 py-10 rounded-lg h-full flex flex-col">
+                    <div className="service-card bg-white border border-[#E4E4E4] text-center shadow-md space-y-5 px-5 py-10 rounded-lg h-[380px] flex flex-col">
                       <div className="relative">
                         {service.icon && (
                           <Image 
                             src={service.icon} 
                             alt={service.title} 
-                            width={200} 
-                            height={200} 
+                            width={150} 
+                            height={150} 
                             className='mx-auto' 
                           />
                         )}
                       </div>
                       
-                      <h3 className='text-[#161E2D] font-bold text-xl'>
+                      <h3 className='text-[#161E2D] font-bold text-lg'>
                         {service.title}
                       </h3>
                       
@@ -220,14 +250,13 @@ const ServicesListSlider: React.FC = () => {
                       </p>
                       
                       <div>
-                        <Link href='/services'>
-                          <button 
-                            className='flex gap-2 items-center mx-auto cursor-pointer bg-white border hover:bg-[#0A2F1E] hover:border-none hover:text-white transition-colors border-[#0A2F1E] text-[#0A2F1E] rounded-full py-2 px-10'
-                          >
-                            Learn More
-                            <ArrowRight size={20} />
-                          </button>
-                        </Link>
+                        <button 
+                          onClick={() => handleLearnMore(service.title)}
+                          className='flex gap-2 items-center mx-auto cursor-pointer bg-white border hover:bg-[#0A2F1E] hover:border-none hover:text-white transition-colors border-[#0A2F1E] text-[#0A2F1E] rounded-full py-2 px-10'
+                        >
+                          Learn More
+                          <ArrowRight size={20} />
+                        </button>
                       </div>
                     </div>
                   </div>
