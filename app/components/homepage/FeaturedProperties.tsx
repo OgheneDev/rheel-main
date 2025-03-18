@@ -52,7 +52,7 @@ const FeaturedProperties = () => {
   return (
     <section
      ref={sectionRef}
-     id="properties-section" className="px-5 md:px-[130px] py-10 md:py-15">
+     id="properties-section" className="px-5 md:px-[150px] py-10 md:py-15">
       <motion.article variants={containerVariants}  className="text-center mb-7">
         <motion.span 
           initial={{ opacity: 0, y: -50 }}

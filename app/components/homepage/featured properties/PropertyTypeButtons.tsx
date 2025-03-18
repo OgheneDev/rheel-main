@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useSearch } from "@/app/context/SearchContext"; // Add this import
 
 interface PropertyTypeButtonsProps {
   onSelectType: (typeId: number | null) => void;
@@ -18,10 +19,19 @@ const PropertyTypeButtons: React.FC<PropertyTypeButtonsProps> = ({ onSelectType 
   };
 
   const [selectedType, setSelectedType] = useState<number | null>(null);
+  const { searchParams, setSearchParams } = useSearch(); // Update this line to get setSearchParams
 
   const handleClick = (id: number | null) => {
     setSelectedType(id);
     onSelectType(id);
+    
+    // Clear search params for any button click
+    setSearchParams({
+      type: '',
+      propertyTypeId: '',
+      location: '',
+      isSearchActive: false
+    });
   };
 
   // Animation variants
@@ -85,7 +95,7 @@ const PropertyTypeButtons: React.FC<PropertyTypeButtonsProps> = ({ onSelectType 
 
   return (
     <motion.div 
-      className="flex flex-wrap gap-4 md:gap-6 justify-center mb-10"
+      className="flex flex-wrap gap-4 md:gap-5 justify-center mb-10"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -98,12 +108,12 @@ const PropertyTypeButtons: React.FC<PropertyTypeButtonsProps> = ({ onSelectType 
       >
         <motion.button
           className={`px-6 md:px-8 py-2 rounded-full text-[12px] md:text-[14px] cursor-pointer relative overflow-hidden
-                    ${selectedType === null ? "bg-[#161E2D] text-white" : "bg-[#F7F7F7] text-[#161E2D]"}`}
+                    ${selectedType === null && !searchParams.isSearchActive ? "bg-[#161E2D] text-white" : "bg-[#F7F7F7] text-[#161E2D]"}`}
           onClick={() => handleClick(null)}
           variants={buttonHoverVariants}
         >
           <AnimatePresence>
-            {selectedType === null && (
+            {selectedType === null && !searchParams.isSearchActive && (
               <motion.span
                 className="absolute inset-0 bg-[#161E2D] -z-10"
                 variants={highlightVariants}

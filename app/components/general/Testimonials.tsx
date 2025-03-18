@@ -47,7 +47,7 @@ const Testimonials = () => {
       };
 
   return (
-    <section ref={sectionRef} className="md:px-[130px] py-8 px-5 md:py-15 bg-[#F3F7FD]">
+    <section ref={sectionRef} className="md:px-[150px] py-8 px-5 md:py-15 bg-[#F3F7FD]">
         <motion.article variants={containerVariants} className="text-center mb-7 md:px-12">
             <motion.span
              initial={{ opacity: 0, y: -50 }}
@@ -58,12 +58,12 @@ const Testimonials = () => {
              initial={{ opacity: 0, y: -50 }}
              animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : -50 }}
              transition={{ duration: 0.6 }}
-             className="text-2xl font-bold text-[#161E2D] mb-5">What’s people say’s</motion.h2>
+             className="text-2xl font-bold text-[#161E2D] mb-3">What’s people say’s</motion.h2>
             <motion.p
              initial={{ opacity: 0, y: -50 }}
              animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : -50 }}
              transition={{ duration: 0.7 }}
-             className='text-sm text-[#5C6368]'>Our seasoned team excels in real estate with years of successful market navigation, offering informed decisions and optimal results.</motion.p>
+             className='text-sm text-[#5C6368] md:px-[200px]'>Our seasoned team excels in real estate with years of successful market navigation, offering informed decisions and optimal results.</motion.p>
         </motion.article>
         <TestimonialSlider />
     </section>

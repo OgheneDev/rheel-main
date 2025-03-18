@@ -45,7 +45,7 @@ const TrustedBy = () => {
     }, [])
 
     return (
-        <div ref={sectionRef} className="md:px-[130px] py-8 px-5 md:py-15">
+        <div ref={sectionRef} className="md:px-[150px] py-8 px-5 md:py-15">
             <h3 className="text-center mb-6 font-bold">Trusted By</h3>
             <div className="flex flex-wrap justify-center gap-5 md:gap-10">
                 {companyLogos.map((logo, index) => (

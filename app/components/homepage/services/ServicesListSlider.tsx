@@ -65,7 +65,7 @@ const ServicesListSlider: React.FC = () => {
     {
       id: 4,
       title: 'Facilities Management',
-      description: 'We offer end-to-end property management services to ensure properties remain in top condition and generate consistent income.',
+      description: 'We offer end-to-end property management services to ensure properties remain in top condition.',
       icon: 'https://res.cloudinary.com/dgc8cd67w/image/upload/v1742253791/facilities_h2ttr8.png'
     },
     {
@@ -77,7 +77,7 @@ const ServicesListSlider: React.FC = () => {
     {
       id: 6,
       title: 'Purchase Assistance',
-      description: 'Many Nigerians in the diaspora have lost millions to unreliable family members who mismanage or squander funds meant for home construction.',
+      description: 'Many Nigerians in the diaspora have lost millions to unreliable family members who mismanage or squander funds.',
       icon: 'https://res.cloudinary.com/dgc8cd67w/image/upload/v1742059912/purchase_sjc66b.png'
     },
     {

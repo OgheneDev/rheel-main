@@ -346,19 +346,19 @@ useEffect(() => {
                 <div className="w-2/5 px-4 flex items-center justify-end space-x-2">
                     {/* Advanced Search button */}
                     <motion.button 
-                        className="flex items-center rounded-full border border-gray-200 px-4 py-2 bg-white"
+                        className="flex items-center cursor-pointer rounded-full border border-gray-200 px-4 py-2 bg-white"
                         variants={buttonHoverVariants}
                         whileHover="hover"
                         whileTap="tap"
                     >
-                        <span className="text-sm text-gray-700 mr-2">Search advanced</span>
+                        <span className="text-sm  text-gray-700 mr-2">Search advanced</span>
                         <Sliders size={14} className="text-gray-700" />
                     </motion.button>
                     
                     {/* Search button */}
                     <motion.button 
                         onClick={handleSearch}
-                        className="bg-[#0A2F1E] text-white flex items-center gap-2 rounded-full px-6 py-2"
+                        className="bg-[#0A2F1E] cursor-pointer text-white flex items-center gap-2 rounded-full px-6 py-2"
                         variants={buttonHoverVariants}
                         whileHover="hover"
                         whileTap="tap"
