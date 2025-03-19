@@ -32,7 +32,7 @@ const PropertyTypeButtons: React.FC<PropertyTypeButtonsProps> = ({ onSelectType 
       location: '',
       isSearchActive: false
     });
-  };
+  }; 
 
   // Animation variants
   const containerVariants = {
