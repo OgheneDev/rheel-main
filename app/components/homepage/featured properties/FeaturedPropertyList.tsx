@@ -64,7 +64,7 @@ const FeaturedPropertyList: React.FC<FeaturedPropertyListProps> = ({ selectedTyp
 
     if (loading) {
         return (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid md:px-[112px] grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {[...Array(6)].map((_, index) => (
                     <PropertyCardSkeleton key={index} />
                 ))}
