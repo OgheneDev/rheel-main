@@ -2,7 +2,7 @@ import React from "react";
 
 const PropertyCardSkeleton = () => {
   return (
-    <div className="relative rounded-lg overflow-hidden border border-[#E4E4E4] bg-white max-w-sm animate-pulse">
+    <div className="relative rounded-lg overflow-hidden border border-[#E4E4E4] bg-white md:w-[330px] animate-pulse">
       {/* Property Image Placeholder */}
       <div className="relative h-48 w-full bg-gray-200"></div>
       

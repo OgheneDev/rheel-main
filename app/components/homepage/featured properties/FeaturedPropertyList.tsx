@@ -64,7 +64,7 @@ const FeaturedPropertyList: React.FC<FeaturedPropertyListProps> = ({ selectedTyp
 
     if (loading) {
         return (
-            <div className="grid md:px-[150px] grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="flex flex-col md:flex-row flex-wrap mx-auto justify-center gap-4 md:max-w-5xl">
                 {[...Array(6)].map((_, index) => (
                     <PropertyCardSkeleton key={index} />
                 ))}
@@ -122,7 +122,7 @@ const FeaturedPropertyList: React.FC<FeaturedPropertyListProps> = ({ selectedTyp
 
     // Modified FeaturedPropertyList component
 return (
-    <div className="w-full md:px-[150px]" id="properties-section">
+    <div className="" id="properties-section">
       {filteredProperties.length === 0 ? (
         <div className="text-center py-12">
           <p className="text-center text-gray-500 text-lg">No properties match your search criteria.</p>
@@ -130,7 +130,7 @@ return (
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-1 md:mx-auto md:grid-cols-3 gap-6">
+          <div className="flex flex-col md:flex-row flex-wrap mx-auto gap-4 md:max-w-5xl">
             {displayedProperties.map(property => (
               <PropertyCard key={property.id} property={property} />
             ))}
