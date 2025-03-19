@@ -121,7 +121,7 @@ const FeaturedPropertyList: React.FC<FeaturedPropertyListProps> = ({ selectedTyp
     const displayedProperties = showAll ? filteredProperties : filteredProperties.slice(0, 6);
 
     return (
-        <div className="container mx-auto" id="properties-section">
+        <div className="container" id="properties-section">
             {filteredProperties.length === 0 ? (
                 <div className="text-center py-12">
                     <p className="text-center text-gray-500 text-lg">No properties match your search criteria.</p>

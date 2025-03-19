@@ -2,7 +2,7 @@
 
 const MissionAndVision = () => {
   return (
-    <div className="flex flex-col md:flex-row gap-5 md:gap-10 justify-center items-center  pb-10">
+    <div className="flex flex-col md:flex-row gap-5 md:gap-10 justify-center items-center md:px-8  pb-10">
         <div id="mission" className="vision space-y-5 flex-1">
             <h3 className="uppercase text-xl font-bold">Our Vision</h3>
             <p className="leading-7.5">Our vision is simple: to be the most trusted and innovative real estate company in Nigeria, recognised for our commitment to delivering high-quality properties at fair prices, ensuring full transparency, and providing unmatched customer service. We aim to make property transactions easier, more accessible, and more reliable for Nigerians at home and abroad</p>

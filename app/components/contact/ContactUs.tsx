@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaFacebookF, FaTwitter, FaPinterestP, FaInstagram, FaYoutube } from 'react-icons/fa';
+import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa';
 
 const ContactUs = () => {
   return (
@@ -9,9 +9,9 @@ const ContactUs = () => {
       <div className="mb-6">
         <h3 className="font-semibold text-gray-700 mb-2">Address:</h3>
         <p className="text-gray-600">
-        Churchgate Tower, CBD, Abuja
+        4th Floor, Churchgate Tower, Plot 473 Constitution Ave, Central Business Dis, Abuja Federal Capital Territory, Nigeria
         </p>
-      </div>
+      </div> 
 
       <div className="mb-6">
         <h3 className="font-semibold text-gray-700 mb-2">Information:</h3>

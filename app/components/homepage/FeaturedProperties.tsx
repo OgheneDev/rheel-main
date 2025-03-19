@@ -49,7 +49,7 @@ const FeaturedProperties = () => {
     };
   
 
-  return (
+  return ( 
     <section
      ref={sectionRef}
      id="properties-section" className="px-5 md:px-[150px] py-10 md:py-15">
