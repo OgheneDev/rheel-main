@@ -88,7 +88,7 @@ const TestimonialSlider: React.FC = () => {
   
   // Check if mobile on mount and window resize
   useEffect(() => {
-    const checkMobile = () => {
+    const checkMobile = () => { 
       const wasMobile = isMobile;
       const newIsMobile = window.innerWidth < 768;
       setIsMobile(newIsMobile);

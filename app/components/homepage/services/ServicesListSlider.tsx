@@ -266,42 +266,44 @@ const ServicesListSlider: React.FC = () => {
           </div>
           
           {/* Navigation arrows */}
-          <button 
-            onClick={prevSlide}
-            className="absolute cursor-pointer left-2 top-1/2 transform -translate-y-1/2 p-2 rounded-full bg-white/70 hover:bg-white/90 transition-colors shadow-md z-10"
-            aria-label="Previous services"
-            disabled={isTransitioning}
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-          
-          <button 
-            onClick={nextSlide}
-            className="absolute cursor-pointer right-2 top-1/2 transform -translate-y-1/2 p-2 rounded-full bg-white/70 hover:bg-white/90 transition-colors shadow-md z-10"
-            aria-label="Next services"
-            disabled={isTransitioning}
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
+          <div className="flex justify-between mt-6">
+            <button 
+              onClick={prevSlide}
+              className="p-2 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors"
+              aria-label="Previous services"
+              disabled={isTransitioning}
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            
+            <div className="flex items-center gap-2">
+              {Array.from({ length: totalSlides }).map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleSlideChange(index)}
+                  className={`w-1 h-1 rounded-full transition-all cursor-pointer ${
+                    currentIndex === index ? 'bg-[#0A2F1E]' : 'bg-gray-300'
+                  }`}
+                  aria-label={`Go to slide ${index + 1}`}
+                  disabled={isTransitioning}
+                />
+              ))}
+            </div>
+            
+            <button 
+              onClick={nextSlide}
+              className="p-2 rounded-full cursor-pointer bg-gray-200 hover:bg-gray-300 transition-colors"
+              aria-label="Next services"
+              disabled={isTransitioning}
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
         </div>
-      </div>
-      {/* Indicators */}
-      <div className="flex justify-center mt-4 pb-2">
-        {Array.from({ length: totalSlides }).map((_, index) => (
-          <button
-            key={index}
-            onClick={() => handleSlideChange(index)}
-            className={`w-1 h-1 mx-1 rounded-full transition-all ${
-              currentIndex === index ? 'bg-[#0A2F1E] ring ring-[#165c3b] ring-opacity-50' : 'bg-gray-300'
-            }`}
-            aria-label={`Go to service slide ${index + 1}`}
-            disabled={isTransitioning}
-          />
-        ))}
       </div>
     </section>
   );
