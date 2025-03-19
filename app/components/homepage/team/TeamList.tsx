@@ -191,20 +191,20 @@ const TeamList: React.FC = () => {
             className=""
         >
             <motion.div 
-                className="w-full max-w-6xl mx-auto overflow-hidden"
+                className="flex flex-col md:flex-row flex-wrap mx-auto px-5 md:px-0 gap-4 md:max-w-5xl overflow-hidden"
                 variants={containerVariants}
                 initial="hidden"
                 animate={inView ? 'visible' : 'hidden'}
             >
                 <div 
                     ref={sliderRef}
-                    className="relative overflow-hidden"
+                    className="relative overflow-hidden w-full"
                     onTouchStart={handleTouchStart}
                     onTouchMove={handleTouchMove}
                     onTouchEnd={handleTouchEnd}
                 >
                     <div 
-                        className="flex transition-transform duration-700 ease-in-out"
+                        className="flex gap-4 transition-transform duration-700 ease-in-out"
                         style={{ 
                             transform: `translateX(-${currentIndex * 100 / groupedTeam.length}%)`,
                             width: `${groupedTeam.length * 100}%`
@@ -214,20 +214,20 @@ const TeamList: React.FC = () => {
                         {groupedTeam.map((group, groupIndex) => (
                             <div 
                                 key={groupIndex}
-                                className="flex"
+                                className="flex gap-4"
                                 style={{ width: `${100 / groupedTeam.length}%` }}
                             >
                                 {group.map((member, index) => (
                                     <div 
                                         key={`${groupIndex}-${index}`}
-                                        className="px-3"
-                                        style={{ width: `${100 / itemsPerView}%` }}
+                                        className="w-full"
+                                        style={{ flex: `0 0 calc(${100 / itemsPerView}% - ${(itemsPerView - 1) * 16 / itemsPerView}px)` }}
                                     >
                                         <motion.div 
+                                            className=""
                                             initial={{ opacity: 0, y: 20 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             transition={{ duration: 0.5 }}
-                                            className='w-full'
                                         >
                                             <Image src={member.icon} alt={member.name} width={200} height={200} className='mb-5 w-full' />
                                             <div className='flex justify-between'>
@@ -253,7 +253,7 @@ const TeamList: React.FC = () => {
                 </div>
 
                 {/* Navigation arrows and indicators */}
-                <div className="flex justify-between mt-6">
+                <div className="flex justify-between mt-6 w-full">
                     <button 
                         onClick={prevSlide}
                         className="p-2 rounded-full cursor-pointer bg-gray-200 hover:bg-gray-300 transition-colors"
@@ -280,15 +280,15 @@ const TeamList: React.FC = () => {
                     </div>
                     
                     <button 
-                        onClick={nextSlide}
-                        className="p-2 rounded-full cursor-pointer bg-gray-200 hover:bg-gray-300 transition-colors"
-                        aria-label="Next team member"
-                        disabled={isTransitioning}
-                    >
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                    </button>
+          onClick={nextSlide}
+          className="p-2 rounded-full cursor-pointer bg-gray-200 hover:bg-gray-300 transition-colors"
+          aria-label="Next testimonial"
+          disabled={isTransitioning}
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
                 </div>
             </motion.div>
         </section>

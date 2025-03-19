@@ -47,7 +47,7 @@ const Testimonials = () => {
       };
 
   return (
-    <section ref={sectionRef} className="md:px-[150px] py-8 px-5 md:py-15 bg-[#F3F7FD]">
+    <section ref={sectionRef} className=" py-8 md:py-15 bg-[#F3F7FD]">
         <motion.article variants={containerVariants} className="text-center mb-7 md:px-12">
             <motion.span
              initial={{ opacity: 0, y: -50 }}

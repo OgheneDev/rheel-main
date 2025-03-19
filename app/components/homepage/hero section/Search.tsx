@@ -238,17 +238,17 @@ useEffect(() => {
 
             {/* Desktop Search container */}
             <motion.div 
-                className="bg-white rounded-full md:flex hidden items-center shadow-md w-full max-w-5xl mx-auto h-16"
+                className="bg-white rounded-full md:flex hidden items-center shadow-md w-[80%] mx-auto h-16 py-3"
                 variants={searchContainerVariants}
                 initial="hidden"
                 animate="visible"
             >
                 {/* Type dropdown */}
-                <div className="w-1/5 border-r border-gray-200 h-full px-6">
+                <div className="w-1/4 border-r border-gray-200 h-full px-6">
                     <div className="h-full flex flex-col justify-center relative" onClick={() => setIsTypeDropdownOpen(!isTypeDropdownOpen)}>
-                        <div className="text-xs text-gray-500 mb-1 text-left">Type</div>
+                        <div className="text-[12px] text-gray-500 mb-1 text-left">Type</div>
                         <div className="flex items-center justify-between cursor-pointer w-full">
-                            <span className="font-normal text-sm text-[#0A2F1E]">{propertyType}</span>
+                            <span className="font-semibold text-[12px] text-[#0A2F1E]">{propertyType}</span>
                             <motion.div
                                 animate={{ rotate: isTypeDropdownOpen ? 180 : 0 }}
                                 transition={{ duration: 0.3 }}
@@ -267,7 +267,7 @@ useEffect(() => {
                                     exit="exit"
                                 >
                                     <div 
-                                        className="px-3 py-2 hover:bg-gray-100 cursor-pointer text-sm text-[#0A2F1E]"
+                                        className="px-3 py-2 hover:bg-gray-100 cursor-pointer text-[12px] text-[#0A2F1E]"
                                         onClick={(e) => {
                                             e.stopPropagation();
                                             setPropertyType('All type');
@@ -279,7 +279,7 @@ useEffect(() => {
                                     {Object.entries(propertyTypes).map(([key, value]) => (
                                         <div 
                                             key={key}
-                                            className="px-3 py-2 hover:bg-gray-100 cursor-pointer text-sm text-[#0A2F1E]"
+                                            className="px-3 py-2 hover:bg-gray-100 cursor-pointer text-[12px] text-[#0A2F1E]"
                                             onClick={(e) => {
                                                 e.stopPropagation();
                                                 setPropertyType(value);
@@ -303,7 +303,7 @@ useEffect(() => {
                             <input
                                 type="text"
                                 placeholder="Search Location"
-                                className="w-full outline-none text-sm text-[#161E2D] placeholder:text-[#161E2D]"
+                                className="w-full outline-none text-sm text-[#161E2D] placeholder:text-[#161E2D] placeholder:font-semibold placeholder:text-[12px]"
                                 value={location}
                                 onChange={(e) => handleLocationInput(e.target.value)}
                                 onFocus={() => setShowLocationDropdown(true)}
@@ -313,7 +313,7 @@ useEffect(() => {
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.9 }}
                             >
-                                <Locate className="w-4 h-4" />
+                                <Locate className="w-4 h-4 text-[#5C6368]" />
                             </motion.div>
                         </div>
 
@@ -343,27 +343,27 @@ useEffect(() => {
                 </div>
 
                 {/* Search buttons */}
-                <div className="w-2/5 px-4 flex items-center justify-end space-x-2">
+                <div className=" px-4  flex items-center justify-end space-x-2">
                     {/* Advanced Search button */}
                     <motion.button 
-                        className="flex items-center cursor-pointer rounded-full border border-gray-200 px-4 py-2 bg-white"
+                        className="flex items-center cursor-pointer rounded-full border border-[#0A2F1E]  px-4 py-2 bg-white"
                         variants={buttonHoverVariants}
                         whileHover="hover"
                         whileTap="tap"
                     >
-                        <span className="text-sm  text-gray-700 mr-2">Search advanced</span>
-                        <Sliders size={14} className="text-gray-700" />
+                        <span className="text-[12px] font-semibold text-[#0A2F1E] mr-2">Search advanced</span>
+                        <Sliders size={14} className="text-[#0A2F1E]" />
                     </motion.button>
                     
                     {/* Search button */}
                     <motion.button 
                         onClick={handleSearch}
-                        className="bg-[#0A2F1E] cursor-pointer text-white flex items-center gap-2 rounded-full px-6 py-2"
+                        className="bg-[#0A2F1E] cursor-pointer text-white flex items-center gap-2 rounded-full px-6  py-2"
                         variants={buttonHoverVariants}
                         whileHover="hover"
                         whileTap="tap"
                     >
-                        <span className="text-sm">Search</span>
+                        <span className="text-[12px]">Search</span>
                         <SearchIcon size={16} />
                     </motion.button>
                 </div>

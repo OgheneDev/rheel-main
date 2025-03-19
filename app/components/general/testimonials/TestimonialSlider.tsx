@@ -200,14 +200,14 @@ const TestimonialSlider: React.FC = () => {
 
   return (
     <div 
-      className="w-full max-w-6xl mx-auto  overflow-hidden"
+      className="flex flex-col md:flex-row flex-wrap mx-auto px-5 md:px-0 gap-4 md:max-w-5xl overflow-hidden"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       {/* Slider container */}
       <div 
         ref={sliderRef}
-        className="relative overflow-hidden"
+        className="relative overflow-hidden w-full"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -224,14 +224,14 @@ const TestimonialSlider: React.FC = () => {
           {groupedTestimonials.map((group, groupIndex) => (
             <div 
               key={groupIndex}
-              className="flex"
+              className="flex gap-4"
               style={{ width: `${100 / groupedTestimonials.length}%` }}
             >
               {group.map((testimonial, index) => (
                 <div 
                   key={`${groupIndex}-${index}`}
-                  className="px-3"
-                  style={{ width: `${100 / itemsPerView}%` }}
+                  className="w-full"
+                  style={{ flex: `0 0 calc(${100 / itemsPerView}% - ${(itemsPerView - 1) * 16 / itemsPerView}px)` }}
                 >
                   <div className="bg-white rounded-lg shadow-lg p-6 h-full">
                     <div className="mb-4">
@@ -279,7 +279,7 @@ const TestimonialSlider: React.FC = () => {
       </div>
       
       {/* Navigation arrows and indicators */}
-      <div className="flex justify-between mt-6">
+      <div className="flex justify-between mt-6 w-full">
         <button 
           onClick={prevSlide}
           className="p-2 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors"

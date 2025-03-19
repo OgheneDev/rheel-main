@@ -49,7 +49,7 @@ const Services = () => {
   return (
     <section
     ref={sectionRef}
-    className="md:px-[150px] pb-10 px-5 md:pb-15"> 
+    className=" pb-10 md:pb-15"> 
         <motion.article variants={containerVariants} className="text-center mb-7 ">
             <motion.span
              initial={{ opacity: 0, y: -50 }}
