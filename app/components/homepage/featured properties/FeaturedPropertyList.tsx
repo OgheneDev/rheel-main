@@ -120,43 +120,44 @@ const FeaturedPropertyList: React.FC<FeaturedPropertyListProps> = ({ selectedTyp
     
     const displayedProperties = showAll ? filteredProperties : filteredProperties.slice(0, 6);
 
-    return (
-        <div className="max-w-6xl mx-auto" id="properties-section">
-            {filteredProperties.length === 0 ? (
-                <div className="text-center py-12">
-                    <p className="text-center text-gray-500 text-lg">No properties match your search criteria.</p>
-                    <p className="text-center text-gray-400 mt-2">Try adjusting your filters or search for a different location.</p>
-                </div>
-            ) : (
-                <>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {displayedProperties.map(property => (
-                            <PropertyCard key={property.id} property={property} />
-                        ))}
-                    </div>
-
-                    {filteredProperties.length > 6 && (
-                        <div className="text-center mt-8">
-                            <button
-                                className="bg-[#0A2F1E] text-white px-12 flex gap-2 items-center mx-auto cursor-pointer py-2 rounded-full text-sm"
-                                onClick={() => setShowAll(!showAll)}
-                            >
-                                {showAll ? (
-                                    <>
-                                        Show Less <ArrowUp size={15} />
-                                    </>
-                                ) : (
-                                    <>
-                                        Load More <ArrowDown size={15} />
-                                    </>
-                                )}
-                            </button>
-                        </div>
-                    )}
-                </>
-            )}
+    // Modified FeaturedPropertyList component
+return (
+    <div className="w-full md:px-[112px]" id="properties-section">
+      {filteredProperties.length === 0 ? (
+        <div className="text-center py-12">
+          <p className="text-center text-gray-500 text-lg">No properties match your search criteria.</p>
+          <p className="text-center text-gray-400 mt-2">Try adjusting your filters or search for a different location.</p>
         </div>
-    );
+      ) : (
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {displayedProperties.map(property => (
+              <PropertyCard key={property.id} property={property} />
+            ))}
+          </div>
+  
+          {filteredProperties.length > 6 && (
+            <div className="text-center mt-8">
+              <button
+                className="bg-[#0A2F1E] text-white px-12 flex gap-2 items-center mx-auto cursor-pointer py-2 rounded-full text-sm"
+                onClick={() => setShowAll(!showAll)}
+              >
+                {showAll ? (
+                  <>
+                    Show Less <ArrowUp size={15} />
+                  </>
+                ) : (
+                  <>
+                    Load More <ArrowDown size={15} />
+                  </>
+                )}
+              </button>
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  );
 };
 
 export default FeaturedPropertyList;

@@ -16,7 +16,7 @@ export default function Home() {
       <Testimonials />
       <TeamSection />
       <TrustedBy />
-      <Stores />
+      <Stores /> 
     </SearchProvider>
   );
 }
