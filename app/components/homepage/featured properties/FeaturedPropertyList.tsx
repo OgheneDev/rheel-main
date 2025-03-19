@@ -64,7 +64,7 @@ const FeaturedPropertyList: React.FC<FeaturedPropertyListProps> = ({ selectedTyp
 
     if (loading) {
         return (
-            <div className="flex flex-col md:flex-row flex-wrap mx-auto justify-center gap-4 md:max-w-5xl">
+            <div className="flex flex-col md:flex-row flex-wrap mx-auto px-5 md:px-0 gap-4 md:max-w-5xl">
                 {[...Array(6)].map((_, index) => (
                     <PropertyCardSkeleton key={index} />
                 ))}
@@ -130,7 +130,7 @@ return (
         </div>
       ) : (
         <>
-          <div className="flex flex-col md:flex-row flex-wrap mx-auto gap-4 md:max-w-5xl">
+          <div className="flex flex-col md:flex-row flex-wrap px-5 md:px-0 mx-auto gap-4 md:max-w-5xl">
             {displayedProperties.map(property => (
               <PropertyCard key={property.id} property={property} />
             ))}
