@@ -130,7 +130,7 @@ return (
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-1  md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:mx-auto md:grid-cols-3 gap-6">
             {displayedProperties.map(property => (
               <PropertyCard key={property.id} property={property} />
             ))}

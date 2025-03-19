@@ -54,7 +54,7 @@ const FeaturedProperties = () => {
     <section
       ref={sectionRef}
       id="properties-section" 
-      className=" mx-auto py-10 md:py-15"
+      className=" py-10 md:py-15"
     >
       <motion.article variants={containerVariants} className="text-center mb-7">
         <motion.span
