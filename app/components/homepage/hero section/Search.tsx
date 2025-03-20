@@ -238,13 +238,13 @@ useEffect(() => {
 
             {/* Desktop Search container */}
             <motion.div 
-                className="bg-white rounded-full md:flex hidden items-center shadow-md w-[85%] mx-auto h-16 py-3"
+               className="bg-white rounded-full md:flex hidden items-center shadow-md w-[740px] mx-auto h-16 py-3"
                 variants={searchContainerVariants}
                 initial="hidden"
                 animate="visible"
             >
                 {/* Type dropdown */}
-                <div className="w-1/3 border-r border-gray-200 h-full px-6">
+                <div className="w-1/4 border-r border-gray-200 h-full px-6">
                     <div className="h-full flex flex-col justify-center relative" onClick={() => setIsTypeDropdownOpen(!isTypeDropdownOpen)}>
                         <div className="text-[12px] text-gray-500 mb-1 text-left">Type</div>
                         <div className="flex items-center justify-between cursor-pointer w-full">

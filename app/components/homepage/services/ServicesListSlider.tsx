@@ -11,6 +11,10 @@ interface Service {
   icon: string;
 } 
 
+interface ServiceGroup {
+  services: Service[];
+}
+
 const ServicesListSlider: React.FC = () => {
   const router = useRouter();
   const pathname = usePathname();
@@ -102,8 +106,8 @@ const ServicesListSlider: React.FC = () => {
   const totalSlides = Math.max(1, Math.ceil(servicesData.length / itemsPerView));
   
   // Create properly grouped services for current view
-  const getGroupedServices = () => {
-    const result = [];
+  const getGroupedServices = (): ServiceGroup[] => {
+    const result: ServiceGroup[] = [];
     // Create a padded version of services to handle edge cases
     let paddedServices = [...servicesData];
     
@@ -116,7 +120,7 @@ const ServicesListSlider: React.FC = () => {
     
     // Group services based on itemsPerView
     for (let i = 0; i < paddedServices.length; i += itemsPerView) {
-      result.push(paddedServices.slice(i, i + itemsPerView));
+      result.push({ services: paddedServices.slice(i, i + itemsPerView) });
     }
     
     return result;
@@ -157,17 +161,19 @@ const ServicesListSlider: React.FC = () => {
     setIsTransitioning(false);
   };
 
-  // Navigation handlers
+  // Add helper functions to check slide availability
+  const isFirstSlide = currentIndex === 0;
+  const isLastSlide = currentIndex === totalSlides - 1;
+
+  // Modify navigation handlers to include checks
   const nextSlide = () => {
-    if (isTransitioning) return;
-    
+    if (isTransitioning || isLastSlide) return;
     const nextIndex = (currentIndex + 1) % totalSlides;
     handleSlideChange(nextIndex);
   };
   
   const prevSlide = () => {
-    if (isTransitioning) return;
-    
+    if (isTransitioning || isFirstSlide) return;
     const prevIndex = (currentIndex - 1 + totalSlides) % totalSlides;
     handleSlideChange(prevIndex);
   };
@@ -216,13 +222,13 @@ const ServicesListSlider: React.FC = () => {
             }}
             onTransitionEnd={handleTransitionEnd}
           >
-            {groupedServices.map((group, groupIndex) => (
+            {groupedServices.map((group: ServiceGroup, groupIndex: number) => (
               <div 
                 key={groupIndex}
                 className="flex gap-4"
                 style={{ width: `${100 / groupedServices.length}%` }}
               >
-                {group.map((service, index) => (
+                {group.services.map((service: Service, index: number) => (
                   <div 
                     key={`${groupIndex}-${index}`}
                     className="w-full"
@@ -268,9 +274,13 @@ const ServicesListSlider: React.FC = () => {
         <div className="flex justify-between mt-6 w-full">
           <button 
             onClick={prevSlide}
-            className="p-2 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors"
+            className={`p-2 rounded-full transition-colors ${
+              isFirstSlide 
+                ? 'opacity-50 cursor-not-allowed bg-gray-100' 
+                : 'bg-gray-200 hover:bg-gray-300 cursor-pointer'
+            }`}
             aria-label="Previous services"
-            disabled={isTransitioning}
+            disabled={isFirstSlide || isTransitioning}
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -293,9 +303,13 @@ const ServicesListSlider: React.FC = () => {
           
           <button 
             onClick={nextSlide}
-            className="p-2 rounded-full cursor-pointer bg-gray-200 hover:bg-gray-300 transition-colors"
+            className={`p-2 rounded-full transition-colors ${
+              isLastSlide 
+                ? 'opacity-50 cursor-not-allowed bg-gray-100' 
+                : 'bg-gray-200 hover:bg-gray-300 cursor-pointer'
+            }`}
             aria-label="Next services"
-            disabled={isTransitioning}
+            disabled={isLastSlide || isTransitioning}
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

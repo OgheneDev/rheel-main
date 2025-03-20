@@ -37,6 +37,14 @@ const testimonials: Testimonial[] = [
     rating: 5,
     image: "/testimonial-avatar-7.jpg"
   },
+  {
+    quote: "They are reliable, transparent, and always put their clients first. I strongly recommend them to any property owner.",
+    name: "Kunle Adeyemi",
+    position: "Landlord",
+    company: "Adeyemi Estates",
+    rating: 5,
+    image: "/testimonial-avatar-7.jpg"
+  },
 ];
 
 
@@ -58,7 +66,6 @@ const TestimonialSlider: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [autoScrollPaused, setAutoScrollPaused] = useState(false);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -133,37 +140,25 @@ const TestimonialSlider: React.FC = () => {
     }
   };
 
-  // Navigation handlers
+  // Add helper functions to check slide availability
+  const isFirstSlide = currentIndex === 0;
+  const isLastSlide = currentIndex === totalPages - 1;
+
+  // Modify navigation handlers to include checks
   const nextSlide = () => {
-    if (isTransitioning) return;
-    
+    if (isTransitioning || isLastSlide) return;
     const nextIndex = (currentIndex + 1) % totalPages;
     handleSlideChange(nextIndex);
   };
   
   const prevSlide = () => {
-    if (isTransitioning) return;
-    
+    if (isTransitioning || isFirstSlide) return;
     const prevIndex = (currentIndex - 1 + totalPages) % totalPages;
     handleSlideChange(prevIndex);
   };
 
-  // Auto-scroll functionality
-  useEffect(() => {
-    if (autoScrollPaused) return;
-    
-    const interval = setInterval(() => {
-      if (!isTransitioning) {
-        nextSlide();
-      }
-    }, 3000);
-    
-    return () => clearInterval(interval);
-  }, [currentIndex, isTransitioning, autoScrollPaused]);
-
   // Touch handlers for swipe
   const handleTouchStart = (e: React.TouchEvent) => {
-    setAutoScrollPaused(true);
     setTouchStart(e.targetTouches[0].clientX);
   };
 
@@ -173,26 +168,11 @@ const TestimonialSlider: React.FC = () => {
 
   const handleTouchEnd = () => {
     if (touchStart - touchEnd > 50) {
-      // Swipe left
       nextSlide();
     }
-
     if (touchStart - touchEnd < -50) {
-      // Swipe right
       prevSlide();
     }
-    
-    // Resume auto scrolling after a delay
-    setTimeout(() => setAutoScrollPaused(false), 1000);
-  };
-
-  // Mouse handlers to pause auto-scroll when interacting
-  const handleMouseEnter = () => {
-    setAutoScrollPaused(true);
-  };
-
-  const handleMouseLeave = () => {
-    setAutoScrollPaused(false);
   };
 
   // Get grouped testimonials
@@ -201,8 +181,6 @@ const TestimonialSlider: React.FC = () => {
   return (
     <div 
       className="flex flex-col md:flex-row flex-wrap mx-auto px-5 md:px-0 gap-4 md:max-w-5xl overflow-hidden"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
     >
       {/* Slider container */}
       <div 
@@ -282,11 +260,15 @@ const TestimonialSlider: React.FC = () => {
       <div className="flex justify-between mt-6 w-full">
         <button 
           onClick={prevSlide}
-          className="p-2 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors"
+          className={`p-2 rounded-full transition-colors ${
+            isFirstSlide 
+              ? 'opacity-50 cursor-not-allowed bg-gray-100' 
+              : 'bg-gray-200 hover:bg-gray-300 cursor-pointer'
+          }`}
           aria-label="Previous testimonial"
-          disabled={isTransitioning}
+          disabled={isFirstSlide || isTransitioning}
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
         </button>
@@ -308,11 +290,15 @@ const TestimonialSlider: React.FC = () => {
         
         <button 
           onClick={nextSlide}
-          className="p-2 rounded-full cursor-pointer bg-gray-200 hover:bg-gray-300 transition-colors"
+          className={`p-2 rounded-full transition-colors ${
+            isLastSlide 
+              ? 'opacity-50 cursor-not-allowed bg-gray-100' 
+              : 'bg-gray-200 hover:bg-gray-300 cursor-pointer'
+          }`}
           aria-label="Next testimonial"
-          disabled={isTransitioning}
+          disabled={isLastSlide || isTransitioning}
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
         </button>
