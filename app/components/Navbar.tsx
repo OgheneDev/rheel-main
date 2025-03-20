@@ -5,9 +5,11 @@ import { Menu, X, Copy } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
+import RequestListingModal from './general/RequestListingModal';
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const pathname = usePathname()
     const router = useRouter()
 
@@ -73,7 +75,7 @@ const Navbar = () => {
                 </div>
 
                 {/* Navigation */}
-                <nav className='overflow-y-auto'>
+                <nav className='overflow-y-auto flex-grow'>
                     <ul className='py-4'>
                         {navItems.map((item, index) => (
                             <li key={index}>
@@ -101,6 +103,20 @@ const Navbar = () => {
                         ))}
                     </ul>
                 </nav>
+
+                {/* Add Request Listing Button to Mobile Menu */}
+                <div className="p-6 border-t">
+                    <button 
+                        onClick={() => {
+                            setIsModalOpen(true);
+                            setIsMenuOpen(false);
+                        }}
+                        className="w-full flex justify-center items-center gap-2 bg-[#0A2F1E] text-white py-3 rounded-full text-sm"
+                    >
+                        Request Listing
+                        <Copy size={13} />
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -123,10 +139,18 @@ const Navbar = () => {
             </ul>
         </nav>
 
-        <button className="md:flex flex-row-reverse cursor-pointer text-white hidden bg-[#0A2F1E] px-5 py-3 rounded-full items-center gap-2 text-[12px]">
+        <button 
+            onClick={() => setIsModalOpen(true)} 
+            className="md:flex flex-row-reverse cursor-pointer text-white hidden bg-[#0A2F1E] px-5 py-3 rounded-full items-center gap-2 text-[12px]"
+        >
             Request Listing
             <Copy size={13} />
         </button>
+
+        <RequestListingModal 
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+        />
 
         <Menu size={30} onClick={toggleMenu} className="text-[#0A2F1E] md:hidden" />
 
