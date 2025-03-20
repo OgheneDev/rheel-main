@@ -9,7 +9,7 @@ const OurStory = () => {
             src="/images/odera.png"
             fill
             alt='Our Founder'
-            className="object-cover rounded-[25px]"
+            className="object-cover rounded-[15px]"
             priority
           />
         </div>

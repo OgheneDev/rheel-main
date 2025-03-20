@@ -1,6 +1,6 @@
 const MissionAndVision = () => {
   return (
-    <div className="flex flex-col md:flex-row gap-10 md:gap-20 items-center justify-between max-w-7xl mx-auto px-4 md:px-8 pb-10 md:pb-15">
+    <div className="flex flex-col md:flex-row gap-10 md:gap-20 justify-between max-w-7xl mx-auto px-4 md:px-8 pb-10 md:pb-15">
       <div id="vision" className="vision space-y-6 w-full md:w-1/2">
         <h3 className="uppercase text-xl font-bold">Our Vision</h3>
         <div className="space-y-6">
