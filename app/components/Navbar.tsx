@@ -41,13 +41,14 @@ const Navbar = () => {
     ];
 
   return (
-    <header className="p-5 md:px-14 relative flex justify-between items-center">
+    <header className="p-5 md:px-14 md:py-8 relative flex justify-between items-center">
         <Link href='/'>
             <Image
                 src={'/images/logo.png'}
                 alt="Logo"
                 width={70}
                 height={35}
+                className="cursor-pointer md:w-[100px] md:h-[45px]"
             />
         </Link>
 
@@ -105,7 +106,7 @@ const Navbar = () => {
 
         {/* Desktop Menu */}
         <nav className="hidden md:block">
-            <ul className="flex gap-8 text-[14px]">
+            <ul className="flex gap-10 text-[12px] font-semibold">
                 {navItems.map((item, index) => (
                     <li key={index}>
                         {item.onClick ? (
@@ -122,9 +123,9 @@ const Navbar = () => {
             </ul>
         </nav>
 
-        <button className="md:flex flex-row-reverse cursor-pointer text-white hidden bg-[#0A2F1E] px-5 py-2 rounded-full items-center gap-2 text-[13px]">
-            Submit Property
-            <Copy size={15} />
+        <button className="md:flex flex-row-reverse cursor-pointer text-white hidden bg-[#0A2F1E] px-5 py-3 rounded-full items-center gap-2 text-[12px]">
+            Request Listing
+            <Copy size={13} />
         </button>
 
         <Menu size={30} onClick={toggleMenu} className="text-[#0A2F1E] md:hidden" />
