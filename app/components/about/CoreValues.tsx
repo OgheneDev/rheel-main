@@ -2,7 +2,7 @@ import Image from "next/image"
 
 const CoreValues = () => {
   return (
-    <div className='flex flex-col md:flex-row gap-5 md:gap-10 justify-center items-center md:px-8  pb-5'>
+    <div className='flex flex-col md:flex-row gap-5 md:gap-14 justify-center items-center md:px-8  pb-5'>
         <div className="text-container flex-1">
             <h3 className='uppercase font-bold text-xl mb-2'>Our Core Values</h3>
             <p className="mb-5">At Rheel Estate, our core values guide everything we do :</p>
