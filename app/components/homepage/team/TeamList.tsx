@@ -87,7 +87,7 @@ const TeamList: React.FC = () => {
         {
             icon:'https://res.cloudinary.com/dgc8cd67w/image/upload/v1742325891/PHOTO-2025-03-18-17-07-35_1_uevalk.png',
             name: 'Chidinma Iwuh',
-            department: 'Head of Operations'
+            department: 'Head of Operations / PRO'
         },
         {
             icon:'https://res.cloudinary.com/dgc8cd67w/image/upload/v1742325892/PHOTO-2025-03-18-18-14-42_1_sy0p0x.png',
