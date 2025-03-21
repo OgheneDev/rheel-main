@@ -19,7 +19,7 @@ const AboutUs = () => {
       <div className="image-container md:w-1/2 lg:w-6/12 h-auto">
         <div className="relative w-full h-full">
           <Image
-            src="https://res.cloudinary.com/dgc8cd67w/image/upload/v1742592879/Photoroom_20250321_133303_xflbnk.png"
+            src="/images/WhatsApp Image 2025-03-21 at 14.47.20_11318eef.jpg"
             alt='About Us'
             className="object-fill"
             priority
