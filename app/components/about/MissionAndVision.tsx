@@ -1,6 +1,6 @@
 const MissionAndVision = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 max-w-7xl mx-auto px-4 md:px-8 pb-10 md:pb-15">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 max-w-7xl mx-auto  md:px-8 pb-10 md:pb-15">
       <div className="vision">
         <h3 className="uppercase text-xl font-bold mb-6">Our Vision</h3>
         <div className="space-y-6 mb-10">
@@ -11,7 +11,7 @@ const MissionAndVision = () => {
             We are committed to building a reputation that speaks to the values we hold dear: trust, transparency, quality, and customer satisfaction. Whether you are a first-time buyer, an investor, or someone looking to lease or manage property, we are dedicated to providing you with the resources and support to make informed decisions every step of the way.
           </p>
         </div>
-        <h1 className='text-[26px] uppercase font-serif whitespace-nowrap'>"Trust. Quality. Transparency"</h1>
+        <h1 className='md:text-[26px] text-3xl uppercase font-serif md:whitespace-nowrap'>"Trust. Quality. Transparency"</h1>
       </div>
       
       <div className="mission">
