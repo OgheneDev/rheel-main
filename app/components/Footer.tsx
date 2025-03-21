@@ -81,9 +81,9 @@ const Footer: React.FC = () => {
         
       {/* Middle Section with Info */}
       <div className="container mx-auto px-4 md:px-16 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-13 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-14 gap-5">
           {/* Company Description */}
-          <div className="md:col-span-4">
+          <div className="md:col-span-5">
             <p className="text-[12px] leading-relaxed mb-6 text-[#A3ABB0]">
               At Rheel Estate Limited, we provide comprehensive real 
               estate solutions designed to simplify property 
