@@ -17,7 +17,7 @@ const CoreValues = () => {
 
         <div className="image-container flex-1">
             <Image
-              src="/images/Photoroom_20250321_133303.png"
+              src="https://res.cloudinary.com/dgc8cd67w/image/upload/v1742592879/Photoroom_20250321_133303_xflbnk.png"
               width={500}
               height={500}
               alt='About Us'
