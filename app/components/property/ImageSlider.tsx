@@ -79,17 +79,19 @@ const PropertyImageSlider: React.FC<PropertyImageSliderProps> = ({ images }) => 
     setIsTransitioning(false);
   };
 
+  // Add helper functions to check slide availability
+  const isFirstSlide = currentIndex === 0;
+  const isLastSlide = currentIndex === totalSlides - 1;
+
   // Navigation handlers
   const nextSlide = () => {
-    if (isTransitioning) return;
-    
+    if (isTransitioning || isLastSlide) return;
     const nextIndex = (currentIndex + 1) % totalSlides;
     handleSlideChange(nextIndex);
   };
   
   const prevSlide = () => {
-    if (isTransitioning) return;
-    
+    if (isTransitioning || isFirstSlide) return;
     const prevIndex = (currentIndex - 1 + totalSlides) % totalSlides;
     handleSlideChange(prevIndex);
   };
@@ -191,9 +193,13 @@ const PropertyImageSlider: React.FC<PropertyImageSliderProps> = ({ images }) => 
           {/* Navigation arrows (absolute positioned over the slider) */}
           <button 
             onClick={prevSlide}
-            className="absolute cursor-pointer left-2 top-1/2 transform -translate-y-1/2 p-2 rounded-full bg-white/70 hover:bg-white/90 transition-colors shadow-md z-10"
+            className={`absolute left-2 top-1/2 transform -translate-y-1/2 p-2 rounded-full transition-colors ${
+              isFirstSlide 
+                ? 'opacity-50 cursor-not-allowed bg-white/40' 
+                : 'bg-white/70 hover:bg-white/90 cursor-pointer'
+            }`}
             aria-label="Previous image"
-            disabled={isTransitioning}
+            disabled={isFirstSlide || isTransitioning}
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -202,9 +208,13 @@ const PropertyImageSlider: React.FC<PropertyImageSliderProps> = ({ images }) => 
           
           <button 
             onClick={nextSlide}
-            className="absolute cursor-pointer right-2 top-1/2 transform -translate-y-1/2 p-2 rounded-full bg-white/70 hover:bg-white/90 transition-colors shadow-md z-10"
+            className={`absolute right-2 top-1/2 transform -translate-y-1/2 p-2 rounded-full transition-colors ${
+              isLastSlide 
+                ? 'opacity-50 cursor-not-allowed bg-white/40' 
+                : 'bg-white/70 hover:bg-white/90 cursor-pointer'
+            }`}
             aria-label="Next image"
-            disabled={isTransitioning}
+            disabled={isLastSlide || isTransitioning}
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

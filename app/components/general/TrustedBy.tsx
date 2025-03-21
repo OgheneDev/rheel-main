@@ -51,7 +51,13 @@ const TrustedBy = () => {
                         animate={inView ? { opacity: 1, scale: 1 } : {}}
                         transition={{ duration: 0.5, delay: index * 0.2 }}
                     >
-                        <Image alt="Logo" src={logo} height={105} width={105} className='w-auto h-auto flex-1' />
+                        <Image 
+                            alt="Logo" 
+                            src={logo} 
+                            height={105} 
+                            width={105} 
+                            className={`w-auto h-auto flex-1`} 
+                        />
                     </motion.div>
                 ))}
             </div>
