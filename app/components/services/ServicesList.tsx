@@ -108,7 +108,7 @@ const ServicesList: React.FC = () => {
       conclusion: 'We act as your eyes and ears on the ground, ensuring that your dream home is built exactly as planned, with zero stress and 100% transparency.'
     },
     {
-      icon: '/images/Photoroom_20250321_132931.png',
+      icon: 'https://res.cloudinary.com/dgc8cd67w/image/upload/v1742592879/Photoroom_20250321_132931_ecnp8s.png',
       title: 'Cleaning Services',
       description: 'At Rheel Estate Limited, we understand that a newly purchased property isn’t truly ready until it’s spotless. That’s why we’ve partnered with Hallmark-Janitors, a professional cleaning service provider, to ensure your home is fresh, hygienic, and move-in ready.',
       subheading: 'Our Cleaning Services Include:',
