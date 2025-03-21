@@ -111,9 +111,9 @@ const ServicesList: React.FC = () => {
   const renderServiceContent = (service: ServiceItem): React.ReactNode => {
     if (service.format === 'bulleted' && service.servicesRendered) {
       return (
-        <ol className="list-decimal pl-5 text-xs space-y-1">
+        <ol className="list-decimal pl-5 text-sm space-y-1">
           {service.servicesRendered.map((item: string, idx: number) => (
-            <li key={idx} className="text-gray-600">{item}</li>
+            <li key={idx} className="text-[#5C6368]">{item}</li>
           ))}
         </ol>
       );
@@ -121,24 +121,24 @@ const ServicesList: React.FC = () => {
       return (
         <>
           {service.subheading && (
-            <p className="text-xs font-medium mb-3 text-gray-600">{service.subheading}</p>
+            <p className="text-sm font-medium mb-3 text-[#5C6368]">{service.subheading}</p>
           )}
-          <ol className="list-decimal pl-5 text-xs space-y-1">
+          <ol className="list-decimal pl-5 text-sm space-y-1">
             {service.numberedList.map((item: string, idx: number) => (
-              <li key={idx} className="text-gray-600">{item}</li>
+              <li key={idx} className="text-[#5C6368]">{item}</li>
             ))}
           </ol>
           
           {service.nestedList && (
-            <ul className="list-disc pl-7 text-xs mt-1 space-y-1">
+            <ul className="list-disc pl-7 text-sm mt-1 space-y-1">
               {service.nestedList.map((item: string, idx: number) => (
-                <li key={idx} className="text-gray-600">{item}</li>
+                <li key={idx} className="text-[#5C6368]">{item}</li>
               ))}
             </ul>
           )}
           
           {service.conclusion && (
-            <p className="text-xs text-gray-600  mt-3  leading-tight">{service.conclusion}</p>
+            <p className="text-sm text-[#5C6368]  mt-3  leading-tight">{service.conclusion}</p>
           )}
         </>
       );
@@ -168,9 +168,9 @@ const ServicesList: React.FC = () => {
                 </div>
               </div>
               
-              <h3 className="text-base font-semibold text-center mb-3">{service.title}</h3>
+              <h3 className=" font-semibold text-[#161E2D] text-center mb-3">{service.title}</h3>
               
-              <p className="text-xs text-gray-600 mb-2">{service.description}</p>
+              <p className="text-sm text-[#5C6368] mb-2">{service.description}</p>
               
               <div className="mt-1">
                 {renderServiceContent(service)}
@@ -198,11 +198,11 @@ const ServicesList: React.FC = () => {
                 </div>
               </div>
               
-              <h3 className="text-base font-semibold text-center mb-3">
+              <h3 className=" font-semibold text-[#161E2D] text-center mb-3">
                 {service.title}
               </h3>
               
-              <p className="text-xs text-gray-600 mb-2">{service.description}</p>
+              <p className="text-sm text-[#5C6368] mb-2">{service.description}</p>
               
               <div className="mt-1">
                 {renderServiceContent(service)}
@@ -230,11 +230,11 @@ const ServicesList: React.FC = () => {
                 </div>
               </div>
               
-              <h3 className="text-base font-semibold text-center mb-3">
+              <h3 className=" font-semibold text-[#161E2D] text-center mb-3">
                 {service.title}
               </h3>
               
-              <p className="text-xs text-gray-600 mb-2">{service.description}</p>
+              <p className="text-sm text-[#5C6368] mb-2">{service.description}</p>
               
               <div className="mt-1">
                 {renderServiceContent(service)}
