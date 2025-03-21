@@ -4,7 +4,8 @@ const Banner = () => {
   return (
     <div className="bg-[url('/images/about-banner.jpg')] bg-cover bg-center h-[260px] md:h-[500px] flex items-center justify-center bg-black/40 bg-blend-overlay">
         <article className='text-white '>
-            <h3 className='text-3xl  font-bold'>About Us</h3>
+            <h3 className='text-4xl md:text-5xl mb-2 font-bold text-center'>About Us</h3>
+            <p className='text-sm md:w-[230px] mx-auto text-center'>Redefining Real Estate with Trust, Transparency & Innovation!</p>
         </article> 
     </div>
   ) 

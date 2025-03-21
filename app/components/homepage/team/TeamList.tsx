@@ -90,14 +90,14 @@ const TeamList: React.FC = () => {
             department: 'Head of Operations / PRO'
         },
         {
+            icon: 'https://res.cloudinary.com/dgc8cd67w/image/upload/v1742325891/WhatsApp_Image_2025-03-18_at_6.50.41_PM_1_vhpjfo.png',
+            name: 'Salisu Dabai ',
+            department: 'Head of Logistics'
+        },
+        {
             icon:'https://res.cloudinary.com/dgc8cd67w/image/upload/v1742325892/PHOTO-2025-03-18-18-14-42_1_sy0p0x.png',
             name: 'Okechukwu Mbonu',
             department: 'Analytics and Insights Manager'
-        },
-        {
-          icon: 'https://res.cloudinary.com/dgc8cd67w/image/upload/v1742325891/WhatsApp_Image_2025-03-18_at_6.50.41_PM_1_vhpjfo.png',
-          name: 'Salisu Dabai ',
-          department: 'Head of Logistics'
         }
     ];
 
@@ -237,14 +237,6 @@ const TeamList: React.FC = () => {
                                                 <div>
                                                     <h3 className='text-[#161E2D] font-bold'>{member.name}</h3>
                                                     <span className='text-sm text-[#5C6368]'>{member.department}</span>
-                                                </div>
-                                                <div className='flex items-center gap-2 text-[#5C6368]'>
-                                                    <div className='border border-[#5C6368] p-2 rounded-full'>
-                                                        <Phone size={10} />
-                                                    </div>
-                                                    <div className='border border-[#5C6368] p-2 rounded-full'>
-                                                        <Mail size={10} />
-                                                    </div>
                                                 </div>
                                             </div>
                                         </motion.div>

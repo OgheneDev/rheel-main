@@ -69,7 +69,7 @@ const HeroSection = () => {
          animate={inView ? 'visible' : 'hidden'}
          className="mb-10">
             <motion.h1 variants={itemVariants} className="text-5xl md:text-[50px] font-bold mb-5">Find Your Dream Home</motion.h1>
-            <motion.p variants={itemVariants} className="text-sm md:text-[10px] text-[#FFFFFF]">We offering you a seamless blend of sophistication, security, and value. Whether you're a resident or in the diaspora. Buy <br /> with confidence and enjoy exclusive discounts and cashback, direct access to home owners, and flexible financing <br /> options all designed to make homeownership easier and more rewarding</motion.p>
+            <motion.p variants={itemVariants} className="text-sm md:text-sm w-[550px] mx-auto text-[#FFFFFF]">We offering you a seamless blend of sophistication, security, and value. Whether you're a resident or in the diaspora. Buy <br /> with confidence and enjoy exclusive discounts and cashback, direct access to home owners, and flexible financing <br /> options all designed to make homeownership easier and more rewarding</motion.p>
         </motion.article>
         <motion.div variants={itemVariants}>
         <Search />

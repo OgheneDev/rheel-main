@@ -43,14 +43,14 @@ const Navbar = () => {
     ];
 
   return (
-    <header className="p-5 md:px-14 md:py-8 relative flex justify-between items-center">
+    <header className="p-5 md:px-14  relative flex justify-between items-center">
         <Link href='/'>
             <Image
-                src={'/images/logo.png'}
+                src={'/images/rheelblack.png'}
                 alt="Logo"
                 width={70}
                 height={35}
-                className="cursor-pointer md:w-[100px] md:h-[45px]"
+                className="cursor-pointer w-auto h-auto"
             />
         </Link>
 
@@ -63,7 +63,7 @@ const Navbar = () => {
                 <div className='p-6 flex justify-between items-center border-b'>
                     <Link href='/' onClick={toggleMenu}>
                         <Image
-                            src={'/images/logo.png'}
+                            src={'/images/rheelblack.png'}
                             alt="Logo"
                             width={50}
                             height={35}
@@ -122,11 +122,11 @@ const Navbar = () => {
 
         {/* Desktop Menu */}
         <nav className="hidden md:block">
-            <ul className="flex gap-10 text-[12px] font-semibold">
+            <ul className="flex items-center gap-16 text-sm">
                 {navItems.map((item, index) => (
                     <li key={index}>
                         {item.onClick ? (
-                            <button onClick={item.onClick} className="text-left cursor-pointer">
+                            <button onClick={item.onClick} className=" cursor-pointer">
                                 <span>{item.name}</span>
                             </button>
                         ) : (

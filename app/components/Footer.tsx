@@ -48,7 +48,7 @@ const Footer: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-between items-center pb-6">
           <div className="mb-4 md:mb-0">
             <Image 
-              src="/images/footer-logo.png" 
+              src="/images/ALLwhite.png" 
               alt="Rheel Estate Limited" 
               width={100} 
               height={45} 

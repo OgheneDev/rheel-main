@@ -6,10 +6,10 @@ const OurStory = () => {
       <div className="image-container w-full md:w-1/2 h-full">
         <div className="relative w-full h-[555px]">
           <Image
-            src="/images/odera.png"
+            src="/images/WhatsApp Image 2025-03-21 at 14.47.20_593d0df4.jpg"
             fill
             alt='Our Founder'
-            className="object-cover rounded-[15px]"
+            className="object-fill rounded-[15px]"
             priority
           />
         </div>

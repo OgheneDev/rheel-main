@@ -6,7 +6,7 @@ import L from "leaflet";
 
 const MapComponentClient = () => {
   // Updated coordinates for Abuja, Nigeria
-  const position: [number, number] = [9.0765, 7.3986];
+  const position: [number, number] = [9.0499, 7.4755];
   const mapRef = useRef<L.Map | null>(null);
   const [customIcon, setCustomIcon] = useState<L.Icon | null>(null);
 

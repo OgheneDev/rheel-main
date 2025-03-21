@@ -5,8 +5,8 @@ import Image from 'next/image'
 
 const TrustedBy = () => {
     const companyLogos = [
-        'https://res.cloudinary.com/dgc8cd67w/image/upload/v1742326636/WhatsApp_Image_2025-03-18_at_4.12.54_PM_ccp2pp.png',
-        'https://res.cloudinary.com/dgc8cd67w/image/upload/v1742326637/WhatsApp_Image_2025-03-18_at_4.12.55_PM_ayhvpt.png',
+        'https://res.cloudinary.com/dgc8cd67w/image/upload/v1742566373/Photoroom_000_20250318_151046.JPEG_mqp6ga.jpg',
+        'https://res.cloudinary.com/dgc8cd67w/image/upload/v1742566433/Photoroom_001_20250318_151046.JPEG_sl27iy.jpg',
     ]
 
     const sectionRef = useRef(null)
@@ -56,7 +56,7 @@ const TrustedBy = () => {
                             src={logo} 
                             height={105} 
                             width={105} 
-                            className={`w-auto h-auto flex-1`} 
+                            className={`${index === 0 ? 'w-[150px]' : 'w-auto'} h-auto flex-1`} 
                         />
                     </motion.div>
                 ))}

@@ -6,7 +6,7 @@ const CoreValues = () => {
         <div className="text-container flex-1">
             <h3 className='uppercase font-bold text-xl mb-2'>Our Core Values</h3>
             <p className="mb-5">At Rheel Estate, our core values guide everything we do :</p>
-            <ul className='list-disc pl-5'>
+            <ul className='list-disc pl-4'>
                 <li className='leading-7.5'>Integrity – We believe in being upfront and honest with our clients, offering clear, transparent information at all times.</li>
                 <li className='leading-7.5'>Quality – We are committed to providing only the highest quality properties and services, rejecting poorly built or overpriced homes.</li>
                 <li className='leading-7.5'>Customer-Centricity – Our clients are at the heart of everything we do, and we go above and beyond to ensure they have a smooth and seamless experience.</li>
@@ -17,11 +17,11 @@ const CoreValues = () => {
 
         <div className="image-container flex-1">
             <Image
-              src="/images/values.png"
+              src="/images/Photoroom_20250321_133303.png"
               width={500}
               height={500}
               alt='About Us'
-              className="w-full h-auto"
+              className="w-[90%] h-auto"
             />
         </div>
     </div>

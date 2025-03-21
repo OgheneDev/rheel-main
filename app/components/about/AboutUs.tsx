@@ -19,9 +19,9 @@ const AboutUs = () => {
       <div className="image-container md:w-1/2 lg:w-6/12 h-auto">
         <div className="relative w-full h-full">
           <Image
-            src="/images/aboutus.png"
+            src="/images/WhatsApp Image 2025-03-21 at 14.47.20_11318eef.jpg"
             alt='About Us'
-            className="object-cover"
+            className="object-fill"
             priority
             fill
           />

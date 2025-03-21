@@ -11,6 +11,7 @@ interface ServiceItem {
   subheading?: string;
   conclusion?: string;
   format?: string;
+  whyChooseUs?: string[];  // Add this new property
 }
 
 const ServicesList: React.FC = () => {
@@ -106,6 +107,25 @@ const ServicesList: React.FC = () => {
       ],
       conclusion: 'We act as your eyes and ears on the ground, ensuring that your dream home is built exactly as planned, with zero stress and 100% transparency.'
     },
+    {
+      icon: '/images/Photoroom_20250321_132931.png',
+      title: 'Cleaning Services',
+      description: 'At Rheel Estate Limited, we understand that a newly purchased property isn’t truly ready until it’s spotless. That’s why we’ve partnered with Hallmark-Janitors, a professional cleaning service provider, to ensure your home is fresh, hygienic, and move-in ready.',
+      subheading: 'Our Cleaning Services Include:',
+      nestedList: [
+        'Post-Construction Cleaning – Removing dust, debris, and residues left after construction.',
+        'Deep Cleaning for New Homes – Sanitizing and polishing every corner for a fresh start.',
+        'Standard Cleaning for Occupied Homes – Maintaining a clean and comfortable living space.',
+        'Short-Term Rental & Lease Property Cleaning – Ensuring properties are spotless for new tenants'
+      ],
+      whyChooseUs: [
+        'Expert Cleaning by Hallmark-Janitors – A trusted name in professional cleaning.',
+        'Tailored to Your Needs – Whether it’s a one-time deep clean or routine maintenance.',
+        'Move-In Ready Assurance – We handle the cleaning so you can settle in stress-free.',
+        'Convenience for Diaspora Clients – We ensure your home is perfect before you arrive.'
+      ],
+      conclusion: 'Let Rheel Estate Limited and Hallmark-Janitors take care of the mess so you can focus on making your new house a home.'
+    }
   ];
 
   const renderServiceContent = (service: ServiceItem): React.ReactNode => {
@@ -142,6 +162,39 @@ const ServicesList: React.FC = () => {
           )}
         </>
       );
+    } else if (service.title === 'Cleaning Services') {
+      return (
+        <>
+          <p className="text-sm text-[#5C6368] mb-4">{service.description}</p>
+          
+          {service.subheading && (
+            <p className="text-sm font-medium mb-2 text-[#5C6368]">{service.subheading}</p>
+          )}
+          
+          {service.nestedList && (
+            <ul className="list-disc pl-5 text-sm mb-4 space-y-1">
+              {service.nestedList.map((item: string, idx: number) => (
+                <li key={idx} className="text-[#5C6368]">{item}</li>
+              ))}
+            </ul>
+          )}
+          
+          {service.whyChooseUs && (
+            <>
+              <p className="text-sm font-medium mb-2 text-[#5C6368]">Why Choose Us?</p>
+              <ol className="list-decimal pl-5 text-sm mb-4 space-y-1">
+                {service.whyChooseUs.map((item: string, idx: number) => (
+                  <li key={idx} className="text-[#5C6368]">{item}</li>
+                ))}
+              </ol>
+            </>
+          )}
+          
+          {service.conclusion && (
+            <p className="text-sm text-[#5C6368] mt-2 leading-tight">{service.conclusion}</p>
+          )}
+        </>
+      );
     }
     return null;
   };
@@ -149,99 +202,39 @@ const ServicesList: React.FC = () => {
   return (
     <div className="py-6">
       <div className="container mx-auto px-4">
-        {/* Top row - first 3 services */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-          {servicesData.slice(0, 3).map((service: ServiceItem, index: number) => (
-            <div 
-              key={index} 
-              id={`service-${service.title.toLowerCase().replace(/\s+/g, '-')}`}
-              className="bg-white rounded-lg border border-gray-100 shadow-sm p-4 flex flex-col"
-            >
-              <div className="flex justify-center mb-2">
-                <div className="w-25 h-25 relative">
-                  <Image 
-                    src={service.icon}
-                    alt={service.title}
-                    layout="fill"
-                    objectFit="contain"
-                  />
+        {/* Split services into 4 rows of 2 */}
+        {[0, 2, 4, 6].map((startIndex) => (
+          <div key={startIndex} className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            {servicesData.slice(startIndex, startIndex + 2).map((service: ServiceItem, index: number) => (
+              <div 
+                key={startIndex + index} 
+                id={`service-${service.title.toLowerCase().replace(/\s+/g, '-')}`}
+                className="bg-white rounded-lg border border-gray-100 shadow-sm p-4 flex flex-col"
+              >
+                <div className="flex justify-center mb-2">
+                  <div className="w-33 h-33 relative">
+                    <Image 
+                      src={service.icon}
+                      alt={service.title}
+                      layout="fill"
+                      objectFit="contain"
+                    />
+                  </div>
+                </div>
+                
+                <h3 className="font-semibold text-[#161E2D] text-center mb-3">
+                  {service.title}
+                </h3>
+                
+                <p className="text-sm text-[#5C6368] mb-2">{service.description}</p>
+                
+                <div className="mt-1">
+                  {renderServiceContent(service)}
                 </div>
               </div>
-              
-              <h3 className=" font-semibold text-[#161E2D] text-center mb-3">{service.title}</h3>
-              
-              <p className="text-sm text-[#5C6368] mb-2">{service.description}</p>
-              
-              <div className="mt-1">
-                {renderServiceContent(service)}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Middle row - next 2 services */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-          {servicesData.slice(3, 5).map((service: ServiceItem, index: number) => (
-            <div 
-              key={index + 3} 
-              id={`service-${service.title.toLowerCase().replace(/\s+/g, '-')}`}
-              className="bg-white rounded-lg border border-gray-100 shadow-sm p-4 flex flex-col"
-            >
-              <div className="flex justify-center mb-2">
-                <div className="w-25 h-25 relative">
-                  <Image 
-                    src={service.icon}
-                    alt={service.title}
-                    layout="fill"
-                    objectFit="contain"
-                  />
-                </div>
-              </div>
-              
-              <h3 className=" font-semibold text-[#161E2D] text-center mb-3">
-                {service.title}
-              </h3>
-              
-              <p className="text-sm text-[#5C6368] mb-2">{service.description}</p>
-              
-              <div className="mt-1">
-                {renderServiceContent(service)}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Bottom row - last 2 services */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {servicesData.slice(5).map((service: ServiceItem, index: number) => (
-            <div 
-              key={index + 5} 
-              id={`service-${service.title.toLowerCase().replace(/\s+/g, '-')}`}
-              className="bg-white rounded-lg border border-gray-100 shadow-sm p-4 flex flex-col"
-            >
-              <div className="flex justify-center mb-2">
-                <div className="w-25 h-25 relative">
-                  <Image 
-                    src={service.icon}
-                    alt={service.title}
-                    layout="fill"
-                    objectFit="contain"
-                  />
-                </div>
-              </div>
-              
-              <h3 className=" font-semibold text-[#161E2D] text-center mb-3">
-                {service.title}
-              </h3>
-              
-              <p className="text-sm text-[#5C6368] mb-2">{service.description}</p>
-              
-              <div className="mt-1">
-                {renderServiceContent(service)}
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ))}
       </div>
     </div>
   );
