@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter, usePathname } from 'next/navigation';
 import { FaFacebookF, FaYoutube, FaInstagram, FaTwitter } from 'react-icons/fa';
+import { SendHorizonal } from 'lucide-react';
 
 const Footer: React.FC = () => {
   const router = useRouter();
@@ -56,7 +57,7 @@ const Footer: React.FC = () => {
           </div>
           
           <div className="flex gap-3  items-center">
-            <p className="text-sm">Follow Us:</p>
+            <p className="text-[12px]">Follow Us:</p>
             <div className="flex space-x-3">
               <Link href="https://www.facebook.com/rheelestateabuja" aria-label="Facebook" className="bg-[#FFFFFF1A] hover:bg-gray-700 p-2 rounded-full">
                 <FaFacebookF className="text-white" />
@@ -208,9 +209,7 @@ const Footer: React.FC = () => {
                 type="submit" 
                 className="bg-[#FFFFFF1A] rounded-r-full px-4 py-2 flex items-center justify-center"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="#A3ABB0">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
+                <SendHorizonal className="text-[#1563DF] w-5 h-5" />
               </button>
             </div>
           </div>
@@ -223,11 +222,11 @@ const Footer: React.FC = () => {
       {/* Copyright Section */}
       <div className="py-4">
         <div className="container mx-auto px-4 md:px-8 lg:px-16 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm mb-2 md:mb-0 text-[#A3ABB0]">©2024 Rheel Estate Incorporation. All Rights Reserved.</p>
+          <p className="text-[12px] mb-2 md:mb-0 text-[#A3ABB0]">©2024 Rheel Estate Incorporation. All Rights Reserved.</p>
           <div className="flex space-x-6 text-[#A3ABB0]">
-            <Link href="#" className="text-sm hover:text-gray-300">Terms Of Services</Link>
-            <Link href="#" className="text-sm hover:text-gray-300">Privacy Policy</Link>
-            <Link href="#" className="text-sm hover:text-gray-300">Cookie Policy</Link>
+            <Link href="#" className="text-[12px]  hover:text-gray-300">Terms Of Services</Link>
+            <Link href="#" className="text-[12px]  hover:text-gray-300">Privacy Policy</Link>
+            <Link href="#" className="text-[12px]  hover:text-gray-300">Cookie Policy</Link>
           </div>
         </div>
       </div>
