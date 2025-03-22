@@ -8,7 +8,11 @@ interface CareerCardProps {
 
 const CareerCard: React.FC<CareerCardProps> = ({ career }) => {
     const formatSalary = (salary: number): string => {
-        return salary.toLocaleString(); // Format salary as comma-separated
+        return new Intl.NumberFormat('en-NG', {
+            style: 'decimal',
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0,
+        }).format(salary);
     };
 
     return (
