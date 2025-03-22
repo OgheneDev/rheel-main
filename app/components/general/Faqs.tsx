@@ -80,7 +80,7 @@ const FAQSection = () => {
   };
 
   return (
-    <section id='faq' className="max-w-4xl mx-auto py-10 px-5 md:px-0">
+    <section id='faq' className="max-w-5xl mx-auto py-10 px-5 md:px-0">
       <motion.article 
         className='text-center'
         initial={{ opacity: 0, y: 20 }}
