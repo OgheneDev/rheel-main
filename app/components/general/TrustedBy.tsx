@@ -6,7 +6,7 @@ import Image from 'next/image'
 const TrustedBy = () => {
     const companyLogos = [
         'https://res.cloudinary.com/dgc8cd67w/image/upload/v1742566373/Photoroom_000_20250318_151046.JPEG_mqp6ga.jpg',
-        'https://res.cloudinary.com/dgc8cd67w/image/upload/v1742566433/Photoroom_001_20250318_151046.JPEG_sl27iy.jpg',
+        'https://res.cloudinary.com/dgc8cd67w/image/upload/v1742659833/Photoroom_001_20250318_151046.JPEG_oszvll.jpg',
     ]
 
     const sectionRef = useRef(null)
@@ -43,7 +43,7 @@ const TrustedBy = () => {
     return (
         <div ref={sectionRef} className="md:px-[150px] py-8 px-5 md:py-15">
             <h3 className="text-center mb-6 font-bold">Trusted By</h3>
-            <div className="flex flex-wrap justify-center gap-5 md:gap-10">
+            <div className="flex flex-wrap justify-center items-start gap-5 md:gap-10">
                 {companyLogos.map((logo, index) => (
                     <motion.div
                         key={index}
