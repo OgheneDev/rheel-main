@@ -1,7 +1,7 @@
 const MissionAndVision = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 max-w-7xl mx-auto  md:px-8 pb-10 md:pb-15">
-      <div className="vision">
+      <div id="vision" className="vision">
         <h3 className="uppercase text-xl font-bold mb-6">Our Vision</h3>
         <div className="space-y-6 mb-10">
           <p className="text-base leading-7.5 md:leading-8">
@@ -14,7 +14,7 @@ const MissionAndVision = () => {
         <h1 className='md:text-[26px] text-3xl uppercase font-serif md:whitespace-nowrap'>"Trust. Quality. Transparency"</h1>
       </div>
       
-      <div className="mission">
+      <div id="mission" className="mission">
         <h3 className="uppercase text-xl font-bold mb-6">Our Mission</h3>
         <div className="space-y-6">
           <p className="text-base leading-7.5 md:leading-8">

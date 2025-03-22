@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 const OurStory = () => {
   return (
-    <div className='flex flex-col gap-8 md:flex-row w-full max-w-7xl mx-auto md:px-8 md:pb-15'>
+    <div className='flex flex-col gap-8 md:flex-row w-full max-w-7xl mb-5 md:mb-0 mx-auto md:px-8 md:pb-15'>
       <div className="image-container w-full md:w-1/2 h-full">
         <div className="relative w-full h-[555px]">
           <Image

@@ -128,113 +128,118 @@ const ServicesList: React.FC = () => {
     }
   ];
 
-  const renderServiceContent = (service: ServiceItem): React.ReactNode => {
-    if (service.format === 'bulleted' && service.servicesRendered) {
-      return (
-        <ol className="list-decimal pl-5 text-sm space-y-1">
-          {service.servicesRendered.map((item: string, idx: number) => (
-            <li key={idx} className="text-[#5C6368]">{item}</li>
-          ))}
-        </ol>
-      );
-    } else if (service.numberedList) {
-      return (
-        <>
-          {service.subheading && (
-            <p className="text-sm font-medium mb-3 text-[#5C6368]">{service.subheading}</p>
-          )}
-          <ol className="list-decimal pl-5 text-sm space-y-1">
-            {service.numberedList.map((item: string, idx: number) => (
-              <li key={idx} className="text-[#5C6368]">{item}</li>
-            ))}
-          </ol>
-          
-          {service.nestedList && (
-            <ul className="list-disc pl-7 text-sm mt-1 space-y-1">
-              {service.nestedList.map((item: string, idx: number) => (
-                <li key={idx} className="text-[#5C6368]">{item}</li>
-              ))}
-            </ul>
-          )}
-          
-          {service.conclusion && (
-            <p className="text-sm text-[#5C6368]  mt-3  leading-tight">{service.conclusion}</p>
-          )}
-        </>
-      );
-    } else if (service.title === 'Cleaning Services') {
-      return (
-        <>
-          <p className="text-sm text-[#5C6368] mb-4">{service.description}</p>
-          
-          {service.subheading && (
-            <p className="text-sm font-medium mb-2 text-[#5C6368]">{service.subheading}</p>
-          )}
-          
-          {service.nestedList && (
-            <ul className="list-disc pl-5 text-sm mb-4 space-y-1">
-              {service.nestedList.map((item: string, idx: number) => (
-                <li key={idx} className="text-[#5C6368]">{item}</li>
-              ))}
-            </ul>
-          )}
-          
-          {service.whyChooseUs && (
-            <>
-              <p className="text-sm font-medium mb-2 text-[#5C6368]">Why Choose Us?</p>
-              <ol className="list-decimal pl-5 text-sm mb-4 space-y-1">
-                {service.whyChooseUs.map((item: string, idx: number) => (
-                  <li key={idx} className="text-[#5C6368]">{item}</li>
-                ))}
-              </ol>
-            </>
-          )}
-          
-          {service.conclusion && (
-            <p className="text-sm text-[#5C6368] mt-2 leading-tight">{service.conclusion}</p>
-          )}
-        </>
-      );
-    }
-    return null;
+  const renderServiceCard = (service: ServiceItem, isReversed: boolean): React.ReactNode => {
+    return (
+      <div className="flex flex-col md:flex-row gap-6 h-full">
+        <div className={`flex flex-col md:flex-row gap-8 w-full ${isReversed ? 'md:flex-row-reverse' : ''}`}>
+          {/* Image Section */}
+          <div className="md:w-1/3 flex items-center justify-center">
+            <div className="w-full h-[200px] relative">
+              <Image 
+                src={service.icon}
+                alt={service.title}
+                fill
+                className="object-contain"
+              />
+            </div>
+          </div>
+
+          {/* Content Section */}
+          <div className="md:w-2/3">
+            <h3 className="font-semibold text-[#161E2D] text-xl mb-4">
+              {service.title}
+            </h3>
+            <div className="space-y-4">
+              <p className="text-sm text-[#5C6368]">{service.description}</p>
+              {/* Render lists based on service type */}
+              {service.format === 'bulleted' && service.servicesRendered && (
+                <ol className="list-decimal pl-5 text-sm space-y-2">
+                  {service.servicesRendered.map((item, idx) => (
+                    <li key={idx} className="text-[#5C6368]">{item}</li>
+                  ))}
+                </ol>
+              )}
+              {service.numberedList && (
+                <>
+                  {service.subheading && (
+                    <p className="text-sm font-medium mb-3 text-[#5C6368]">{service.subheading}</p>
+                  )}
+                  <ol className="list-decimal pl-5 text-sm space-y-1">
+                    {service.numberedList.map((item: string, idx: number) => (
+                      <li key={idx} className="text-[#5C6368]">{item}</li>
+                    ))}
+                  </ol>
+                  
+                  {service.nestedList && (
+                    <ul className="list-disc pl-7 text-sm mt-1 space-y-1">
+                      {service.nestedList.map((item: string, idx: number) => (
+                        <li key={idx} className="text-[#5C6368]">{item}</li>
+                      ))}
+                    </ul>
+                  )}
+                  
+                  {service.conclusion && (
+                    <p className="text-sm text-[#5C6368]  mt-3  leading-tight">{service.conclusion}</p>
+                  )}
+                </>
+              )}
+              {service.title === 'Cleaning Services' && (
+                <>
+                  <p className="text-sm text-[#5C6368] mb-4">{service.description}</p>
+                  
+                  {service.subheading && (
+                    <p className="text-sm font-medium mb-2 text-[#5C6368]">{service.subheading}</p>
+                  )}
+                  
+                  {service.nestedList && (
+                    <ul className="list-disc pl-5 text-sm mb-4 space-y-1">
+                      {service.nestedList.map((item: string, idx: number) => (
+                        <li key={idx} className="text-[#5C6368]">{item}</li>
+                      ))}
+                    </ul>
+                  )}
+                  
+                  {service.whyChooseUs && (
+                    <>
+                      <p className="text-sm font-medium mb-2 text-[#5C6368]">Why Choose Us?</p>
+                      <ol className="list-decimal pl-5 text-sm mb-4 space-y-1">
+                        {service.whyChooseUs.map((item: string, idx: number) => (
+                          <li key={idx} className="text-[#5C6368]">{item}</li>
+                        ))}
+                      </ol>
+                    </>
+                  )}
+                  
+                  {service.conclusion && (
+                    <p className="text-sm text-[#5C6368] mt-2 leading-tight">{service.conclusion}</p>
+                  )}
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   };
 
   return (
     <div className="py-6">
       <div className="container mx-auto px-4">
-        {/* Split services into 4 rows of 2 */}
-        {[0, 2, 4, 6].map((startIndex) => (
-          <div key={startIndex} className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            {servicesData.slice(startIndex, startIndex + 2).map((service: ServiceItem, index: number) => (
-              <div 
-                key={startIndex + index} 
-                id={`service-${service.title.toLowerCase().replace(/\s+/g, '-')}`}
-                className="bg-white rounded-lg border border-gray-100 shadow-sm p-4 flex flex-col"
-              >
-                <div className="flex justify-center mb-2">
-                  <div className="w-33 h-33 relative">
-                    <Image 
-                      src={service.icon}
-                      alt={service.title}
-                      layout="fill"
-                      objectFit="contain"
-                    />
-                  </div>
+        <div className="flex flex-col gap-8">
+          {[0, 2, 4, 6].map((startIndex) => (
+            <div key={startIndex} className="grid grid-cols-1 gap-8">
+              {servicesData.slice(startIndex, startIndex + 2).map((service, index) => (
+                <div 
+                  key={startIndex + index}
+                  id={`service-${service.title.toLowerCase().replace(/\s+/g, '-')}`}
+                  className="bg-white rounded-lg border border-gray-100 shadow-sm p-6"
+                >
+                  {renderServiceCard(service, index % 2 !== 0)}
                 </div>
-                
-                <h3 className="font-semibold text-[#161E2D] text-center mb-3">
-                  {service.title}
-                </h3>
-                
-                <p className="text-sm text-[#5C6368] mb-2">{service.description}</p>
-                
-                <div className="mt-1">
-                  {renderServiceContent(service)}
-                </div>
-              </div>
-            ))}
-          </div>
-        ))}
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
