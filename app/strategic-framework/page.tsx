@@ -19,25 +19,14 @@ const StrategicFramework = () => {
             className="w-full h-full"
             onLoad={() => setIsLoading(false)}
             style={{
-              WebkitOverflowScrolling: 'touch', // Enable momentum scrolling on iOS
-              overflow: 'auto', // Ensure scrolling is enabled
+              WebkitOverflowScrolling: 'touch',
+              overflow: 'auto',
               width: '100%',
               height: '100%',
             }}
             title="Strategic Framework PDF"
-            allowFullScreen // Enable fullscreen mode
+            allowFullScreen
           />
-          
-          {/* Download button for mobile users */}
-          <div className="md:hidden mt-4">
-            <a 
-              href="/documents/strategic-framework.pdf" 
-              download
-              className="block w-full text-center bg-[#0A2F1E] text-white py-2 rounded-full text-sm"
-            >
-              Download PDF
-            </a>
-          </div>
         </div>
       </div>
     </div>
