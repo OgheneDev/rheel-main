@@ -162,7 +162,14 @@ const Footer: React.FC = () => {
                 The Team
               </li>
               <li><Link href="#" className="text-[12px] hover:text-gray-300">Corporate Profile</Link></li>
-              <li><Link href="#" className="text-[12px] hover:text-gray-300">Strategic Framework</Link></li>
+              <li>
+                <Link 
+                  href="/strategic-framework" 
+                  className="text-[12px] hover:text-gray-300"
+                >
+                  Strategic Framework
+                </Link>
+              </li>
             </ul>
           </div>
           

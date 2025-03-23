@@ -124,13 +124,13 @@ const FeaturedPropertyList: React.FC<FeaturedPropertyListProps> = ({ selectedTyp
 return (
     <div className="" id="properties-section">
       {filteredProperties.length === 0 ? (
-        <div className="text-center py-12">
+        <div className="text-center py-12 px-5 lg:px-0 md:px-10">
           <p className="text-center text-gray-500 text-lg">No properties match your search criteria.</p>
           <p className="text-center text-gray-400 mt-2">Try adjusting your filters or search for a different location.</p>
         </div>
       ) : (
         <>
-          <div className="flex flex-col md:flex-row flex-wrap px-5 md:px-0 mx-auto gap-4 md:max-w-5xl">
+          <div className="flex flex-col md:flex-row flex-wrap px-5 md:px-10 lg:px-0 mx-auto gap-4 md:max-w-4xl lg:max-w-5xl">
             {displayedProperties.map(property => (
               <PropertyCard key={property.id} property={property} />
             ))}

@@ -122,7 +122,7 @@ const Navbar = () => {
 
         {/* Desktop Menu */}
         <nav className="hidden md:block">
-            <ul className="flex items-center gap-16 text-sm">
+            <ul className="flex items-center md:gap-5 lg:gap-16 text-sm">
                 {navItems.map((item, index) => (
                     <li key={index}>
                         {item.onClick ? (

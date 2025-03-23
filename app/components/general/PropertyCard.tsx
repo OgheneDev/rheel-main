@@ -51,7 +51,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
   };
 
   return (
-    <div className="relative rounded-lg shadow-lg overflow-hidden md:w-[330px] bg-white">
+    <div className="relative rounded-lg shadow-lg overflow-hidden lg:w-[330px] md:w-[310px] bg-white">
       {/* Image Section */}
       <div className="relative h-48 w-full bg-gray-200 cursor-pointer" onClick={handleNavigate}>
         {property.property_images?.length > 0 && (

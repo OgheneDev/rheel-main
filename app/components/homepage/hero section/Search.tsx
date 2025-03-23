@@ -238,7 +238,7 @@ useEffect(() => {
 
             {/* Desktop Search container */}
             <motion.div 
-               className="bg-white rounded-full md:flex hidden items-center shadow-md w-[740px] mx-auto h-16 py-3"
+               className="bg-white rounded-full md:flex hidden items-center shadow-md md:w-[680px] lg:w-[740px] mx-auto h-16 py-3"
                 variants={searchContainerVariants}
                 initial="hidden"
                 animate="visible"

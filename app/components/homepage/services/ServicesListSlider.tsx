@@ -204,7 +204,7 @@ const ServicesListSlider: React.FC = () => {
 
   return (
     <section className="py-10">
-      <div className="flex flex-col md:flex-row flex-wrap mx-auto px-5 md:px-0 gap-4 md:max-w-5xl overflow-hidden">
+      <div className="flex flex-col md:flex-row flex-wrap mx-auto px-5 md:px-10 lg:px-0 gap-4 md:max-w-5xl overflow-hidden">
         {/* Slider container */}
         <div 
           ref={sliderRef}
