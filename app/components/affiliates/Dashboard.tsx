@@ -1,15 +1,11 @@
-import React from 'react'
+import Stores from "../general/Stores"
 
 const Dashboard = () => {
   return (
     <div>
         <div className='px-5 md:px-[130px] py-8'>
-        <div className='flex'>
-            <img src='/images/rheel-assist' alt="" className='w-[50%]' />
-            <img src='/images/rheel-ball' alt="" className='w-[50%]'  />
-        </div>
-        <h2 className='text-2l font-bold mb-7'>Welcome to the Rheel Estate Affiliate Dashboard</h2>
-        <div className="flex flex-col gap-7">
+        <h2 className='text-2xl font-bold mb-6'>Welcome to the Rheel Estate Affiliate Dashboard</h2>
+        <div className="space-y-6">
             <p>Unlock your earning potential with the Rheel Estate Affiliate Program! This is your personal dashboard, where you can track your referrals, monitor your earnings, and manage your progress in real-time</p>
             <p>Whether you’re a seasoned networker or just getting started, this platform gives you full visibility into your success. Here, you can:</p>
             <p>View your referral stats – Track how many clients you’ve referred and their status.</p>
@@ -20,6 +16,7 @@ const Dashboard = () => {
             <p>Start sharing today and watch your earnings grow!</p>
         </div>
     </div>
+    <Stores />
     </div>
   )
 }
