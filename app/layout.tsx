@@ -1,39 +1,81 @@
-'use client'
+import { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import "./globals.css";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import ContactPopup from './components/general/ContactPopup';
-import { useEffect, useState } from 'react';
+import { ClientLayout } from "./components/layout/ClientLayout";
+
 
 const manrope = Manrope({subsets: ["latin"]});
 
+// Move metadata here and export it
+export const metadata: Metadata = {
+  title: "Rheel Estate Limited",
+  description: "At Rheel Estate Limited, we provide comprehensive real estate solutions designed to simplify property transactions, maximize investment opportunities, and ensure seamless property management.",
+  keywords: "real estate, property, Nigeria, Abuja, investment, property management, real estate services, luxury homes, property sales, leasing, real estate investment",
+  authors: [{ name: "Rheel Estate Limited" }],
+  metadataBase: new URL('https://rheel.ng'),
+  applicationName: "Rheel Estate Limited",
+  generator: "Next.js",
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+    other: {
+      rel: 'apple-touch-icon-precomposed',
+      url: '/apple-touch-icon-precomposed.png',
+    },
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_NG',
+    alternateLocale: 'en_US',
+    title: 'Rheel Estate Limited',
+    description: 'At Rheel Estate Limited, we provide comprehensive real estate solutions designed to simplify property transactions, maximize investment opportunities, and ensure seamless property management.',
+    siteName: 'Rheel Estate Limited',
+    url: 'https://rheel.ng',
+    images: [
+      {
+        url: 'https://rheel.ng/images/rheelblack.png', // Use absolute URL
+        width: 1200,
+        height: 630,
+        alt: 'Rheel Estate Limited Logo',
+        type: 'image/png',
+      }
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Rheel Estate Limited',
+    description: 'At Rheel Estate Limited, we provide comprehensive real estate solutions designed to simplify property transactions, maximize investment opportunities, and ensure seamless property management.',
+    creator: '@rheel_estate',
+    images: ['https://rheel.ng/images/rheelblack.png'], // Use absolute URL
+  },
+  category: 'Real Estate',
+};
+
+
+
+// Server component
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [showPopup, setShowPopup] = useState(false);
-  const [isReturningUser, setIsReturningUser] = useState(false);
-
-  useEffect(() => {
-    const hasShownPopup = localStorage.getItem('hasShownPopup');
-    
-    if (hasShownPopup) {
-      setIsReturningUser(true);
-      setShowPopup(true); // This will show the minimized version immediately
-      return;
-    }
-
-    // Only for first-time visitors
-    const timer = setTimeout(() => {
-      setShowPopup(true);
-      localStorage.setItem('hasShownPopup', 'true');
-    }, 5000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <html lang="en">
       <head>
@@ -48,14 +90,7 @@ export default function RootLayout({
         />
       </head>
       <body className={manrope.className}>
-        <Navbar />
-        {children}
-        <Footer />
-        <ContactPopup 
-          isOpen={showPopup}
-          onClose={() => setShowPopup(false)}
-          defaultMinimized={isReturningUser}
-        />
+        <ClientLayout>{children}</ClientLayout>
         <noscript>
           <iframe 
             src="https://www.googletagmanager.com/ns.html?id=GTM-KMRRRWFW"
