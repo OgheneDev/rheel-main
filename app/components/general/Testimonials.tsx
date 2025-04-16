@@ -58,7 +58,7 @@ const Testimonials = () => {
              initial={{ opacity: 0, y: -50 }}
              animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : -50 }}
              transition={{ duration: 0.6 }}
-             className="text-2xl font-bold text-[#161E2D] mb-3">What’s people say’s</motion.h2>
+             className="text-2xl font-bold text-[#161E2D] mb-3">What People Say</motion.h2>
             <motion.p
              initial={{ opacity: 0, y: -50 }}
              animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : -50 }}

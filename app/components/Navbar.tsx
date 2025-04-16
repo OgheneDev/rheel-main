@@ -45,13 +45,7 @@ const Navbar = () => {
   return (
     <header className="p-5 md:px-14  relative flex justify-between items-center">
         <Link href='/'>
-            <Image
-                src={'/images/rheelblack.png'}
-                alt="Logo"
-                width={70}
-                height={35}
-                className="cursor-pointer w-auto h-auto"
-            />
+            <img src="/images/rheelblack.png" alt="Logo" className="cursor-pointer w-[150px] h-[70px]" />
         </Link>
 
         {/* Sliding Menu */}

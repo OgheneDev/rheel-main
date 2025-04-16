@@ -16,7 +16,7 @@ const CareerCard: React.FC<CareerCardProps> = ({ career }) => {
     };
 
     return (
-        <div className="flex flex-col justify-between p-6  rounded-lg shadow-md bg-white">
+        <div className="flex flex-col justify-between p-6 rounded-lg shadow-md bg-white">
             <div className="flex flex-wrap justify-between mb-4">
                 <span className="bg-[#207DFF] text-white px-4 py-2 rounded-md text-sm font-medium">
                     {career.position}
@@ -48,9 +48,14 @@ const CareerCard: React.FC<CareerCardProps> = ({ career }) => {
             </div>
 
             <div className="border-t border-[#000000] pt-4">
-                <button className="flex items-center ml-auto text-[#000000] cursor-pointer gap-2">
+                <a 
+                    href={career.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center ml-auto text-[#000000] cursor-pointer gap-2 hover:text-[#207DFF] transition-colors"
+                >
                     Learn More <ArrowRight size={20} />
-                </button>
+                </a>
             </div>
         </div>
     );

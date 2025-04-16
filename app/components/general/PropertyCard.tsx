@@ -46,8 +46,25 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
     return Number(price).toLocaleString("en-NG");
   };
 
-  const handleNavigate = () => {
-    router.push(`/property/${property.id}`);
+  const handleNavigate = async () => {
+    try {
+      // Check if property exists in static paths
+      const response = await fetch(`/api/properties/${property.id}.json`, {
+        method: 'HEAD'
+      });
+      
+      if (response.ok) {
+        // Property exists in static paths, use normal navigation
+        router.push(`/property/${property.id}`);
+      } else {
+        // Property doesn't exist in static paths, use fallback
+        router.push(`/property/fallback?id=${property.id}`);
+      }
+    } catch (error) {
+      // If check fails, default to fallback
+      console.log('Routing to fallback page');
+      router.push(`/property/fallback?id=${property.id}`);
+    }
   };
 
   return (
@@ -115,7 +132,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
                 alt={property.agent_name || "Agent"}
                 width={40}
                 height={40}
-                className="object-cover w-full h-full"
+                className="object-cover w-[50px] h-fit"
               />
             </div>
             <span className="text-sm text-gray-600">

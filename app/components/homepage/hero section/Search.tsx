@@ -1,16 +1,10 @@
 'use client'
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 import { useSearch } from "@/app/context/SearchContext"
 import { propertyTypes } from "@/app/types"
 import { ChevronDown, Search as SearchIcon, Sliders, Locate, X } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
-import { getProperties } from '@/app/api/properties/requests'
-
-interface Property {
-    location: string;
-    // add other property fields as needed
-}
 
 const Search = () => {
     const [activeTab, setActiveTab] = useState('For Sale');
@@ -19,35 +13,23 @@ const Search = () => {
     const { setSearchParams } = useSearch();
     const [isTypeDropdownOpen, setIsTypeDropdownOpen] = useState(false);
     const [isMobileSearchExpanded, setIsMobileSearchExpanded] = useState(false);
-
-    // Add new state variables
-    const [locations, setLocations] = useState<string[]>([]);
-    const [filteredLocations, setFilteredLocations] = useState<string[]>([]);
-    const [showLocationDropdown, setShowLocationDropdown] = useState(false);
-    const locationInputRef = useRef<HTMLInputElement>(null);
+    const [suggestions] = useState([
+        'Abuja',
+        'Centenary City',
+        'Gwarinpa',
+        'Wuse',
+        'Maitama',
+        'Asokoro',
+        'Garki',
+        'Life Camp',
+        'Katampe',
+        'Jabi'
+    ]);
+    const [showSuggestions, setShowSuggestions] = useState(false);
 
     const toggleMobileSearch = () => {
         setIsMobileSearchExpanded(!isMobileSearchExpanded);
     };
-
-    // Fetch properties and extract unique locations
-    // ...existing code...
-useEffect(() => {
-    const fetchLocations = async () => {
-        try {
-            const properties = await getProperties();
-            const uniqueLocations = Array.from(
-                new Set(properties.map((prop: Property) => prop.location))
-            ).filter((location): location is string => Boolean(location));
-            setLocations(uniqueLocations);
-        } catch (error) {
-            console.error('Error fetching locations:', error);
-        }
-    };
-
-    fetchLocations();
-}, []);
-// ...existing code...
 
     // Function to handle tab change
     const handleTabChange = (tab: string) => {
@@ -92,38 +74,16 @@ useEffect(() => {
         });
     };
 
-    // Filter locations based on input
-    const handleLocationInput = (value: string) => {
-        setLocation(value);
-        if (value.length > 0) {
-            const filtered = locations.filter(loc =>
-                loc.toLowerCase().includes(value.toLowerCase())
-            );
-            setFilteredLocations(filtered);
-            setShowLocationDropdown(true);
-        } else {
-            setFilteredLocations([]);
-            setShowLocationDropdown(false);
-        }
+    // Add this function to handle suggestion selection
+    const handleSelectLocation = (suggestion: string) => {
+        setLocation(suggestion);
+        setShowSuggestions(false);
     };
 
-    // Handle location selection
-    const handleLocationSelect = (selectedLocation: string) => {
-        setLocation(selectedLocation);
-        setShowLocationDropdown(false);
-    };
-
-    // Close dropdown when clicking outside
-    useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (locationInputRef.current && !locationInputRef.current.contains(event.target as Node)) {
-                setShowLocationDropdown(false);
-            }
-        };
-
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, []);
+    // Add filtered suggestions based on input
+    const filteredSuggestions = suggestions.filter(suggestion =>
+        suggestion.toLowerCase().includes(location.toLowerCase())
+    );
 
     // Animation variants
     const tabsContainerVariants = {
@@ -238,17 +198,17 @@ useEffect(() => {
 
             {/* Desktop Search container */}
             <motion.div 
-               className="bg-white rounded-full md:flex hidden items-center shadow-md md:w-[680px] lg:w-[740px] mx-auto h-16 py-3"
+                className="bg-white rounded-full md:flex hidden items-center shadow-md w-full max-w-5xl mx-auto h-16"
                 variants={searchContainerVariants}
                 initial="hidden"
                 animate="visible"
             >
                 {/* Type dropdown */}
-                <div className="w-1/4 border-r border-gray-200 h-full px-6">
+                <div className="w-1/5 border-r border-gray-200 h-full px-6">
                     <div className="h-full flex flex-col justify-center relative" onClick={() => setIsTypeDropdownOpen(!isTypeDropdownOpen)}>
-                        <div className="text-[12px] text-gray-500 mb-1 text-left">Type</div>
+                        <div className="text-xs text-gray-500 mb-1 text-left">Type</div>
                         <div className="flex items-center justify-between cursor-pointer w-full">
-                            <span className="font-semibold text-[12px] text-[#0A2F1E]">{propertyType}</span>
+                            <span className="font-normal text-sm text-[#0A2F1E]">{propertyType}</span>
                             <motion.div
                                 animate={{ rotate: isTypeDropdownOpen ? 180 : 0 }}
                                 transition={{ duration: 0.3 }}
@@ -267,7 +227,7 @@ useEffect(() => {
                                     exit="exit"
                                 >
                                     <div 
-                                        className="px-3 py-2 hover:bg-gray-100 cursor-pointer text-[12px] text-[#0A2F1E]"
+                                        className="px-3 py-2 hover:bg-gray-100 cursor-pointer text-sm text-[#0A2F1E]"
                                         onClick={(e) => {
                                             e.stopPropagation();
                                             setPropertyType('All type');
@@ -279,7 +239,7 @@ useEffect(() => {
                                     {Object.entries(propertyTypes).map(([key, value]) => (
                                         <div 
                                             key={key}
-                                            className="px-3 py-2 hover:bg-gray-100 cursor-pointer text-[12px] text-[#0A2F1E]"
+                                            className="px-3 py-2 hover:bg-gray-100 cursor-pointer text-sm text-[#0A2F1E]"
                                             onClick={(e) => {
                                                 e.stopPropagation();
                                                 setPropertyType(value);
@@ -296,74 +256,50 @@ useEffect(() => {
                 </div>
 
                 {/* Location input */}
-                <div className="w-2/6 border-r border-gray-200 h-full px-6">
-                    <div className="h-full flex flex-col justify-center relative" ref={locationInputRef}>
+                <div className="w-2/5 border-r border-gray-200 h-full px-6">
+                    <div className="h-full flex flex-col justify-center">
                         <div className="text-xs text-gray-500 mb-1 text-left">Location</div>
                         <div className="flex items-center justify-between">
                             <input
                                 type="text"
                                 placeholder="Search Location"
-                                className="w-full outline-none text-sm text-[#161E2D] placeholder:text-[#161E2D] placeholder:font-semibold placeholder:text-[12px]"
+                                className="w-full outline-none text-sm text-[#161E2D] placeholder:text-[#161E2D]"
                                 value={location}
-                                onChange={(e) => handleLocationInput(e.target.value)}
-                                onFocus={() => setShowLocationDropdown(true)}
+                                onChange={(e) => setLocation(e.target.value)}
                             />
                             <motion.div 
                                 className="w-6 h-6 flex items-center justify-center"
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.9 }}
                             >
-                                <Locate className="w-4 h-4 text-[#5C6368]" />
+                                <Locate className="w-4 h-4" />
                             </motion.div>
                         </div>
-
-                        {/* Location suggestions dropdown */}
-                        <AnimatePresence>
-                            {showLocationDropdown && filteredLocations.length > 0 && (
-                                <motion.div
-                                    className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto"
-                                    initial={{ opacity: 0, y: -10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -10 }}
-                                    transition={{ duration: 0.2 }}
-                                >
-                                    {filteredLocations.map((loc, index) => (
-                                        <div
-                                            key={index}
-                                            className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm text-gray-700"
-                                            onClick={() => handleLocationSelect(loc)}
-                                        >
-                                            {loc}
-                                        </div>
-                                    ))}
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
                     </div>
                 </div>
 
                 {/* Search buttons */}
-                <div className=" px-4  flex items-center justify-end space-x-2">
+                <div className="w-2/5 px-4 flex items-center justify-end space-x-2">
                     {/* Advanced Search button */}
                     <motion.button 
-                        className="flex items-center cursor-pointer rounded-full border border-[#0A2F1E]  px-4 py-2 bg-white"
+                        className="flex items-center rounded-full border border-gray-200 px-4 py-2 bg-white"
                         variants={buttonHoverVariants}
                         whileHover="hover"
                         whileTap="tap"
                     >
-                        <span className="text-[12px] font-semibold text-[#0A2F1E] mr-2">Search advanced</span>
-                        <Sliders size={14} className="text-[#0A2F1E]" />
+                        <span className="text-sm text-gray-700 mr-2">Search advanced</span>
+                        <Sliders size={14} className="text-gray-700" />
                     </motion.button>
                     
                     {/* Search button */}
                     <motion.button 
                         onClick={handleSearch}
-                        className="bg-[#0A2F1E] cursor-pointer text-white flex items-center gap-2 rounded-full px-6  py-2"
+                        className="bg-[#0A2F1E] text-white flex items-center gap-2 rounded-full px-6 py-2"
                         variants={buttonHoverVariants}
                         whileHover="hover"
                         whileTap="tap"
                     >
-                        <span className="text-[12px]">Search</span>
+                        <span className="text-sm">Search</span>
                         <SearchIcon size={16} />
                     </motion.button>
                 </div>
@@ -483,9 +419,9 @@ useEffect(() => {
                                 </div>
                             </motion.div>
 
-                            {/* Location Input */}
+                            {/* Location Input with Suggestions - Mobile */}
                             <motion.div 
-                                className="mb-4"
+                                className="mb-4 relative"
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ 
                                     opacity: 1, 
@@ -503,7 +439,11 @@ useEffect(() => {
                                         placeholder="Search Location"
                                         className="w-full outline-none text-sm text-[#0A2F1E] placeholder:text-[#0A2F1E]"
                                         value={location}
-                                        onChange={(e) => handleLocationInput(e.target.value)}
+                                        onChange={(e) => {
+                                            setLocation(e.target.value);
+                                            setShowSuggestions(true);
+                                        }}
+                                        onFocus={() => setShowSuggestions(true)}
                                     />
                                     <motion.div
                                         whileHover={{ scale: 1.1 }}
@@ -512,6 +452,38 @@ useEffect(() => {
                                         <Locate size={16} className="text-gray-500" />
                                     </motion.div>
                                 </motion.div>
+
+                                {/* Location Suggestions Dropdown - Mobile */}
+                                <AnimatePresence>
+                                    {showSuggestions && location.length > 0 && (
+                                        <motion.div
+                                            className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-48 overflow-y-auto"
+                                            initial={{ opacity: 0, y: -10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: -10 }}
+                                        >
+                                            {filteredSuggestions.length > 0 ? (
+                                                filteredSuggestions.map((suggestion, index) => (
+                                                    <motion.div
+                                                        key={index}
+                                                        className="px-4 py-2 text-sm text-[#0A2F1E] hover:bg-gray-100 cursor-pointer"
+                                                        whileHover={{ backgroundColor: "#f7f7f7" }}
+                                                        onClick={() => handleSelectLocation(suggestion)}
+                                                    >
+                                                        <div className="flex items-center gap-2">
+                                                            <Locate size={14} className="text-gray-500" />
+                                                            {suggestion}
+                                                        </div>
+                                                    </motion.div>
+                                                ))
+                                            ) : (
+                                                <div className="px-4 py-2 text-sm text-gray-500">
+                                                    No locations found
+                                                </div>
+                                            )}
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
                             </motion.div>
 
                             {/* Advanced Search Link */}

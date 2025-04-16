@@ -59,16 +59,16 @@ const Footer: React.FC = () => {
           <div className="flex gap-3  items-center">
             <p className="text-[12px]">Follow Us:</p>
             <div className="flex space-x-3">
-              <Link href="https://www.facebook.com/rheelestateabuja" aria-label="Facebook" className="bg-[#FFFFFF1A] hover:bg-gray-700 p-2 rounded-full">
+              <Link href="https://www.facebook.com/rheelestateabuja" target='_blank' rel="noopener noreferrer"  aria-label="Facebook" className="bg-[#FFFFFF1A] hover:bg-gray-700 p-2 rounded-full">
                 <FaFacebookF className="text-white" />
               </Link>
-              <Link href="https://twitter.com/rheel_estate" aria-label="Twitter" className="bg-[#FFFFFF1A] hover:bg-gray-700 p-2 rounded-full">
+              <Link href="https://twitter.com/rheel_estate" target='_blank' rel="noopener noreferrer" aria-label="Twitter" className="bg-[#FFFFFF1A] hover:bg-gray-700 p-2 rounded-full">
                 <FaTwitter className="text-white" />
               </Link>
-              <Link href="https://www.instagram.com/rheel_estate" aria-label="Instagram" className="bg-[#FFFFFF1A] hover:bg-gray-700 p-2 rounded-full">
+              <Link href="https://www.instagram.com/rheel_estate" target='_blank' rel="noopener noreferrer" aria-label="Instagram" className="bg-[#FFFFFF1A] hover:bg-gray-700 p-2 rounded-full">
                 <FaInstagram className="text-white" />
               </Link>
-              <Link href="https://www.youtube.com/@rheelestate" aria-label="YouTube" className="bg-[#FFFFFF1A] hover:bg-gray-700 p-2 rounded-full">
+              <Link href="https://www.youtube.com/@rheelestate" target='_blank' rel="noopener noreferrer" aria-label="YouTube" className="bg-[#FFFFFF1A] hover:bg-gray-700 p-2 rounded-full">
                 <FaYoutube className="text-white" />
               </Link>
             </div>

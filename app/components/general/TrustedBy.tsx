@@ -56,7 +56,7 @@ const TrustedBy = () => {
                             src={logo} 
                             height={105} 
                             width={105} 
-                            className={`${index === 0 ? 'w-[150px]' : 'w-auto'} h-auto flex-1`} 
+                            className={`${index === 0 ? 'w-[150px]' : 'w-[150px]'} h-auto flex-1`} 
                         />
                     </motion.div>
                 ))}

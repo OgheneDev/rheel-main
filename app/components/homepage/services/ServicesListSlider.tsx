@@ -89,6 +89,12 @@ const ServicesListSlider: React.FC = () => {
       title: 'Project Management',
       description: 'Many Nigerians in the diaspora have lost millions to unreliable family members who mismanage or squander funds meant for home construction.',
       icon: 'https://res.cloudinary.com/dgc8cd67w/image/upload/v1742253791/construction_jlkzg2.png'
+    },
+    {
+      id: 8,
+      title: 'Cleaning Services',
+      description: 'At Rheel Estate Limited, we understand that a newly purchased property isn’t truly ready until it’s spotless.',
+      icon: 'https://res.cloudinary.com/dgc8cd67w/image/upload/v1742592879/Photoroom_20250321_132931_ecnp8s.png'
     }
   ];
 

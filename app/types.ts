@@ -6,6 +6,7 @@ export interface Career {
     description: string;
     location: string;
     salary: number;
+    link: string;
 }
 
 export interface Property {

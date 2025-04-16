@@ -5,10 +5,10 @@ import { X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface PropertyImageSliderProps {
-  images: string[];
+  images?: string[]; // Make images optional
 }
 
-const PropertyImageSlider: React.FC<PropertyImageSliderProps> = ({ images }) => {
+const PropertyImageSlider: React.FC<PropertyImageSliderProps> = ({ images = [] }) => { // Provide default empty array
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -132,7 +132,7 @@ const PropertyImageSlider: React.FC<PropertyImageSliderProps> = ({ images }) => 
   const groupedImages = getGroupedImages();
 
   // If no images provided, show placeholder
-  if (images.length === 0) {
+  if (!images || images.length === 0) {
     return (
       <div className="w-full h-64 bg-gray-200 flex items-center justify-center rounded-lg">
         <p className="text-gray-500">No property images available</p>

@@ -1,118 +1,38 @@
-'use client';
-
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import { getPropertyById } from "@/app/api/properties/requests";
 import { Property } from "@/app/types";
-import PropertyHeader from "@/app/components/property/PropertyHeader";
-import PropertyFeatures from "@/app/components/property/PropertyFeatures";
-import PropertyLocation from "@/app/components/property/PropertyLocation";
-import { LoadingState, ErrorState } from "@/app/components/property/StateComponents";
-import ContactButtons from "@/app/components/property/ContactButtons";
-import Description from "@/app/components/property/Description";
-import Divider from "@/app/components/property/Divider";
-import Overview from "@/app/components/property/Overview";
-import VideoTour from "@/app/components/property/VideoTour";
-import Amenities from "@/app/components/property/Amenities";
-import FloorPlans from "@/app/components/property/FloorPlans";
-import Stores from "@/app/components/general/Stores";
-import PropertyImageSlider from "@/app/components/property/ImageSlider";
+import PropertyWrapper from '../PropertyWrapper';
 
-const PropertyPage = () => {
-  const { id } = useParams(); // Get property ID from URL
-  const [property, setProperty] = useState<Property | null>(null);
-  const [loading, setLoading] = useState(true);
+interface ApiResponse {
+  data: Property[];
+}
 
-  useEffect(() => {
-    if (id) {
-      console.log("Fetching property with ID:", id);
-      getPropertyById(id as string)
-        .then((response) => {
-          console.log("Fetched property:", response);
-          if (response.status) {
-            setProperty(response.data); // Extract the actual data
-          } else {
-            setProperty(null);
-          }
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.error("Error fetching property:", error);
-          setLoading(false);
-        });
+export async function generateStaticParams() {
+  try {
+    console.log("Fetching properties for static paths...");
+    
+    const res = await fetch("https://apidoc.rheel.ng/data/properties");
+    
+    if (!res.ok) {
+      throw new Error(`API Error: ${res.status} ${res.statusText}`);
     }
-  }, [id]);
+    
+    const jsonResponse = await res.json() as ApiResponse;
+    const params = jsonResponse.data.map((property: Property) => ({
+      id: property.id.toString(),
+    }));
 
-  if (loading) return <LoadingState />;
-  if (!property) return <ErrorState />;
+    console.log("✅ Generated static params:", params);
+    return params;
+  } catch (error) {
+    console.error("❌ Error in generateStaticParams:", error);
+    return [];
+  }
+}
 
-  return (
-    <div className="py-10 md:py-15">
-      {/* Property Header */}
-      <PropertyHeader 
-        propertyType={property.property_type_id} 
-        price={property.price} 
-      />
-      
-      <div className="px-5 md:px-[130px] flex flex-col md:flex-row gap-5">
-        {/* Property Features */}
-        <PropertyFeatures 
-          bathroom={property.bathroom}
-          bedroom={property.bedroom}
-          livingRoom={property.living_room}
-        />
-        
-        {/* Property Location */}
-        <PropertyLocation location={property.location} />
-      </div>
+interface PageProps {
+  params: { id: string };
+}
 
-      <div className="px-5">
-        {/*Property Images */}
-      <PropertyImageSlider images={property.property_images} />
-      </div>
-
-      <div className="py-5 md:py-8 px-5">
-        {/* Contact Buttons - Pass the property prop correctly */}
-        <ContactButtons property={property} />
-
-        {/* Property Description */}
-        <Description description={property.property_description} />
-        <Divider />
-
-        {/* Property Overview */}
-        <Overview
-          bathroom={property.bathroom}
-          bedroom={property.bedroom}
-          livingRoom={property.living_room}
-          propertyType={property.property_type_id}
-        />
-        <Divider />
-
-        {/* Video Tour */}
-        {property.video_upload && property.video_upload.length > 0 && (
-          <>
-            <VideoTour videoUrl={property.video_upload} />
-            <Divider />
-          </>
-        )}
-
-        {/* Amenities */}
-        <Amenities amenities={property.amenities} />
-        <Divider />
-
-        {/* Floor Plans - Render only if available */}
-        {property.floor_plan && property.floor_plan.length > 0 && (
-          <>
-            <FloorPlans floorPlans={property.floor_plan} />
-            <Divider />
-          </>
-        )}
-      </div>
-
-      {/* Store Listings */}
-      <Stores />
-    </div>
-  );
-};
-
-export default PropertyPage;
+export default function PropertyPage({ params }: PageProps) {
+  const id = parseInt(params.id, 10);
+  return <PropertyWrapper id={id} />;
+}

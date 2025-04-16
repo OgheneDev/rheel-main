@@ -23,6 +23,7 @@ export const getCareers = async (): Promise<Career[]> => {
                 description: data.description || 'No Description',
                 salary: data.salary ?? 0,
                 location: data.location || 'Not specified',
+                link: data.link || '#',
             };
         });
     } catch (error) {

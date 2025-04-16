@@ -62,7 +62,26 @@ const CareersList: React.FC = () => {
         window.scrollTo(0, 0);
     };
 
+    if (loading) return (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-7">
+            {Array.from({ length: itemsPerPage }).map((_, index) => (
+                <CareerSkeleton key={index} />
+            ))}
+        </div>
+    );
+
     if (error) return <div>Error: {error}</div>;
+
+    if (!careers || careers.length === 0) {
+        return (
+            <div className="flex flex-col items-center justify-center py-16 px-4">
+                <h3 className="text-xl font-semibold text-[#161E2D] mb-2">No Career Openings</h3>
+                <p className="text-[#5C6368] text-center max-w-md">
+                    There are currently no career opportunities available. Please check back later or follow us on social media for updates.
+                </p>
+            </div>
+        );
+    }
 
     return (
         <div> 

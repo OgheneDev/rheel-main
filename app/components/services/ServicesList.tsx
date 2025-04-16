@@ -112,7 +112,7 @@ const ServicesList: React.FC = () => {
       title: 'Cleaning Services',
       description: 'At Rheel Estate Limited, we understand that a newly purchased property isn’t truly ready until it’s spotless. That’s why we’ve partnered with Hallmark-Janitors, a professional cleaning service provider, to ensure your home is fresh, hygienic, and move-in ready.',
       subheading: 'Our Cleaning Services Include:',
-      nestedList: [
+      nestedList: [ 
         'Post-Construction Cleaning – Removing dust, debris, and residues left after construction.',
         'Deep Cleaning for New Homes – Sanitizing and polishing every corner for a fresh start.',
         'Standard Cleaning for Occupied Homes – Maintaining a clean and comfortable living space.',
@@ -129,6 +129,64 @@ const ServicesList: React.FC = () => {
   ];
 
   const renderServiceCard = (service: ServiceItem, isReversed: boolean): React.ReactNode => {
+    // Modify the Cleaning Services section
+    if (service.title === 'Cleaning Services') {
+      return (
+        <div className="flex flex-col md:flex-row gap-6 h-full">
+          <div className={`flex flex-col md:flex-row gap-8 w-full ${isReversed ? 'md:flex-row-reverse' : ''}`}>
+            {/* Image Section */}
+            <div className="md:w-1/3 flex items-center justify-center">
+              <div className="w-full h-[200px] relative">
+                <Image 
+                  src={service.icon}
+                  alt={service.title}
+                  fill
+                  className="object-contain"
+                />
+              </div>
+            </div>
+
+            {/* Content Section */}
+            <div className="md:w-2/3">
+              <h3 className="font-semibold text-[#161E2D] text-xl mb-4">
+                {service.title}
+              </h3>
+              <div className="space-y-4">
+                <p className="text-sm text-[#5C6368]">{service.description}</p>
+                
+                {service.subheading && (
+                  <p className="text-sm font-medium mb-2 text-[#5C6368]">{service.subheading}</p>
+                )}
+                
+                {service.nestedList && (
+                  <ul className="list-disc pl-5 text-sm mb-4 space-y-1">
+                    {service.nestedList.map((item: string, idx: number) => (
+                      <li key={idx} className="text-[#5C6368]">{item}</li>
+                    ))}
+                  </ul>
+                )}
+                
+                {service.whyChooseUs && (
+                  <>
+                    <p className="text-sm font-medium mb-2 text-[#5C6368]">Why Choose Us?</p>
+                    <ol className="list-decimal pl-5 text-sm mb-4 space-y-1">
+                      {service.whyChooseUs.map((item: string, idx: number) => (
+                        <li key={idx} className="text-[#5C6368]">{item}</li>
+                      ))}
+                    </ol>
+                  </>
+                )}
+                
+                {service.conclusion && (
+                  <p className="text-sm text-[#5C6368] mt-2 leading-tight">{service.conclusion}</p>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className="flex flex-col md:flex-row gap-6 h-full">
         <div className={`flex flex-col md:flex-row gap-8 w-full ${isReversed ? 'md:flex-row-reverse' : ''}`}>
@@ -180,38 +238,6 @@ const ServicesList: React.FC = () => {
                   
                   {service.conclusion && (
                     <p className="text-sm text-[#5C6368]  mt-3  leading-tight">{service.conclusion}</p>
-                  )}
-                </>
-              )}
-              {service.title === 'Cleaning Services' && (
-                <>
-                  <p className="text-sm text-[#5C6368] mb-4">{service.description}</p>
-                  
-                  {service.subheading && (
-                    <p className="text-sm font-medium mb-2 text-[#5C6368]">{service.subheading}</p>
-                  )}
-                  
-                  {service.nestedList && (
-                    <ul className="list-disc pl-5 text-sm mb-4 space-y-1">
-                      {service.nestedList.map((item: string, idx: number) => (
-                        <li key={idx} className="text-[#5C6368]">{item}</li>
-                      ))}
-                    </ul>
-                  )}
-                  
-                  {service.whyChooseUs && (
-                    <>
-                      <p className="text-sm font-medium mb-2 text-[#5C6368]">Why Choose Us?</p>
-                      <ol className="list-decimal pl-5 text-sm mb-4 space-y-1">
-                        {service.whyChooseUs.map((item: string, idx: number) => (
-                          <li key={idx} className="text-[#5C6368]">{item}</li>
-                        ))}
-                      </ol>
-                    </>
-                  )}
-                  
-                  {service.conclusion && (
-                    <p className="text-sm text-[#5C6368] mt-2 leading-tight">{service.conclusion}</p>
                   )}
                 </>
               )}

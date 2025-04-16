@@ -32,16 +32,16 @@ const ContactUs = () => {
       <div>
         <h3 className="font-semibold text-gray-700 mb-3">Follow Us:</h3>
         <div className="flex gap-4">
-          <a href="https://www.facebook.com/rheelestateabuja" className="w-10 h-10 flex items-center justify-center border border-gray-300 rounded-md hover:bg-gray-100">
+          <a href="https://www.facebook.com/rheelestateabuja" target='_blank' rel="noopener noreferrer"  className="w-10 h-10 flex items-center justify-center border border-gray-300 rounded-md hover:bg-gray-100">
             <FaFacebookF className="text-gray-700" />
           </a>
-          <a href="https://www.instagram.com/rheel_estate" className="w-10 h-10 flex items-center justify-center border border-gray-300 rounded-md hover:bg-gray-100">
+          <a href="https://www.instagram.com/rheel_estate" target='_blank' rel="noopener noreferrer" className="w-10 h-10 flex items-center justify-center border border-gray-300 rounded-md hover:bg-gray-100">
             <FaInstagram className="text-gray-700" />
           </a>
-          <a href="https://www.youtube.com/@rheelestate" className="w-10 h-10 flex items-center justify-center border border-gray-300 rounded-md hover:bg-gray-100">
+          <a href="https://www.youtube.com/@rheelestate" target='_blank' rel="noopener noreferrer" className="w-10 h-10 flex items-center justify-center border border-gray-300 rounded-md hover:bg-gray-100">
             <FaYoutube className="text-gray-700" />
           </a>
-          <a href="https://www.twitter.com/rheel_estate" className="w-10 h-10 flex items-center justify-center border border-gray-300 rounded-md hover:bg-gray-100">
+          <a href="https://www.twitter.com/rheel_estate" target='_blank' rel="noopener noreferrer" className="w-10 h-10 flex items-center justify-center border border-gray-300 rounded-md hover:bg-gray-100">
             <FaTwitter className="text-gray-700" />
           </a>
         </div>
