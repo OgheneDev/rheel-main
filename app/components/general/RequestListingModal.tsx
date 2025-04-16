@@ -46,21 +46,21 @@ const RequestListingModal: React.FC<RequestListingModalProps> = ({ isOpen, onClo
     setLoading(true);
 
     // Construct mailto link
-    const recipient = "admin@rheel.ng";
+    const recipient = "hello@rheelestate.com";
     const subject = encodeURIComponent("New Property Listing Request");
     const body = encodeURIComponent(`
-Property Listing Request Details:
+     Property Listing Request Details:
 
-Contact Information:
-- Name: ${formData.firstName} ${formData.lastName}
-- Email: ${formData.email}
-- Phone: ${formData.phone}
+     Contact Information:
+     - Name: ${formData.firstName} ${formData.lastName}
+     - Email: ${formData.email}
+     - Phone: ${formData.phone}
 
-Property Details:
-- Address: ${formData.propertyAddress}
-- Property Type: ${formData.propertyType}
-- Transaction Type: ${formData.transactionType}
-- Property Status: ${formData.propertyStatus}
+     Property Details:
+     - Address: ${formData.propertyAddress}
+     - Property Type: ${formData.propertyType}
+     - Transaction Type: ${formData.transactionType}
+     - Property Status: ${formData.propertyStatus}
     `);
 
     const mailtoLink = `mailto:${recipient}?subject=${subject}&body=${body}`;

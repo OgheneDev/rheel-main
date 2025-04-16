@@ -37,15 +37,13 @@ const ContactForm = () => {
     setLoading(true);
 
     // Construct mailto link
-    const recipient = "admin@rheel.ng";
+    const recipient = "hello@rheelestate.com";
     const subject = encodeURIComponent(formData.subject || "New Contact Form Submission");
     const body = encodeURIComponent(`
-Name: ${formData.name}
-Email: ${formData.email}
-Phone: ${formData.phone}
-
-Message:
-${formData.message}
+      Name: ${formData.name}
+      Email: ${formData.email}
+      Phone: ${formData.phone}
+      Message: ${formData.message}
     `);
 
     const mailtoLink = `mailto:${recipient}?subject=${subject}&body=${body}`;

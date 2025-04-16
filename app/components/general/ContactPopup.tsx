@@ -31,7 +31,7 @@ const ContactPopup: React.FC<ContactPopupProps> = ({ isOpen, onClose, defaultMin
     setIsMinimized(!isMinimized);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Validation
@@ -46,23 +46,32 @@ const ContactPopup: React.FC<ContactPopupProps> = ({ isOpen, onClose, defaultMin
 
     setLoading(true);
 
-    // Construct mailto link
-    const recipient = "admin@rheel.ng";
-    const subject = encodeURIComponent("Application to join mailing list.");
-    const body = encodeURIComponent(`
-Contact Information:
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-Name: ${formData.firstName} ${formData.lastName}
-Country: ${formData.country}
-Email: ${formData.email}
-${formData.phone ? `Phone: ${formData.phone}` : ''}
-    `);
+      if (!response.ok) throw new Error('Failed to send email');
 
-    const mailtoLink = `mailto:${recipient}?subject=${subject}&body=${body}`;
-    window.location.href = mailtoLink;
-
-    setLoading(false);
-    onClose();
+      Swal.fire({
+        title: "Success!",
+        text: "Thank you for joining our mailing list!",
+        icon: "success"
+      });
+      onClose();
+    } catch (error) {
+      Swal.fire({
+        title: "Error!",
+        text: "Failed to send your information. Please try again later.",
+        icon: "error"
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const popupVariants = {
@@ -190,9 +199,9 @@ ${formData.phone ? `Phone: ${formData.phone}` : ''}
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-[#0A2F1E] text-white py-3 rounded-full text-sm font-medium hover:bg-[#0d3b27] transition-colors disabled:opacity-50"
+                  className="w-full bg-[#0A2F1E] cursor-pointer text-white py-3 rounded-full text-sm font-medium hover:bg-[#0d3b27] transition-colors disabled:opacity-50"
                 >
-                  {loading ? 'Preparing Email...' : 'Submit'}
+                  {loading ? 'Submitting...' : 'Submit'}
                 </button>
               </form>
             </motion.div>
