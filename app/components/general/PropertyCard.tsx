@@ -55,15 +55,15 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
       
       if (response.ok) {
         // Property exists in static paths, use normal navigation
-        router.push(`/property/${property.id}`);
+        router.push(`/properties/${property.id}`);
       } else {
         // Property doesn't exist in static paths, use fallback
-        router.push(`/property/fallback?id=${property.id}`);
+        router.push(`/properties/fallback?id=${property.id}`);
       }
     } catch (error) {
       // If check fails, default to fallback
       console.log('Routing to fallback page');
-      router.push(`/property/fallback?id=${property.id}`);
+      router.push(`/properties/fallback?id=${property.id}`);
     }
   };
 
