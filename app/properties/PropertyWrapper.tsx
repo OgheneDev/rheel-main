@@ -25,16 +25,16 @@ export default function PropertyWrapper({ id }: PropertyWrapperProps) {
           
           if (apiCheck.ok) {
             // Property exists in API but not in static paths, use fallback
-            router.replace(`/property/fallback?id=${id}`);
+            router.replace(`/properties/fallback?id=${id}`);
           } else {
             // Property doesn't exist at all
-            router.replace('/property/not-found');
+            router.replace('/properties/not-found');
           }
         }
       } catch (error) {
         console.error('Error checking property:', error);
         // On error, try fallback
-        router.replace(`/property/fallback?id=${id}`);
+        router.replace(`/properties/fallback?id=${id}`);
       }
     };
 

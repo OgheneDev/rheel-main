@@ -11,7 +11,7 @@ export async function generateStaticParams() {
   try {
     console.log("Fetching properties for static paths...");
     const res = await fetch("https://apidoc.rheel.ng/data/properties", {
-      cache: 'no-store', // Ensure fresh data
+      cache: 'no-store',
     });
     
     if (!res.ok) {
@@ -43,22 +43,31 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     }
 
     const res = await fetch(`https://apidoc.rheel.ng/data/properties/${id}`, {
-      cache: 'no-store', // Prevent caching issues
+      cache: 'no-store',
     });
     
     if (!res.ok) {
       throw new Error(`API Error: ${res.status} ${res.statusText}`);
     }
     
-    const property: Property = await res.json();
-    if (!property) {
-      throw new Error("Property not found");
+    const result = await res.json();
+    const property: Property = result.data ?? result; // Handle both { data: Property } and direct Property responses
+    
+    if (!property || !property.id) {
+      throw new Error("Property not found or invalid");
     }
     
+    // Validate required fields
+    if (!property.location || !property.bedroom || !property.bathroom || !property.living_room || !property.price || !property.property_description) {
+      throw new Error("Missing required property fields");
+    }
+
     const propertyType = propertyTypes[property.property_type_id] || 'Property';
     const title = `${property.bedroom} Bedroom ${propertyType} for ${property.property_availability} in ${property.location}`;
     const description = `${property.property_description.slice(0, 160)} | ${property.bedroom} Bed, ${property.bathroom} Bath, ${property.living_room} Living Room. Price: ${property.price}. Located in ${property.location}.`;
     
+    console.log(`✅ Generated metadata for property ${id}:`, { title, description });
+
     return {
       title,
       description,
@@ -68,14 +77,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         `${property.property_availability} properties ${property.location}`,
         `${propertyType.toLowerCase()} for ${property.property_availability} in ${property.location}`,
         `real estate ${property.location}`,
-        `${property.amenities.join(', ')} ${property.location}`,
+        `${property.amenities?.join(', ') || ''} ${property.location}`,
       ],
       openGraph: {
         title,
         description,
         type: 'website',
         url: `https://rheel.ng/properties/${params.id}`,
-        images: property.property_images.length > 0 ? [{
+        images: property.property_images?.length > 0 ? [{
           url: property.property_images[0],
           width: 1200,
           height: 630,
@@ -86,7 +95,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         card: 'summary_large_image',
         title,
         description,
-        images: property.property_images.length > 0 ? [property.property_images[0]] : [],
+        images: property.property_images?.length > 0 ? [property.property_images[0]] : [],
       },
       alternates: {
         canonical: `https://rheel.ng/properties/${params.id}`,
@@ -105,7 +114,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
           numberOfRooms: property.property_type_id === 7 || property.property_type_id === 8 
             ? undefined 
             : parseInt(property.bedroom, 10) + parseInt(property.bathroom, 10) + parseInt(property.living_room, 10),
-          image: property.property_images,
+          image: property.property_images || [],
           offers: {
             '@type': 'Offer',
             price: property.price,
@@ -116,7 +125,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       },
     };
   } catch (error) {
-    console.error("❌ Error in generateMetadata:", error);
+    console.error(`❌ Error in generateMetadata for property ${params.id}:`, error);
     return {
       title: 'Property in Abuja',
       description: 'Explore properties for sale or rent in Abuja. Find your dream home with detailed listings.',
