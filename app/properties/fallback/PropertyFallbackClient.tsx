@@ -1,22 +1,21 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { LoadingState, ErrorState } from "@/app/components/property/StateComponents";
 import PropertyClient from "../PropertyClient";
+import { Property, propertyTypes } from "@/app/types";
 
-interface PropertyFallbackClientProps {
-  searchParams: { id?: string };
-}
-
-export default function PropertyFallbackClient({ searchParams }: PropertyFallbackClientProps) {
+export default function PropertyFallbackClient() {
   const router = useRouter();
-  const id = searchParams.id;
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [property, setProperty] = useState<Property | null>(null);
 
   useEffect(() => {
-    if (!id) {
+    if (!id || isNaN(parseInt(id, 10))) {
       router.push("/properties/not-found");
       return;
     }
@@ -24,7 +23,7 @@ export default function PropertyFallbackClient({ searchParams }: PropertyFallbac
     const validateProperty = async () => {
       try {
         const response = await fetch(`https://apidoc.rheel.ng/data/properties/${id}`, {
-          cache: 'no-store',
+          cache: 'no-store', // Fetch fresh data for new properties
         });
 
         if (!response.ok) {
@@ -32,12 +31,64 @@ export default function PropertyFallbackClient({ searchParams }: PropertyFallbac
         }
 
         const data = await response.json();
-        const property = data.data ?? data; // Handle both response types
-        if (!property || !property.id) {
+        const fetchedProperty: Property = data.data ?? data;
+        if (!fetchedProperty || !fetchedProperty.id) {
           throw new Error('Invalid property data');
         }
 
+        setProperty(fetchedProperty);
         setLoading(false);
+
+        // Update document metadata client-side
+        const propertyType = propertyTypes[fetchedProperty.property_type_id] || 'Property';
+        const title = `${fetchedProperty.bedroom} Bedroom ${propertyType} for ${fetchedProperty.property_availability} in ${fetchedProperty.location}`;
+        const description = `${fetchedProperty.property_description.slice(0, 160)} | ${fetchedProperty.bedroom} Bed, ${fetchedProperty.bathroom} Bath, ${fetchedProperty.living_room} Living Room. Price: ${fetchedProperty.price}. Located in ${fetchedProperty.location}.`;
+
+        document.title = title;
+        const metaDescription = document.querySelector('meta[name="description"]');
+        if (metaDescription) {
+          metaDescription.setAttribute('content', description);
+        } else {
+          const meta = document.createElement('meta');
+          meta.name = 'description';
+          meta.content = description;
+          document.head.appendChild(meta);
+        }
+
+        // Update Open Graph and Twitter meta tags
+        const ogTitle = document.querySelector('meta[property="og:title"]');
+        if (ogTitle) {
+          ogTitle.setAttribute('content', title);
+        }
+        const ogDescription = document.querySelector('meta[property="og:description"]');
+        if (ogDescription) {
+          ogDescription.setAttribute('content', description);
+        }
+        const ogUrl = document.querySelector('meta[property="og:url"]');
+        if (ogUrl) {
+          ogUrl.setAttribute('content', `https://rheel.ng/properties/fallback?id=${id}`);
+        }
+        if (fetchedProperty.property_images?.length > 0) {
+          const ogImage = document.querySelector('meta[property="og:image"]');
+          if (ogImage) {
+            ogImage.setAttribute('content', fetchedProperty.property_images[0]);
+          }
+        }
+
+        const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+        if (twitterTitle) {
+          twitterTitle.setAttribute('content', title);
+        }
+        const twitterDescription = document.querySelector('meta[name="twitter:description"]');
+        if (twitterDescription) {
+          twitterDescription.setAttribute('content', description);
+        }
+        if (fetchedProperty.property_images?.length > 0) {
+          const twitterImage = document.querySelector('meta[name="twitter:image"]');
+          if (twitterImage) {
+            twitterImage.setAttribute('content', fetchedProperty.property_images[0]);
+          }
+        }
       } catch (error) {
         console.error('Error validating property:', error);
         setError(true);
@@ -48,9 +99,9 @@ export default function PropertyFallbackClient({ searchParams }: PropertyFallbac
     validateProperty();
   }, [id, router]);
 
-  if (!id) return null;
+  if (!id || isNaN(parseInt(id, 10))) return null;
   if (loading) return <LoadingState />;
-  if (error) return <ErrorState />;
+  if (error || !property) return <ErrorState />;
 
   return <PropertyClient id={parseInt(id, 10)} />;
 }
