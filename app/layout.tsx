@@ -8,64 +8,77 @@ const manrope = Manrope({subsets: ["latin"]});
 
 // Move metadata here and export it
 export const metadata: Metadata = {
-  title: "Rheel Estate Limited",
-  description: "At Rheel Estate Limited, we provide comprehensive real estate solutions designed to simplify property transactions, maximize investment opportunities, and ensure seamless property management.",
-  keywords: "real estate, property, Nigeria, Abuja, investment, property management, real estate services, luxury homes, property sales, leasing, real estate investment",
+  title: {
+    default: "Rheel Estate Limited | Buy, Rent & Invest in Properties",
+    template: "%s | Rheel Estate Limited"
+  },
+  description:
+    "Discover premium properties for sale and rent across Nigeria with Rheel Estate Limited. From luxury homes to affordable apartments, we simplify property transactions, maximize investments, and ensure seamless property management.",
+  
+  // ✅ Removed keywords because Google ignores them
   authors: [{ name: "Rheel Estate Limited" }],
-  metadataBase: new URL('https://rheel.ng'),
+  metadataBase: new URL("https://rheel.ng"),
   applicationName: "Rheel Estate Limited",
   generator: "Next.js",
+
   viewport: {
-    width: 'device-width',
+    width: "device-width",
     initialScale: 1,
     maximumScale: 1,
   },
+
   robots: {
     index: true,
     follow: true,
     googleBot: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
   },
+
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/apple-touch-icon.png',
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
     other: {
-      rel: 'apple-touch-icon-precomposed',
-      url: '/apple-touch-icon-precomposed.png',
+      rel: "apple-touch-icon-precomposed",
+      url: "/apple-touch-icon-precomposed.png",
     },
   },
+
   openGraph: {
-    type: 'website',
-    locale: 'en_NG',
-    alternateLocale: 'en_US',
-    title: 'Rheel Estate Limited',
-    description: 'At Rheel Estate Limited, we provide comprehensive real estate solutions designed to simplify property transactions, maximize investment opportunities, and ensure seamless property management.',
-    siteName: 'Rheel Estate Limited',
-    url: 'https://rheel.ng',
+    type: "website",
+    locale: "en_NG",
+    alternateLocale: "en_US",
+    title: "Rheel Estate Limited | Premium Properties in Nigeria",
+    description:
+      "Find your dream home with Rheel Estate Limited. Explore verified properties for sale and rent across Nigeria — from luxury houses to affordable apartments.",
+    siteName: "Rheel Estate Limited",
+    url: "https://rheel.ng",
     images: [
       {
-        url: 'https://rheel.ng/images/rheelblack.png', // Use absolute URL
+        url: "https://rheel.ng/images/rheelblack.png",
         width: 1200,
         height: 630,
-        alt: 'Rheel Estate Limited Logo',
-        type: 'image/png',
-      }
+        alt: "Rheel Estate Limited Logo",
+        type: "image/png",
+      },
     ],
   },
+
   twitter: {
-    card: 'summary_large_image',
-    title: 'Rheel Estate Limited',
-    description: 'At Rheel Estate Limited, we provide comprehensive real estate solutions designed to simplify property transactions, maximize investment opportunities, and ensure seamless property management.',
-    creator: '@rheel_estate',
-    images: ['https://rheel.ng/images/rheelblack.png'], // Use absolute URL
+    card: "summary_large_image",
+    title: "Rheel Estate Limited | Buy, Rent & Invest in Properties",
+    description:
+      "Explore verified properties for sale and rent across Nigeria. Rheel Estate Limited helps you buy, rent, and invest in premium real estate easily.",
+    creator: "@rheel_estate",
+    images: ["https://rheel.ng/images/rheelblack.png"],
   },
-  category: 'Real Estate',
+
+  category: "Real Estate",
 };
 
 
