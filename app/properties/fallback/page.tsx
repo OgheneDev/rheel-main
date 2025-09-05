@@ -2,6 +2,9 @@ import { Metadata } from 'next';
 import { Property, propertyTypes } from "@/app/types";
 import PropertyFallbackClient from './PropertyFallbackClient';
 
+// Force dynamic rendering due to searchParams
+export const dynamic = 'force-dynamic';
+
 interface PropertyFallbackProps {
   searchParams: { id?: string };
 }
@@ -14,7 +17,7 @@ export async function generateMetadata({ searchParams }: PropertyFallbackProps):
     }
 
     const res = await fetch(`https://apidoc.rheel.ng/data/properties/${id}`, {
-      cache: 'no-store',
+      cache: 'no-store', // Dynamic rendering allows no-store
     });
 
     if (!res.ok) {
@@ -22,13 +25,12 @@ export async function generateMetadata({ searchParams }: PropertyFallbackProps):
     }
 
     const result = await res.json();
-    const property: Property = result.data ?? result; // Handle both { data: Property } and direct Property responses
+    const property: Property = result.data ?? result;
 
     if (!property || !property.id) {
       throw new Error("Property not found or invalid");
     }
 
-    // Validate required fields
     if (!property.location || !property.bedroom || !property.bathroom || !property.living_room || !property.price || !property.property_description) {
       throw new Error("Missing required property fields");
     }
@@ -69,7 +71,7 @@ export async function generateMetadata({ searchParams }: PropertyFallbackProps):
         images: property.property_images?.length > 0 ? [property.property_images[0]] : [],
       },
       alternates: {
-        canonical: `https://rheel.ng/properties/${id}`, // Canonical to the main property URL
+        canonical: `https://rheel.ng/properties/${id}`,
       },
       other: {
         'structured-data': JSON.stringify({

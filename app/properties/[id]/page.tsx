@@ -11,7 +11,7 @@ export async function generateStaticParams() {
   try {
     console.log("Fetching properties for static paths...");
     const res = await fetch("https://apidoc.rheel.ng/data/properties", {
-      cache: 'no-store',
+      next: { revalidate: 3600 }, // Revalidate every hour
     });
     
     if (!res.ok) {
@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     }
 
     const res = await fetch(`https://apidoc.rheel.ng/data/properties/${id}`, {
-      cache: 'no-store',
+      next: { revalidate: 3600 }, // Revalidate every hour
     });
     
     if (!res.ok) {
