@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Minimize2, Maximize2 } from 'lucide-react';
+import { Minimize2, Maximize2 } from 'lucide-react';
 import Swal from 'sweetalert2';
 
 interface ContactPopupProps {
