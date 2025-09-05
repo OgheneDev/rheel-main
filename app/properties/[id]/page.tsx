@@ -63,8 +63,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     }
 
     const propertyType = propertyTypes[property.property_type_id] || 'Property';
-    const title = `${property.bedroom} Bedroom ${propertyType} for ${property.property_availability} in ${property.location}`;
-    const description = `${property.property_description.slice(0, 160)} | ${property.bedroom} Bed, ${property.bathroom} Bath, ${property.living_room} Living Room. Price: ${property.price}. Located in ${property.location}.`;
+    const title = `Property in ${property.location} | ${property.bedroom} Bedroom ${propertyType} for ${property.type}`;
+    const description = `Find ${property.bedroom}-bedroom ${propertyType.toLowerCase()} for ${property.type} in ${property.location}. ${property.property_description.slice(0, 130)} Price: ₦${property.price}.`;
     
     console.log(`✅ Generated metadata for property ${id}:`, { title, description });
 
@@ -74,8 +74,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       keywords: [
         `properties in ${property.location}`,
         `${property.bedroom} bedroom ${propertyType.toLowerCase()} ${property.location}`,
-        `${property.property_availability} properties ${property.location}`,
-        `${propertyType.toLowerCase()} for ${property.property_availability} in ${property.location}`,
+        `${property.type} properties ${property.location}`,
+        `${propertyType.toLowerCase()} for ${property.type} in ${property.location}`,
         `real estate ${property.location}`,
         `${property.amenities?.join(', ') || ''} ${property.location}`,
       ],
@@ -104,7 +104,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         'structured-data': JSON.stringify({
           '@context': 'https://schema.org',
           '@type': property.property_type_id === 7 || property.property_type_id === 8 ? 'Land' : 'Residence',
-          name: title,
+          'name': `Property in ${property.location} | ${property.bedroom} Bedroom ${propertyType} for ${property.type}`,
           description: property.property_description,
           address: {
             '@type': 'PostalAddress',
@@ -119,7 +119,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
             '@type': 'Offer',
             price: property.price,
             priceCurrency: 'NGN',
-            availability: property.property_availability === 'sale' ? 'https://schema.org/InStock' : 'https://schema.org/PreOrder',
+            availability: property.type === 'sale' ? 'https://schema.org/InStock' : 'https://schema.org/PreOrder',
           },
         }),
       },

@@ -41,8 +41,8 @@ export default function PropertyFallbackClient() {
 
         // Update document metadata client-side
         const propertyType = propertyTypes[fetchedProperty.property_type_id] || 'Property';
-        const title = `${fetchedProperty.bedroom} Bedroom ${propertyType} for ${fetchedProperty.property_availability} in ${fetchedProperty.location}`;
-        const description = `${fetchedProperty.property_description.slice(0, 160)} | ${fetchedProperty.bedroom} Bed, ${fetchedProperty.bathroom} Bath, ${fetchedProperty.living_room} Living Room. Price: ${fetchedProperty.price}. Located in ${fetchedProperty.location}.`;
+        const title = `Property in ${fetchedProperty.location} | ${fetchedProperty.bedroom} Bedroom ${propertyType} for ${fetchedProperty.type}`;
+        const description = `Find ${fetchedProperty.bedroom}-bedroom ${propertyType.toLowerCase()} for ${fetchedProperty.type} in ${fetchedProperty.location}. ${fetchedProperty.property_description.slice(0, 130)} Price: ₦${fetchedProperty.price}.`;
 
         document.title = title;
         const metaDescription = document.querySelector('meta[name="description"]');

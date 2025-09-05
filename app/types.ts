@@ -29,6 +29,7 @@ export interface Property {
     agent_image?: string;
     video_upload: string[];
     floor_plan: string[];
+    type: string
   }
   
   export const propertyTypes: { [key: number]: string } = {
