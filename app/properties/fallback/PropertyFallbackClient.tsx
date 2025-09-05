@@ -23,7 +23,7 @@ export default function PropertyFallbackClient() {
     const validateProperty = async () => {
       try {
         const response = await fetch(`https://apidoc.rheel.ng/data/properties/${id}`, {
-          cache: 'no-store', // Fetch fresh data for new properties
+          cache: 'no-store', // Always fetch fresh data
         });
 
         if (!response.ok) {
@@ -33,64 +33,100 @@ export default function PropertyFallbackClient() {
         const data = await response.json();
         const fetchedProperty: Property = data.data ?? data;
         if (!fetchedProperty || !fetchedProperty.id) {
-          throw new Error('Invalid property data');
+          throw new Error("Invalid property data");
         }
 
         setProperty(fetchedProperty);
         setLoading(false);
 
-        // Update document metadata client-side
-        const propertyType = propertyTypes[fetchedProperty.property_type_id] || 'Property';
+        // === SEO Title & Description ===
+        const propertyType = propertyTypes[fetchedProperty.property_type_id] || "Property";
         const title = `Property in ${fetchedProperty.location} | ${fetchedProperty.bedroom} Bedroom ${propertyType} for ${fetchedProperty.type}`;
         const description = `Find ${fetchedProperty.bedroom}-bedroom ${propertyType.toLowerCase()} for ${fetchedProperty.type} in ${fetchedProperty.location}. ${fetchedProperty.property_description.slice(0, 130)} Price: ₦${fetchedProperty.price}.`;
 
+        // === Update Document Metadata ===
         document.title = title;
-        const metaDescription = document.querySelector('meta[name="description"]');
-        if (metaDescription) {
-          metaDescription.setAttribute('content', description);
-        } else {
-          const meta = document.createElement('meta');
-          meta.name = 'description';
-          meta.content = description;
-          document.head.appendChild(meta);
+
+        const updateMetaTag = (name: string, content: string, isProperty = false) => {
+  let meta = document.querySelector<HTMLMetaElement>(
+    `meta[${isProperty ? "property" : "name"}="${name}"]`
+  );
+
+  if (meta) {
+    meta.setAttribute("content", content);
+  } else {
+    meta = document.createElement("meta");
+    if (isProperty) {
+      meta.setAttribute("property", name);
+    } else {
+      meta.setAttribute("name", name);
+    }
+    meta.setAttribute("content", content);
+    document.head.appendChild(meta);
+  }
+};
+
+
+        // Meta description
+        updateMetaTag("description", description);
+
+        // Open Graph tags
+        updateMetaTag("og:title", title, true);
+        updateMetaTag("og:description", description, true);
+        updateMetaTag("og:url", `https://rheel.ng/properties/fallback?id=${id}`, true);
+        if (fetchedProperty.property_images?.length > 0) {
+          updateMetaTag("og:image", fetchedProperty.property_images[0], true);
         }
 
-        // Update Open Graph and Twitter meta tags
-        const ogTitle = document.querySelector('meta[property="og:title"]');
-        if (ogTitle) {
-          ogTitle.setAttribute('content', title);
-        }
-        const ogDescription = document.querySelector('meta[property="og:description"]');
-        if (ogDescription) {
-          ogDescription.setAttribute('content', description);
-        }
-        const ogUrl = document.querySelector('meta[property="og:url"]');
-        if (ogUrl) {
-          ogUrl.setAttribute('content', `https://rheel.ng/properties/fallback?id=${id}`);
-        }
+        // Twitter tags
+        updateMetaTag("twitter:title", title);
+        updateMetaTag("twitter:description", description);
         if (fetchedProperty.property_images?.length > 0) {
-          const ogImage = document.querySelector('meta[property="og:image"]');
-          if (ogImage) {
-            ogImage.setAttribute('content', fetchedProperty.property_images[0]);
-          }
+          updateMetaTag("twitter:image", fetchedProperty.property_images[0]);
         }
 
-        const twitterTitle = document.querySelector('meta[name="twitter:title"]');
-        if (twitterTitle) {
-          twitterTitle.setAttribute('content', title);
-        }
-        const twitterDescription = document.querySelector('meta[name="twitter:description"]');
-        if (twitterDescription) {
-          twitterDescription.setAttribute('content', description);
-        }
-        if (fetchedProperty.property_images?.length > 0) {
-          const twitterImage = document.querySelector('meta[name="twitter:image"]');
-          if (twitterImage) {
-            twitterImage.setAttribute('content', fetchedProperty.property_images[0]);
-          }
-        }
+        // === Inject Structured Data (JSON-LD) ===
+        const structuredData = {
+          "@context": "https://schema.org",
+          "@type": fetchedProperty.property_type_id === 7 || fetchedProperty.property_type_id === 8
+            ? "Land"
+            : "Residence",
+          name: title,
+          description: fetchedProperty.property_description,
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: fetchedProperty.location,
+            addressCountry: "NG",
+          },
+          numberOfRooms:
+            fetchedProperty.property_type_id === 7 || fetchedProperty.property_type_id === 8
+              ? undefined
+              : parseInt(fetchedProperty.bedroom, 10) +
+                parseInt(fetchedProperty.bathroom, 10) +
+                parseInt(fetchedProperty.living_room, 10),
+          image: fetchedProperty.property_images || [],
+          offers: {
+            "@type": "Offer",
+            price: fetchedProperty.price,
+            priceCurrency: "NGN",
+            availability:
+              fetchedProperty.type === "sale"
+                ? "https://schema.org/InStock"
+                : "https://schema.org/PreOrder",
+          },
+        };
+
+        // Remove any old structured data to avoid duplicates
+        const oldScript = document.querySelector('script[type="application/ld+json"]');
+        if (oldScript) oldScript.remove();
+
+        const script = document.createElement("script");
+        script.type = "application/ld+json";
+        script.innerHTML = JSON.stringify(structuredData);
+        document.head.appendChild(script);
+
       } catch (error) {
-        console.error('Error validating property:', error);
+        console.error("Error validating property:", error);
         setError(true);
         setLoading(false);
       }
