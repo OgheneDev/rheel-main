@@ -10,8 +10,9 @@ interface ApiResponse {
 export async function generateStaticParams() {
   try {
     console.log("Fetching properties for static paths...");
-    
-    const res = await fetch("https://apidoc.rheel.ng/data/properties");
+    const res = await fetch("https://apidoc.rheel.ng/data/properties", {
+      cache: 'no-store', // Ensure fresh data
+    });
     
     if (!res.ok) {
       throw new Error(`API Error: ${res.status} ${res.statusText}`);
@@ -37,13 +38,22 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   try {
     const id = parseInt(params.id, 10);
-    const res = await fetch(`https://apidoc.rheel.ng/data/properties/${id}`);
+    if (isNaN(id)) {
+      throw new Error(`Invalid property ID: ${params.id}`);
+    }
+
+    const res = await fetch(`https://apidoc.rheel.ng/data/properties/${id}`, {
+      cache: 'no-store', // Prevent caching issues
+    });
     
     if (!res.ok) {
       throw new Error(`API Error: ${res.status} ${res.statusText}`);
     }
     
     const property: Property = await res.json();
+    if (!property) {
+      throw new Error("Property not found");
+    }
     
     const propertyType = propertyTypes[property.property_type_id] || 'Property';
     const title = `${property.bedroom} Bedroom ${propertyType} for ${property.property_availability} in ${property.location}`;
@@ -65,7 +75,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         description,
         type: 'website',
         url: `https://rheel.ng/properties/${params.id}`,
-        images: property.property_images.length > 0 ? [property.property_images[0]] : [],
+        images: property.property_images.length > 0 ? [{
+          url: property.property_images[0],
+          width: 1200,
+          height: 630,
+          alt: title,
+        }] : [],
       },
       twitter: {
         card: 'summary_large_image',
@@ -106,6 +121,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: 'Property in Abuja',
       description: 'Explore properties for sale or rent in Abuja. Find your dream home with detailed listings.',
       keywords: ['properties in Abuja', 'Abuja real estate', 'homes for sale Abuja', 'apartments for rent Abuja'],
+      openGraph: {
+        title: 'Property in Abuja',
+        description: 'Explore properties for sale or rent in Abuja.',
+        url: `https://rheel.ng/properties/${params.id}`,
+        type: 'website',
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: 'Property in Abuja',
+        description: 'Explore properties for sale or rent in Abuja.',
+      },
+      alternates: {
+        canonical: `https://rheel.ng/properties/${params.id}`,
+      },
     };
   }
 }
