@@ -1,11 +1,6 @@
-'use client';
-
-import { useEffect, useState } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
-import { LoadingState, ErrorState } from "@/app/components/property/StateComponents";
-import PropertyClient from "../PropertyClient";
 import { Metadata } from 'next';
 import { Property, propertyTypes } from "@/app/types";
+import PropertyFallbackClient from './PropertyFallbackClient';
 
 interface PropertyFallbackProps {
   searchParams: { id?: string };
@@ -109,7 +104,7 @@ export async function generateMetadata({ searchParams }: PropertyFallbackProps):
       openGraph: {
         title: 'Property in Abuja',
         description: 'Explore properties for sale or rent in Abuja.',
-        url: `https://rheel.ng/properties/fallback?id=${id}`,
+        url: `https://rheel.ng/properties/fallback?id=${id || 'unknown'}`,
         type: 'website',
       },
       twitter: {
@@ -118,54 +113,12 @@ export async function generateMetadata({ searchParams }: PropertyFallbackProps):
         description: 'Explore properties for sale or rent in Abuja.',
       },
       alternates: {
-        canonical: `https://rheel.ng/properties/${id} || 'unknown'}`,
+        canonical: `https://rheel.ng/properties/${id || 'unknown'}`,
       },
     };
   }
 }
 
-export default function PropertyFallback({ searchParams }: PropertyFallbackProps) {
-  const router = useRouter();
-  const id = searchParams.id;
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-    if (!id) {
-      router.push("/properties/not-found");
-      return;
-    }
-
-    const validateProperty = async () => {
-      try {
-        const response = await fetch(`https://apidoc.rheel.ng/data/properties/${id}`, {
-          cache: 'no-store', // Align with generateMetadata
-        });
-
-        if (!response.ok) {
-          throw new Error(`Property not found: ${response.status} ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        const property: Property = data.data ?? data; // Handle both response types
-        if (!property || !property.id) {
-          throw new Error('Invalid property data');
-        }
-
-        setLoading(false);
-      } catch (error) {
-        console.error('Error validating property:', error);
-        setError(true);
-        setLoading(false);
-      }
-    };
-
-    validateProperty();
-  }, [id, router]);
-
-  if (!id) return null;
-  if (loading) return <LoadingState />;
-  if (error) return <ErrorState />;
-
-  return <PropertyClient id={parseInt(id, 10)} />;
+export default function PropertyFallbackPage({ searchParams }: PropertyFallbackProps) {
+  return <PropertyFallbackClient searchParams={searchParams} />;
 }
